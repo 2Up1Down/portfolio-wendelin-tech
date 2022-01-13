@@ -1,0 +1,15 @@
+{
+  "name": "Contentful Graphql",
+  "schemaPath": "contentful.graphql",
+  "extensions": {
+    "endpoints": {
+      "default": {
+        "url": "https://graphql.contentful.com/content/v1/spaces/${env:CONTENTFUL_SPACE_ID}",
+        "headers": {
+          "Authorization": "Bearer ${env:CONTENTFUL_DELIVERY_ACCESS_TOKEN}"
+        },
+        "introspect": true
+      }
+    }
+  }
+}
