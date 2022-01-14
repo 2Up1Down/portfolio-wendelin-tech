@@ -13,17 +13,17 @@ union RoomType = RoomTypeBathroom | RoomTypeBedroom | RoomTypeStoreroom
 
 "Represents a binary file in a space. An asset can be any file type."
 type Asset {
-    contentType: String
+    contentType(locale: String): String
     contentfulMetadata: ContentfulMetadata!
-    description: String
-    fileName: String
-    height: Int
+    description(locale: String): String
+    fileName(locale: String): String
+    height(locale: String): Int
     linkedFrom(allowedLocales: [String]): AssetLinkingCollections
-    size: Int
+    size(locale: String): Int
     sys: Sys!
-    title: String
-    url(transform: ImageTransformOptions): String
-    width: Int
+    title(locale: String): String
+    url(locale: String, transform: ImageTransformOptions): String
+    width(locale: String): Int
 }
 
 type AssetCollection {
@@ -140,6 +140,8 @@ type Query {
     roomTypeBedroomCollection(limit: Int = 100, locale: String, order: [RoomTypeBedroomOrder], preview: Boolean, skip: Int = 0, where: RoomTypeBedroomFilter): RoomTypeBedroomCollection
     roomTypeStoreroom(id: String!, locale: String, preview: Boolean): RoomTypeStoreroom
     roomTypeStoreroomCollection(limit: Int = 100, locale: String, order: [RoomTypeStoreroomOrder], preview: Boolean, skip: Int = 0, where: RoomTypeStoreroomFilter): RoomTypeStoreroomCollection
+    sometest(id: String!, locale: String, preview: Boolean): Sometest
+    sometestCollection(limit: Int = 100, locale: String, order: [SometestOrder], preview: Boolean, skip: Int = 0, where: SometestFilter): SometestCollection
     unit(id: String!, locale: String, preview: Boolean): Unit
     unitCollection(limit: Int = 100, locale: String, order: [UnitOrder], preview: Boolean, skip: Int = 0, where: UnitFilter): UnitCollection
 }
@@ -277,6 +279,25 @@ type RoomTypeStoreroomCollection {
 type RoomTypeStoreroomLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
     roomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomCollection
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/sometest)"
+type Sometest implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): SometestLinkingCollections
+    someText(locale: String): String
+    sys: Sys!
+}
+
+type SometestCollection {
+    items: [Sometest]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type SometestLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
 }
 
 type Sys {
@@ -519,6 +540,19 @@ enum RoomTypeBedroomOrder {
 enum RoomTypeStoreroomOrder {
     locker_ASC
     locker_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
+enum SometestOrder {
+    someText_ASC
+    someText_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -842,6 +876,20 @@ input RoomTypeStoreroomFilter {
     locker: Boolean
     locker_exists: Boolean
     locker_not: Boolean
+    sys: SysFilter
+}
+
+input SometestFilter {
+    AND: [SometestFilter]
+    OR: [SometestFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    someText: String
+    someText_contains: String
+    someText_exists: Boolean
+    someText_in: [String]
+    someText_not: String
+    someText_not_contains: String
+    someText_not_in: [String]
     sys: SysFilter
 }
 
