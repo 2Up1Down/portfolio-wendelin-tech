@@ -9,12 +9,6 @@ const GET_LOCATIONS_OVERVIEW = gql`
     contentTypeLocationCollection {
       items {
         title
-        slug
-        featuredImage {
-          title
-          url
-        }
-        description
       }
     }
   }
@@ -25,9 +19,14 @@ function extractLocationEntries(fetchResponse) {
 }
 
 export async function getLocationsOverview() {
-  const entries = await client.query({
-    query: GET_LOCATIONS_OVERVIEW,
-  });
+  try {
+    const entries = await client.query({
+      query: GET_LOCATIONS_OVERVIEW,
+    });
 
-  return extractLocationEntries(entries);
+    return extractLocationEntries(entries);
+  } catch (e) {
+    console.log(e);
+    return [];
+  }
 }
