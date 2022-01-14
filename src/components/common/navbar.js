@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import LocaleSwitcher from "./locale-switcher";
 
 const menu = [
   {
@@ -31,6 +32,7 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
+      <LocaleSwitcher />
     </nav>
   );
 };
