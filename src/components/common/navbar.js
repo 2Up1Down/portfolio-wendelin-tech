@@ -9,8 +9,8 @@ const menu = [
   },
   {
     id: "2",
-    label: "Apartment",
-    slug: "/apartment",
+    label: "Apartments",
+    slug: "/apartments",
   },
   {
     id: "3",
@@ -21,13 +21,17 @@ const menu = [
 
 const Navbar = () => {
   return (
-    <ul className="flex gap-2">
-      {menu.map((item) => (
-        <li key={item.id}>
-          <Link href={item.slug}>{item.label}</Link>
-        </li>
-      ))}
-    </ul>
+    <nav className="container flex items-center py-4 text-slate-100">
+      <ul className="hidden sm:flex flex-1 flex-row justify-end">
+        {menu.map((item) => (
+          <li key={item.id} className="px-2">
+            <Link href={item.slug}>
+              <a className="px-1 py-1">{item.label}</a>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </nav>
   );
 };
 
