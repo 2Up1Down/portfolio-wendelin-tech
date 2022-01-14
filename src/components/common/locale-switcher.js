@@ -11,9 +11,6 @@ const LocaleSwitcher = () => {
       <ul className="flex flex-row">
         {otherLocales.map((locale) => {
           const { pathname, query, asPath } = router;
-          console.log("Pathname: ", pathname);
-          console.log("Query: ", query);
-          console.log("Pathname, query", { pathname, query });
 
           return (
             <li className="mr-4 last:mr-0" key={locale}>
