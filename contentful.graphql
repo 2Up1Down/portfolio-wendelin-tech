@@ -9,7 +9,7 @@ interface Entry {
     sys: Sys!
 }
 
-union RoomType = RoomTypeBathroom | RoomTypeBedroom | RoomTypeStoreroom
+union RoomRoomType = Kitchen | OtherRoomType | RoomTypeBathroom | RoomTypeBedroom | RoomTypeLivingRoom | RoomTypeStoreroom
 
 "Represents a binary file in a space. An asset can be any file type."
 type Asset {
@@ -34,23 +34,51 @@ type AssetCollection {
 }
 
 type AssetLinkingCollections {
+    brandCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): BrandCollection
     contentTypeLocationCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentTypeLocationCollection
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
-    roomBathroomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomBathroomCollection
     roomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomCollection
+    seoDataCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): SeoDataCollection
+    textCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): TextCollection
     unitCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): UnitCollection
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/brand)"
+type Brand implements Entry {
+    brand(locale: String): String
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): BrandLinkingCollections
+    logo(locale: String, preview: Boolean): Asset
+    sys: Sys!
+}
+
+type BrandCollection {
+    items: [Brand]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type BrandLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    layoutCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): LayoutCollection
 }
 
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/location)"
 type ContentTypeLocation implements Entry {
+    city(locale: String): String
     contentfulMetadata: ContentfulMetadata!
+    coordinates(locale: String): Location
     description(locale: String): String
-    featuredImage(locale: String, preview: Boolean): Asset
+    directions(locale: String): String
+    host(locale: String, preview: Boolean): Host
     imagesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AssetCollection
     linkedFrom(allowedLocales: [String]): ContentTypeLocationLinkingCollections
+    postalCode(locale: String): String
     roomsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentTypeLocationRoomsCollection
-    slug(locale: String): String
+    street(locale: String): String
     sys: Sys!
+    termsOfUse(locale: String): String
     title(locale: String): String
     unitsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentTypeLocationUnitsCollection
 }
@@ -101,6 +129,64 @@ type EntryCollection {
     total: Int!
 }
 
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/footer)"
+type Footer implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): FooterLinkingCollections
+    navItemsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterNavItemsCollection
+    sys: Sys!
+    title(locale: String): String
+}
+
+type FooterCollection {
+    items: [Footer]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type FooterLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    layoutCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): LayoutCollection
+}
+
+type FooterNavItemsCollection {
+    items: [NavItem]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/homePage)"
+type HomePage implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    hero(locale: String, preview: Boolean): SectionHero
+    layout(locale: String, preview: Boolean): Layout
+    linkedFrom(allowedLocales: [String]): HomePageLinkingCollections
+    sectionsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomePageSectionsCollection
+    seoData(locale: String, preview: Boolean): SeoData
+    sys: Sys!
+    title(locale: String): String
+}
+
+type HomePageCollection {
+    items: [HomePage]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type HomePageLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+type HomePageSectionsCollection {
+    items: [Text]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/host)"
 type Host implements Entry {
     contentfulMetadata: ContentfulMetadata!
@@ -119,66 +205,217 @@ type HostCollection {
 }
 
 type HostLinkingCollections {
+    contentTypeLocationCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentTypeLocationCollection
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/kitchen)"
+type Kitchen implements Entry {
+    amentities(locale: String): [String]
+    coffeeMaker(locale: String): Boolean
+    contentfulMetadata: ContentfulMetadata!
+    diningArea(locale: String): Boolean
+    dishescutlery(locale: String): Boolean
+    dishwasher(locale: String): Boolean
+    freezer(locale: String): Boolean
+    fridge(locale: String): Boolean
+    linkedFrom(allowedLocales: [String]): KitchenLinkingCollections
+    microwave(locale: String): Boolean
+    oven(locale: String): Boolean
+    ricecooker(locale: String): Boolean
+    stove(locale: String): String
+    sys: Sys!
+    title(locale: String): String
+    toaster(locale: String): Boolean
+    waterBoiler(locale: String): Boolean
+}
+
+type KitchenCollection {
+    items: [Kitchen]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type KitchenLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    roomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomCollection
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/layout)"
+type Layout implements Entry {
+    brand(locale: String, preview: Boolean): Brand
+    contentfulMetadata: ContentfulMetadata!
+    footer(locale: String, preview: Boolean): Footer
+    linkedFrom(allowedLocales: [String]): LayoutLinkingCollections
+    mainNavigation(locale: String, preview: Boolean): MainNavigation
+    sys: Sys!
+    title(locale: String): String
+}
+
+type LayoutCollection {
+    items: [Layout]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type LayoutLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homePageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomePageCollection
+}
+
+type Location {
+    lat: Float
+    lon: Float
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/mainNavigation)"
+type MainNavigation implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): MainNavigationLinkingCollections
+    navItemsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): MainNavigationNavItemsCollection
+    sys: Sys!
+    title(locale: String): String
+}
+
+type MainNavigationCollection {
+    items: [MainNavigation]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type MainNavigationLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    layoutCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): LayoutCollection
+}
+
+type MainNavigationNavItemsCollection {
+    items: [NavItem]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/navItem)"
+type NavItem implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): NavItemLinkingCollections
+    slug(locale: String): String
+    sys: Sys!
+    title(locale: String): String
+}
+
+type NavItemCollection {
+    items: [NavItem]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type NavItemLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    footerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterCollection
+    mainNavigationCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): MainNavigationCollection
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/otherRoomType)"
+type OtherRoomType implements Entry {
+    amentities(locale: String): [String]
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): OtherRoomTypeLinkingCollections
+    sys: Sys!
+    title(locale: String): String
+}
+
+type OtherRoomTypeCollection {
+    items: [OtherRoomType]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type OtherRoomTypeLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    roomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomCollection
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/price)"
+type Price implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): PriceLinkingCollections
+    standardPrice(locale: String): Float
+    sys: Sys!
+}
+
+type PriceCollection {
+    items: [Price]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type PriceLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    unitCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): UnitCollection
 }
 
 type Query {
     asset(id: String!, locale: String, preview: Boolean): Asset
     assetCollection(limit: Int = 100, locale: String, order: [AssetOrder], preview: Boolean, skip: Int = 0, where: AssetFilter): AssetCollection
+    brand(id: String!, locale: String, preview: Boolean): Brand
+    brandCollection(limit: Int = 100, locale: String, order: [BrandOrder], preview: Boolean, skip: Int = 0, where: BrandFilter): BrandCollection
     contentTypeLocation(id: String!, locale: String, preview: Boolean): ContentTypeLocation
     contentTypeLocationCollection(limit: Int = 100, locale: String, order: [ContentTypeLocationOrder], preview: Boolean, skip: Int = 0, where: ContentTypeLocationFilter): ContentTypeLocationCollection
     entryCollection(limit: Int = 100, locale: String, order: [EntryOrder], preview: Boolean, skip: Int = 0, where: EntryFilter): EntryCollection
+    footer(id: String!, locale: String, preview: Boolean): Footer
+    footerCollection(limit: Int = 100, locale: String, order: [FooterOrder], preview: Boolean, skip: Int = 0, where: FooterFilter): FooterCollection
+    homePage(id: String!, locale: String, preview: Boolean): HomePage
+    homePageCollection(limit: Int = 100, locale: String, order: [HomePageOrder], preview: Boolean, skip: Int = 0, where: HomePageFilter): HomePageCollection
     host(id: String!, locale: String, preview: Boolean): Host
     hostCollection(limit: Int = 100, locale: String, order: [HostOrder], preview: Boolean, skip: Int = 0, where: HostFilter): HostCollection
+    kitchen(id: String!, locale: String, preview: Boolean): Kitchen
+    kitchenCollection(limit: Int = 100, locale: String, order: [KitchenOrder], preview: Boolean, skip: Int = 0, where: KitchenFilter): KitchenCollection
+    layout(id: String!, locale: String, preview: Boolean): Layout
+    layoutCollection(limit: Int = 100, locale: String, order: [LayoutOrder], preview: Boolean, skip: Int = 0, where: LayoutFilter): LayoutCollection
+    mainNavigation(id: String!, locale: String, preview: Boolean): MainNavigation
+    mainNavigationCollection(limit: Int = 100, locale: String, order: [MainNavigationOrder], preview: Boolean, skip: Int = 0, where: MainNavigationFilter): MainNavigationCollection
+    navItem(id: String!, locale: String, preview: Boolean): NavItem
+    navItemCollection(limit: Int = 100, locale: String, order: [NavItemOrder], preview: Boolean, skip: Int = 0, where: NavItemFilter): NavItemCollection
+    otherRoomType(id: String!, locale: String, preview: Boolean): OtherRoomType
+    otherRoomTypeCollection(limit: Int = 100, locale: String, order: [OtherRoomTypeOrder], preview: Boolean, skip: Int = 0, where: OtherRoomTypeFilter): OtherRoomTypeCollection
+    price(id: String!, locale: String, preview: Boolean): Price
+    priceCollection(limit: Int = 100, locale: String, order: [PriceOrder], preview: Boolean, skip: Int = 0, where: PriceFilter): PriceCollection
     room(id: String!, locale: String, preview: Boolean): Room
-    roomBathroom(id: String!, locale: String, preview: Boolean): RoomBathroom
-    roomBathroomCollection(limit: Int = 100, locale: String, order: [RoomBathroomOrder], preview: Boolean, skip: Int = 0, where: RoomBathroomFilter): RoomBathroomCollection
     roomCollection(limit: Int = 100, locale: String, order: [RoomOrder], preview: Boolean, skip: Int = 0, where: RoomFilter): RoomCollection
     roomTypeBathroom(id: String!, locale: String, preview: Boolean): RoomTypeBathroom
     roomTypeBathroomCollection(limit: Int = 100, locale: String, order: [RoomTypeBathroomOrder], preview: Boolean, skip: Int = 0, where: RoomTypeBathroomFilter): RoomTypeBathroomCollection
     roomTypeBedroom(id: String!, locale: String, preview: Boolean): RoomTypeBedroom
     roomTypeBedroomCollection(limit: Int = 100, locale: String, order: [RoomTypeBedroomOrder], preview: Boolean, skip: Int = 0, where: RoomTypeBedroomFilter): RoomTypeBedroomCollection
+    roomTypeLivingRoom(id: String!, locale: String, preview: Boolean): RoomTypeLivingRoom
+    roomTypeLivingRoomCollection(limit: Int = 100, locale: String, order: [RoomTypeLivingRoomOrder], preview: Boolean, skip: Int = 0, where: RoomTypeLivingRoomFilter): RoomTypeLivingRoomCollection
     roomTypeStoreroom(id: String!, locale: String, preview: Boolean): RoomTypeStoreroom
     roomTypeStoreroomCollection(limit: Int = 100, locale: String, order: [RoomTypeStoreroomOrder], preview: Boolean, skip: Int = 0, where: RoomTypeStoreroomFilter): RoomTypeStoreroomCollection
-    sometest(id: String!, locale: String, preview: Boolean): Sometest
-    sometestCollection(limit: Int = 100, locale: String, order: [SometestOrder], preview: Boolean, skip: Int = 0, where: SometestFilter): SometestCollection
+    sectionHero(id: String!, locale: String, preview: Boolean): SectionHero
+    sectionHeroCollection(limit: Int = 100, locale: String, order: [SectionHeroOrder], preview: Boolean, skip: Int = 0, where: SectionHeroFilter): SectionHeroCollection
+    seoData(id: String!, locale: String, preview: Boolean): SeoData
+    seoDataCollection(limit: Int = 100, locale: String, order: [SeoDataOrder], preview: Boolean, skip: Int = 0, where: SeoDataFilter): SeoDataCollection
+    text(id: String!, locale: String, preview: Boolean): Text
+    textCollection(limit: Int = 100, locale: String, order: [TextOrder], preview: Boolean, skip: Int = 0, where: TextFilter): TextCollection
     unit(id: String!, locale: String, preview: Boolean): Unit
     unitCollection(limit: Int = 100, locale: String, order: [UnitOrder], preview: Boolean, skip: Int = 0, where: UnitFilter): UnitCollection
 }
 
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/room)"
 type Room implements Entry {
-    amentities(locale: String): [String]
-    contentfulMetadata: ContentfulMetadata!
-    description(locale: String): RoomDescription
-    imagesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AssetCollection
-    linkedFrom(allowedLocales: [String]): RoomLinkingCollections
-    roomType(locale: String, preview: Boolean): Entry
-    sys: Sys!
-    title(locale: String): String
-    type(locale: String, preview: Boolean): RoomType
-}
-
-"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/roomBathroom)"
-type RoomBathroom implements Entry {
-    amentities(locale: String): [String]
     contentfulMetadata: ContentfulMetadata!
     description(locale: String): String
-    images(locale: String, preview: Boolean): Asset
-    linkedFrom(allowedLocales: [String]): RoomBathroomLinkingCollections
+    imagesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AssetCollection
+    linkedFrom(allowedLocales: [String]): RoomLinkingCollections
+    roomType(locale: String, preview: Boolean): RoomRoomType
     sys: Sys!
     title(locale: String): String
-}
-
-type RoomBathroomCollection {
-    items: [RoomBathroom]!
-    limit: Int!
-    skip: Int!
-    total: Int!
-}
-
-type RoomBathroomLinkingCollections {
-    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
 }
 
 type RoomCollection {
@@ -186,27 +423,6 @@ type RoomCollection {
     limit: Int!
     skip: Int!
     total: Int!
-}
-
-type RoomDescription {
-    json: JSON!
-    links: RoomDescriptionLinks!
-}
-
-type RoomDescriptionAssets {
-    block: [Asset]!
-    hyperlink: [Asset]!
-}
-
-type RoomDescriptionEntries {
-    block: [Entry]!
-    hyperlink: [Entry]!
-    inline: [Entry]!
-}
-
-type RoomDescriptionLinks {
-    assets: RoomDescriptionAssets!
-    entries: RoomDescriptionEntries!
 }
 
 type RoomLinkingCollections {
@@ -217,13 +433,14 @@ type RoomLinkingCollections {
 
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/roomTypeBathroom)"
 type RoomTypeBathroom implements Entry {
+    amentities(locale: String): [String]
     bath(locale: String): Boolean
-    bathroom(locale: String): String
     contentfulMetadata: ContentfulMetadata!
     hairdryer(locale: String): Boolean
     linkedFrom(allowedLocales: [String]): RoomTypeBathroomLinkingCollections
     shower(locale: String): Boolean
     sys: Sys!
+    title(locale: String): String
 }
 
 type RoomTypeBathroomCollection {
@@ -240,13 +457,17 @@ type RoomTypeBathroomLinkingCollections {
 
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/roomTypeBedroom)"
 type RoomTypeBedroom implements Entry {
+    amentities(locale: String): [String]
+    bedLinenProvided(locale: String): Boolean
+    beds(locale: String): Int
     contentfulMetadata: ContentfulMetadata!
     couch(locale: String): Boolean
-    desk(locale: String): Boolean
     doubleBed(locale: String): Boolean
     linkedFrom(allowedLocales: [String]): RoomTypeBedroomLinkingCollections
     singleBed(locale: String): Boolean
     sys: Sys!
+    title(locale: String): String
+    workplace(locale: String): Boolean
 }
 
 type RoomTypeBedroomCollection {
@@ -261,12 +482,41 @@ type RoomTypeBedroomLinkingCollections {
     roomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomCollection
 }
 
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/roomTypeLivingRoom)"
+type RoomTypeLivingRoom implements Entry {
+    amentities(locale: String): [String]
+    armchair(locale: String): Boolean
+    contentfulMetadata: ContentfulMetadata!
+    couch(locale: String): Boolean
+    diningTable(locale: String): Boolean
+    entertainment(locale: String): Boolean
+    linkedFrom(allowedLocales: [String]): RoomTypeLivingRoomLinkingCollections
+    sys: Sys!
+    television(locale: String): Boolean
+    title(locale: String): String
+    workplace(locale: String): Boolean
+}
+
+type RoomTypeLivingRoomCollection {
+    items: [RoomTypeLivingRoom]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type RoomTypeLivingRoomLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    roomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomCollection
+}
+
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/roomTypeStoreroom)"
 type RoomTypeStoreroom implements Entry {
+    amentities(locale: String): [String]
     contentfulMetadata: ContentfulMetadata!
     linkedFrom(allowedLocales: [String]): RoomTypeStoreroomLinkingCollections
     locker(locale: String): Boolean
     sys: Sys!
+    title(locale: String): String
 }
 
 type RoomTypeStoreroomCollection {
@@ -281,23 +531,49 @@ type RoomTypeStoreroomLinkingCollections {
     roomCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): RoomCollection
 }
 
-"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/sometest)"
-type Sometest implements Entry {
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/sectionHero)"
+type SectionHero implements Entry {
     contentfulMetadata: ContentfulMetadata!
-    linkedFrom(allowedLocales: [String]): SometestLinkingCollections
-    someText(locale: String): String
+    linkedFrom(allowedLocales: [String]): SectionHeroLinkingCollections
+    subtitle(locale: String): String
     sys: Sys!
+    title(locale: String): String
 }
 
-type SometestCollection {
-    items: [Sometest]!
+type SectionHeroCollection {
+    items: [SectionHero]!
     limit: Int!
     skip: Int!
     total: Int!
 }
 
-type SometestLinkingCollections {
+type SectionHeroLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homePageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomePageCollection
+}
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/seoData)"
+type SeoData implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): SeoDataLinkingCollections
+    metaDescription(locale: String): String
+    metaTags(locale: String): [String]
+    metaTitle(locale: String): String
+    ogImage(locale: String, preview: Boolean): Asset
+    sys: Sys!
+}
+
+type SeoDataCollection {
+    items: [SeoData]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type SeoDataLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homePageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomePageCollection
+    unitCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): UnitCollection
 }
 
 type Sys {
@@ -309,13 +585,48 @@ type Sys {
     spaceId: String!
 }
 
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/text)"
+type Text implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): TextLinkingCollections
+    media(locale: String, preview: Boolean): Asset
+    subtitle(locale: String): String
+    sys: Sys!
+    text(locale: String): String
+    title(locale: String): String
+    variant(locale: String): String
+}
+
+type TextCollection {
+    items: [Text]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type TextLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homePageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomePageCollection
+}
+
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/unit)"
 type Unit implements Entry {
+    checkIn(locale: String): String
+    checkOut(locale: String): String
     contentfulMetadata: ContentfulMetadata!
     description(locale: String): String
+    featuredImage(locale: String, preview: Boolean): Asset
+    heating(locale: String): String
+    ical(locale: String): String
     imagesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AssetCollection
+    internet(locale: String): Boolean
     linkedFrom(allowedLocales: [String]): UnitLinkingCollections
+    numberOfGuests(locale: String): Int
+    otherInformations(locale: String): UnitOtherInformations
+    price(locale: String, preview: Boolean): Price
     roomsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): UnitRoomsCollection
+    seoMetadata(locale: String, preview: Boolean): SeoData
+    slug(locale: String): String
     sys: Sys!
     title(locale: String): String
 }
@@ -330,6 +641,27 @@ type UnitCollection {
 type UnitLinkingCollections {
     contentTypeLocationCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentTypeLocationCollection
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
+type UnitOtherInformations {
+    json: JSON!
+    links: UnitOtherInformationsLinks!
+}
+
+type UnitOtherInformationsAssets {
+    block: [Asset]!
+    hyperlink: [Asset]!
+}
+
+type UnitOtherInformationsEntries {
+    block: [Entry]!
+    hyperlink: [Entry]!
+    inline: [Entry]!
+}
+
+type UnitOtherInformationsLinks {
+    assets: UnitOtherInformationsAssets!
+    entries: UnitOtherInformationsEntries!
 }
 
 type UnitRoomsCollection {
@@ -362,9 +694,26 @@ enum AssetOrder {
     width_DESC
 }
 
+enum BrandOrder {
+    brand_ASC
+    brand_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
 enum ContentTypeLocationOrder {
-    slug_ASC
-    slug_DESC
+    city_ASC
+    city_DESC
+    postalCode_ASC
+    postalCode_DESC
+    street_ASC
+    street_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -386,6 +735,32 @@ enum EntryOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
+}
+
+enum FooterOrder {
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+}
+
+enum HomePageOrder {
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
 }
 
 enum HostOrder {
@@ -473,7 +848,44 @@ enum ImageResizeStrategy {
     THUMB
 }
 
-enum RoomBathroomOrder {
+enum KitchenOrder {
+    coffeeMaker_ASC
+    coffeeMaker_DESC
+    diningArea_ASC
+    diningArea_DESC
+    dishescutlery_ASC
+    dishescutlery_DESC
+    dishwasher_ASC
+    dishwasher_DESC
+    freezer_ASC
+    freezer_DESC
+    fridge_ASC
+    fridge_DESC
+    microwave_ASC
+    microwave_DESC
+    oven_ASC
+    oven_DESC
+    ricecooker_ASC
+    ricecooker_DESC
+    stove_ASC
+    stove_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+    toaster_ASC
+    toaster_DESC
+    waterBoiler_ASC
+    waterBoiler_DESC
+}
+
+enum LayoutOrder {
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -486,7 +898,63 @@ enum RoomBathroomOrder {
     title_DESC
 }
 
+enum MainNavigationOrder {
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+}
+
+enum NavItemOrder {
+    slug_ASC
+    slug_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+}
+
+enum OtherRoomTypeOrder {
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+}
+
+enum PriceOrder {
+    standardPrice_ASC
+    standardPrice_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
 enum RoomOrder {
+    description_ASC
+    description_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -502,8 +970,6 @@ enum RoomOrder {
 enum RoomTypeBathroomOrder {
     bath_ASC
     bath_DESC
-    bathroom_ASC
-    bathroom_DESC
     hairdryer_ASC
     hairdryer_DESC
     shower_ASC
@@ -516,13 +982,17 @@ enum RoomTypeBathroomOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
 }
 
 enum RoomTypeBedroomOrder {
+    bedLinenProvided_ASC
+    bedLinenProvided_DESC
+    beds_ASC
+    beds_DESC
     couch_ASC
     couch_DESC
-    desk_ASC
-    desk_DESC
     doubleBed_ASC
     doubleBed_DESC
     singleBed_ASC
@@ -535,6 +1005,35 @@ enum RoomTypeBedroomOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+    workplace_ASC
+    workplace_DESC
+}
+
+enum RoomTypeLivingRoomOrder {
+    armchair_ASC
+    armchair_DESC
+    couch_ASC
+    couch_DESC
+    diningTable_ASC
+    diningTable_DESC
+    entertainment_ASC
+    entertainment_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    television_ASC
+    television_DESC
+    title_ASC
+    title_DESC
+    workplace_ASC
+    workplace_DESC
 }
 
 enum RoomTypeStoreroomOrder {
@@ -548,22 +1047,13 @@ enum RoomTypeStoreroomOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
 }
 
-enum SometestOrder {
-    someText_ASC
-    someText_DESC
-    sys_firstPublishedAt_ASC
-    sys_firstPublishedAt_DESC
-    sys_id_ASC
-    sys_id_DESC
-    sys_publishedAt_ASC
-    sys_publishedAt_DESC
-    sys_publishedVersion_ASC
-    sys_publishedVersion_DESC
-}
-
-enum UnitOrder {
+enum SectionHeroOrder {
+    subtitle_ASC
+    subtitle_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -575,6 +1065,64 @@ enum UnitOrder {
     title_ASC
     title_DESC
 }
+
+enum SeoDataOrder {
+    metaDescription_ASC
+    metaDescription_DESC
+    metaTitle_ASC
+    metaTitle_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
+enum TextOrder {
+    subtitle_ASC
+    subtitle_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+    variant_ASC
+    variant_DESC
+}
+
+enum UnitOrder {
+    heating_ASC
+    heating_DESC
+    ical_ASC
+    ical_DESC
+    internet_ASC
+    internet_DESC
+    numberOfGuests_ASC
+    numberOfGuests_DESC
+    slug_ASC
+    slug_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+}
+
+"The Circle scalar type represents a circle, defined by the coordinates of its center and a radius. The Circle type is used to represent a searchable area together with the '_within_circle' filter."
+scalar Circle
 
 """
 
@@ -596,6 +1144,9 @@ scalar JSON
 
 "The 'Quality' type represents quality as whole numeric values between `1` and `100`."
 scalar Quality
+
+"The Rectangle scalar type represents a rectangle, defined by the coordinates of its top left and bottom right corners. The Rectangle type is used to represent a searchable area together with the '_within_rectangle' filter."
+scalar Rectangle
 
 input AssetFilter {
     AND: [AssetFilter]
@@ -666,10 +1217,35 @@ input AssetFilter {
     width_not_in: [Int]
 }
 
+input BrandFilter {
+    AND: [BrandFilter]
+    OR: [BrandFilter]
+    brand: String
+    brand_contains: String
+    brand_exists: Boolean
+    brand_in: [String]
+    brand_not: String
+    brand_not_contains: String
+    brand_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    logo_exists: Boolean
+    sys: SysFilter
+}
+
 input ContentTypeLocationFilter {
     AND: [ContentTypeLocationFilter]
     OR: [ContentTypeLocationFilter]
+    city: String
+    city_contains: String
+    city_exists: Boolean
+    city_in: [String]
+    city_not: String
+    city_not_contains: String
+    city_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
+    coordinates_exists: Boolean
+    coordinates_within_circle: Circle
+    coordinates_within_rectangle: Rectangle
     description: String
     description_contains: String
     description_exists: Boolean
@@ -677,17 +1253,39 @@ input ContentTypeLocationFilter {
     description_not: String
     description_not_contains: String
     description_not_in: [String]
-    featuredImage_exists: Boolean
+    directions: String
+    directions_contains: String
+    directions_exists: Boolean
+    directions_in: [String]
+    directions_not: String
+    directions_not_contains: String
+    directions_not_in: [String]
+    host: cfHostNestedFilter
+    host_exists: Boolean
     imagesCollection_exists: Boolean
+    postalCode: String
+    postalCode_contains: String
+    postalCode_exists: Boolean
+    postalCode_in: [String]
+    postalCode_not: String
+    postalCode_not_contains: String
+    postalCode_not_in: [String]
     roomsCollection_exists: Boolean
-    slug: String
-    slug_contains: String
-    slug_exists: Boolean
-    slug_in: [String]
-    slug_not: String
-    slug_not_contains: String
-    slug_not_in: [String]
+    street: String
+    street_contains: String
+    street_exists: Boolean
+    street_in: [String]
+    street_not: String
+    street_not_contains: String
+    street_not_in: [String]
     sys: SysFilter
+    termsOfUse: String
+    termsOfUse_contains: String
+    termsOfUse_exists: Boolean
+    termsOfUse_in: [String]
+    termsOfUse_not: String
+    termsOfUse_not_contains: String
+    termsOfUse_not_in: [String]
     title: String
     title_contains: String
     title_exists: Boolean
@@ -714,6 +1312,42 @@ input EntryFilter {
     OR: [EntryFilter]
     contentfulMetadata: ContentfulMetadataFilter
     sys: SysFilter
+}
+
+input FooterFilter {
+    AND: [FooterFilter]
+    OR: [FooterFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    navItemsCollection_exists: Boolean
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input HomePageFilter {
+    AND: [HomePageFilter]
+    OR: [HomePageFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    hero: cfSectionHeroNestedFilter
+    hero_exists: Boolean
+    layout: cfLayoutNestedFilter
+    layout_exists: Boolean
+    sectionsCollection_exists: Boolean
+    seoData: cfSeoDataNestedFilter
+    seoData_exists: Boolean
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
 }
 
 input HostFilter {
@@ -777,22 +1411,74 @@ input ImageTransformOptions {
     width: Dimension
 }
 
-input RoomBathroomFilter {
-    AND: [RoomBathroomFilter]
-    OR: [RoomBathroomFilter]
+input KitchenFilter {
+    AND: [KitchenFilter]
+    OR: [KitchenFilter]
     amentities_contains_all: [String]
     amentities_contains_none: [String]
     amentities_contains_some: [String]
     amentities_exists: Boolean
+    coffeeMaker: Boolean
+    coffeeMaker_exists: Boolean
+    coffeeMaker_not: Boolean
     contentfulMetadata: ContentfulMetadataFilter
-    description: String
-    description_contains: String
-    description_exists: Boolean
-    description_in: [String]
-    description_not: String
-    description_not_contains: String
-    description_not_in: [String]
-    images_exists: Boolean
+    diningArea: Boolean
+    diningArea_exists: Boolean
+    diningArea_not: Boolean
+    dishescutlery: Boolean
+    dishescutlery_exists: Boolean
+    dishescutlery_not: Boolean
+    dishwasher: Boolean
+    dishwasher_exists: Boolean
+    dishwasher_not: Boolean
+    freezer: Boolean
+    freezer_exists: Boolean
+    freezer_not: Boolean
+    fridge: Boolean
+    fridge_exists: Boolean
+    fridge_not: Boolean
+    microwave: Boolean
+    microwave_exists: Boolean
+    microwave_not: Boolean
+    oven: Boolean
+    oven_exists: Boolean
+    oven_not: Boolean
+    ricecooker: Boolean
+    ricecooker_exists: Boolean
+    ricecooker_not: Boolean
+    stove: String
+    stove_contains: String
+    stove_exists: Boolean
+    stove_in: [String]
+    stove_not: String
+    stove_not_contains: String
+    stove_not_in: [String]
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+    toaster: Boolean
+    toaster_exists: Boolean
+    toaster_not: Boolean
+    waterBoiler: Boolean
+    waterBoiler_exists: Boolean
+    waterBoiler_not: Boolean
+}
+
+input LayoutFilter {
+    AND: [LayoutFilter]
+    OR: [LayoutFilter]
+    brand: cfBrandNestedFilter
+    brand_exists: Boolean
+    contentfulMetadata: ContentfulMetadataFilter
+    footer: cfFooterNestedFilter
+    footer_exists: Boolean
+    mainNavigation: cfMainNavigationNestedFilter
+    mainNavigation_exists: Boolean
     sys: SysFilter
     title: String
     title_contains: String
@@ -803,17 +1489,87 @@ input RoomBathroomFilter {
     title_not_in: [String]
 }
 
-input RoomFilter {
-    AND: [RoomFilter]
-    OR: [RoomFilter]
+input MainNavigationFilter {
+    AND: [MainNavigationFilter]
+    OR: [MainNavigationFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    navItemsCollection_exists: Boolean
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input NavItemFilter {
+    AND: [NavItemFilter]
+    OR: [NavItemFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    slug: String
+    slug_contains: String
+    slug_exists: Boolean
+    slug_in: [String]
+    slug_not: String
+    slug_not_contains: String
+    slug_not_in: [String]
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input OtherRoomTypeFilter {
+    AND: [OtherRoomTypeFilter]
+    OR: [OtherRoomTypeFilter]
     amentities_contains_all: [String]
     amentities_contains_none: [String]
     amentities_contains_some: [String]
     amentities_exists: Boolean
     contentfulMetadata: ContentfulMetadataFilter
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input PriceFilter {
+    AND: [PriceFilter]
+    OR: [PriceFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    standardPrice: Float
+    standardPrice_exists: Boolean
+    standardPrice_gt: Float
+    standardPrice_gte: Float
+    standardPrice_in: [Float]
+    standardPrice_lt: Float
+    standardPrice_lte: Float
+    standardPrice_not: Float
+    standardPrice_not_in: [Float]
+    sys: SysFilter
+}
+
+input RoomFilter {
+    AND: [RoomFilter]
+    OR: [RoomFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    description: String
     description_contains: String
     description_exists: Boolean
+    description_in: [String]
+    description_not: String
     description_not_contains: String
+    description_not_in: [String]
     imagesCollection_exists: Boolean
     roomType_exists: Boolean
     sys: SysFilter
@@ -824,22 +1580,18 @@ input RoomFilter {
     title_not: String
     title_not_contains: String
     title_not_in: [String]
-    type_exists: Boolean
 }
 
 input RoomTypeBathroomFilter {
     AND: [RoomTypeBathroomFilter]
     OR: [RoomTypeBathroomFilter]
+    amentities_contains_all: [String]
+    amentities_contains_none: [String]
+    amentities_contains_some: [String]
+    amentities_exists: Boolean
     bath: Boolean
     bath_exists: Boolean
     bath_not: Boolean
-    bathroom: String
-    bathroom_contains: String
-    bathroom_exists: Boolean
-    bathroom_in: [String]
-    bathroom_not: String
-    bathroom_not_contains: String
-    bathroom_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
     hairdryer: Boolean
     hairdryer_exists: Boolean
@@ -848,18 +1600,38 @@ input RoomTypeBathroomFilter {
     shower_exists: Boolean
     shower_not: Boolean
     sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
 }
 
 input RoomTypeBedroomFilter {
     AND: [RoomTypeBedroomFilter]
     OR: [RoomTypeBedroomFilter]
+    amentities_contains_all: [String]
+    amentities_contains_none: [String]
+    amentities_contains_some: [String]
+    amentities_exists: Boolean
+    bedLinenProvided: Boolean
+    bedLinenProvided_exists: Boolean
+    bedLinenProvided_not: Boolean
+    beds: Int
+    beds_exists: Boolean
+    beds_gt: Int
+    beds_gte: Int
+    beds_in: [Int]
+    beds_lt: Int
+    beds_lte: Int
+    beds_not: Int
+    beds_not_in: [Int]
     contentfulMetadata: ContentfulMetadataFilter
     couch: Boolean
     couch_exists: Boolean
     couch_not: Boolean
-    desk: Boolean
-    desk_exists: Boolean
-    desk_not: Boolean
     doubleBed: Boolean
     doubleBed_exists: Boolean
     doubleBed_not: Boolean
@@ -867,29 +1639,119 @@ input RoomTypeBedroomFilter {
     singleBed_exists: Boolean
     singleBed_not: Boolean
     sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+    workplace: Boolean
+    workplace_exists: Boolean
+    workplace_not: Boolean
+}
+
+input RoomTypeLivingRoomFilter {
+    AND: [RoomTypeLivingRoomFilter]
+    OR: [RoomTypeLivingRoomFilter]
+    amentities_contains_all: [String]
+    amentities_contains_none: [String]
+    amentities_contains_some: [String]
+    amentities_exists: Boolean
+    armchair: Boolean
+    armchair_exists: Boolean
+    armchair_not: Boolean
+    contentfulMetadata: ContentfulMetadataFilter
+    couch: Boolean
+    couch_exists: Boolean
+    couch_not: Boolean
+    diningTable: Boolean
+    diningTable_exists: Boolean
+    diningTable_not: Boolean
+    entertainment: Boolean
+    entertainment_exists: Boolean
+    entertainment_not: Boolean
+    sys: SysFilter
+    television: Boolean
+    television_exists: Boolean
+    television_not: Boolean
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+    workplace: Boolean
+    workplace_exists: Boolean
+    workplace_not: Boolean
 }
 
 input RoomTypeStoreroomFilter {
     AND: [RoomTypeStoreroomFilter]
     OR: [RoomTypeStoreroomFilter]
+    amentities_contains_all: [String]
+    amentities_contains_none: [String]
+    amentities_contains_some: [String]
+    amentities_exists: Boolean
     contentfulMetadata: ContentfulMetadataFilter
     locker: Boolean
     locker_exists: Boolean
     locker_not: Boolean
     sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
 }
 
-input SometestFilter {
-    AND: [SometestFilter]
-    OR: [SometestFilter]
+input SectionHeroFilter {
+    AND: [SectionHeroFilter]
+    OR: [SectionHeroFilter]
     contentfulMetadata: ContentfulMetadataFilter
-    someText: String
-    someText_contains: String
-    someText_exists: Boolean
-    someText_in: [String]
-    someText_not: String
-    someText_not_contains: String
-    someText_not_in: [String]
+    subtitle: String
+    subtitle_contains: String
+    subtitle_exists: Boolean
+    subtitle_in: [String]
+    subtitle_not: String
+    subtitle_not_contains: String
+    subtitle_not_in: [String]
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input SeoDataFilter {
+    AND: [SeoDataFilter]
+    OR: [SeoDataFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    metaDescription: String
+    metaDescription_contains: String
+    metaDescription_exists: Boolean
+    metaDescription_in: [String]
+    metaDescription_not: String
+    metaDescription_not_contains: String
+    metaDescription_not_in: [String]
+    metaTags_contains_all: [String]
+    metaTags_contains_none: [String]
+    metaTags_contains_some: [String]
+    metaTags_exists: Boolean
+    metaTitle: String
+    metaTitle_contains: String
+    metaTitle_exists: Boolean
+    metaTitle_in: [String]
+    metaTitle_not: String
+    metaTitle_not_contains: String
+    metaTitle_not_in: [String]
+    ogImage_exists: Boolean
     sys: SysFilter
 }
 
@@ -930,9 +1792,59 @@ input SysFilter {
     publishedVersion_not_in: [Float]
 }
 
+input TextFilter {
+    AND: [TextFilter]
+    OR: [TextFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    media_exists: Boolean
+    subtitle: String
+    subtitle_contains: String
+    subtitle_exists: Boolean
+    subtitle_in: [String]
+    subtitle_not: String
+    subtitle_not_contains: String
+    subtitle_not_in: [String]
+    sys: SysFilter
+    text: String
+    text_contains: String
+    text_exists: Boolean
+    text_in: [String]
+    text_not: String
+    text_not_contains: String
+    text_not_in: [String]
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+    variant: String
+    variant_contains: String
+    variant_exists: Boolean
+    variant_in: [String]
+    variant_not: String
+    variant_not_contains: String
+    variant_not_in: [String]
+}
+
 input UnitFilter {
     AND: [UnitFilter]
     OR: [UnitFilter]
+    checkIn: String
+    checkIn_contains: String
+    checkIn_exists: Boolean
+    checkIn_in: [String]
+    checkIn_not: String
+    checkIn_not_contains: String
+    checkIn_not_in: [String]
+    checkOut: String
+    checkOut_contains: String
+    checkOut_exists: Boolean
+    checkOut_in: [String]
+    checkOut_not: String
+    checkOut_not_contains: String
+    checkOut_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
     description: String
     description_contains: String
@@ -941,8 +1853,49 @@ input UnitFilter {
     description_not: String
     description_not_contains: String
     description_not_in: [String]
+    featuredImage_exists: Boolean
+    heating: String
+    heating_contains: String
+    heating_exists: Boolean
+    heating_in: [String]
+    heating_not: String
+    heating_not_contains: String
+    heating_not_in: [String]
+    ical: String
+    ical_contains: String
+    ical_exists: Boolean
+    ical_in: [String]
+    ical_not: String
+    ical_not_contains: String
+    ical_not_in: [String]
     imagesCollection_exists: Boolean
+    internet: Boolean
+    internet_exists: Boolean
+    internet_not: Boolean
+    numberOfGuests: Int
+    numberOfGuests_exists: Boolean
+    numberOfGuests_gt: Int
+    numberOfGuests_gte: Int
+    numberOfGuests_in: [Int]
+    numberOfGuests_lt: Int
+    numberOfGuests_lte: Int
+    numberOfGuests_not: Int
+    numberOfGuests_not_in: [Int]
+    otherInformations_contains: String
+    otherInformations_exists: Boolean
+    otherInformations_not_contains: String
+    price: cfPriceNestedFilter
+    price_exists: Boolean
     roomsCollection_exists: Boolean
+    seoMetadata: cfSeoDataNestedFilter
+    seoMetadata_exists: Boolean
+    slug: String
+    slug_contains: String
+    slug_exists: Boolean
+    slug_in: [String]
+    slug_not: String
+    slug_not_contains: String
+    slug_not_in: [String]
     sys: SysFilter
     title: String
     title_contains: String
@@ -951,4 +1904,157 @@ input UnitFilter {
     title_not: String
     title_not_contains: String
     title_not_in: [String]
+}
+
+input cfBrandNestedFilter {
+    AND: [cfBrandNestedFilter]
+    OR: [cfBrandNestedFilter]
+    brand: String
+    brand_contains: String
+    brand_exists: Boolean
+    brand_in: [String]
+    brand_not: String
+    brand_not_contains: String
+    brand_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    logo_exists: Boolean
+    sys: SysFilter
+}
+
+input cfFooterNestedFilter {
+    AND: [cfFooterNestedFilter]
+    OR: [cfFooterNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    navItemsCollection_exists: Boolean
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input cfHostNestedFilter {
+    AND: [cfHostNestedFilter]
+    OR: [cfHostNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    email: String
+    email_contains: String
+    email_exists: Boolean
+    email_in: [String]
+    email_not: String
+    email_not_contains: String
+    email_not_in: [String]
+    name: String
+    name_contains: String
+    name_exists: Boolean
+    name_in: [String]
+    name_not: String
+    name_not_contains: String
+    name_not_in: [String]
+    sys: SysFilter
+    vorname: String
+    vorname_contains: String
+    vorname_exists: Boolean
+    vorname_in: [String]
+    vorname_not: String
+    vorname_not_contains: String
+    vorname_not_in: [String]
+}
+
+input cfLayoutNestedFilter {
+    AND: [cfLayoutNestedFilter]
+    OR: [cfLayoutNestedFilter]
+    brand_exists: Boolean
+    contentfulMetadata: ContentfulMetadataFilter
+    footer_exists: Boolean
+    mainNavigation_exists: Boolean
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input cfMainNavigationNestedFilter {
+    AND: [cfMainNavigationNestedFilter]
+    OR: [cfMainNavigationNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    navItemsCollection_exists: Boolean
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input cfPriceNestedFilter {
+    AND: [cfPriceNestedFilter]
+    OR: [cfPriceNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    standardPrice: Float
+    standardPrice_exists: Boolean
+    standardPrice_gt: Float
+    standardPrice_gte: Float
+    standardPrice_in: [Float]
+    standardPrice_lt: Float
+    standardPrice_lte: Float
+    standardPrice_not: Float
+    standardPrice_not_in: [Float]
+    sys: SysFilter
+}
+
+input cfSectionHeroNestedFilter {
+    AND: [cfSectionHeroNestedFilter]
+    OR: [cfSectionHeroNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    subtitle: String
+    subtitle_contains: String
+    subtitle_exists: Boolean
+    subtitle_in: [String]
+    subtitle_not: String
+    subtitle_not_contains: String
+    subtitle_not_in: [String]
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
+
+input cfSeoDataNestedFilter {
+    AND: [cfSeoDataNestedFilter]
+    OR: [cfSeoDataNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    metaDescription: String
+    metaDescription_contains: String
+    metaDescription_exists: Boolean
+    metaDescription_in: [String]
+    metaDescription_not: String
+    metaDescription_not_contains: String
+    metaDescription_not_in: [String]
+    metaTags_contains_all: [String]
+    metaTags_contains_none: [String]
+    metaTags_contains_some: [String]
+    metaTags_exists: Boolean
+    metaTitle: String
+    metaTitle_contains: String
+    metaTitle_exists: Boolean
+    metaTitle_in: [String]
+    metaTitle_not: String
+    metaTitle_not_contains: String
+    metaTitle_not_in: [String]
+    ogImage_exists: Boolean
+    sys: SysFilter
 }
