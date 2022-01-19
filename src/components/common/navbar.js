@@ -1,6 +1,6 @@
 import React from "react";
-import Link from "next/link";
 import LocaleSwitcher from "./locale-switcher";
+import NavItem from "./navitem";
 
 const menu = [
   {
@@ -20,20 +20,17 @@ const menu = [
   },
 ];
 
-const Navbar = () => {
+const Navbar = ({ isOpen }) => {
   return (
-    <nav className="container flex items-center py-4 text-slate-100">
-      <ul className="hidden sm:flex flex-1 flex-row justify-end">
+    <div className={`${isOpen ? "block" : "hidden"} items-center md:flex`}>
+      <ul className="flex flex-col gap-2 items-center md:flex-row md:gap-4">
         {menu.map((item) => (
-          <li key={item.id} className="px-2">
-            <Link href={item.slug}>
-              <a className="px-1 py-1">{item.label}</a>
-            </Link>
-          </li>
+          <NavItem key={item.id} item={item} />
         ))}
+
+        <LocaleSwitcher />
       </ul>
-      <LocaleSwitcher />
-    </nav>
+    </div>
   );
 };
 

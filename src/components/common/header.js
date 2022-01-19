@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "./navbar";
-import NavLogo from "./nav-logo";
+import Brand from "./brand";
+import MobileNavButton from "./mobile-nav-button";
 
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const clickHandler = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
-    <header className="bg-black">
-      <div className="container flex justify-between items-center">
-        <NavLogo />
-        <Navbar />
-      </div>
+    <header className="shadow-xl">
+      <nav className="container flex flex-col md:flex-row md:justify-between">
+        <div className="flex items-center justify-between">
+          <Brand />
+          <MobileNavButton isOpen={isOpen} onClick={clickHandler} />
+        </div>
+
+        <Navbar isOpen={isOpen} />
+      </nav>
     </header>
   );
 };
