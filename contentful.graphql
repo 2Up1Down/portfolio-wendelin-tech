@@ -78,7 +78,6 @@ type ContentTypeLocation implements Entry {
     roomsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentTypeLocationRoomsCollection
     street(locale: String): String
     sys: Sys!
-    termsOfUse(locale: String): String
     title(locale: String): String
     unitsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentTypeLocationUnitsCollection
 }
@@ -611,8 +610,6 @@ type TextLinkingCollections {
 
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/unit)"
 type Unit implements Entry {
-    checkIn(locale: String): String
-    checkOut(locale: String): String
     contentfulMetadata: ContentfulMetadata!
     description(locale: String): String
     featuredImage(locale: String, preview: Boolean): Asset
@@ -623,6 +620,7 @@ type Unit implements Entry {
     linkedFrom(allowedLocales: [String]): UnitLinkingCollections
     numberOfGuests(locale: String): Int
     otherInformations(locale: String): UnitOtherInformations
+    overviewDescription(locale: String): String
     price(locale: String, preview: Boolean): Price
     roomsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): UnitRoomsCollection
     seoMetadata(locale: String, preview: Boolean): SeoData
@@ -1107,6 +1105,8 @@ enum UnitOrder {
     internet_DESC
     numberOfGuests_ASC
     numberOfGuests_DESC
+    overviewDescription_ASC
+    overviewDescription_DESC
     slug_ASC
     slug_DESC
     sys_firstPublishedAt_ASC
@@ -1279,13 +1279,6 @@ input ContentTypeLocationFilter {
     street_not_contains: String
     street_not_in: [String]
     sys: SysFilter
-    termsOfUse: String
-    termsOfUse_contains: String
-    termsOfUse_exists: Boolean
-    termsOfUse_in: [String]
-    termsOfUse_not: String
-    termsOfUse_not_contains: String
-    termsOfUse_not_in: [String]
     title: String
     title_contains: String
     title_exists: Boolean
@@ -1831,20 +1824,6 @@ input TextFilter {
 input UnitFilter {
     AND: [UnitFilter]
     OR: [UnitFilter]
-    checkIn: String
-    checkIn_contains: String
-    checkIn_exists: Boolean
-    checkIn_in: [String]
-    checkIn_not: String
-    checkIn_not_contains: String
-    checkIn_not_in: [String]
-    checkOut: String
-    checkOut_contains: String
-    checkOut_exists: Boolean
-    checkOut_in: [String]
-    checkOut_not: String
-    checkOut_not_contains: String
-    checkOut_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
     description: String
     description_contains: String
@@ -1884,6 +1863,13 @@ input UnitFilter {
     otherInformations_contains: String
     otherInformations_exists: Boolean
     otherInformations_not_contains: String
+    overviewDescription: String
+    overviewDescription_contains: String
+    overviewDescription_exists: Boolean
+    overviewDescription_in: [String]
+    overviewDescription_not: String
+    overviewDescription_not_contains: String
+    overviewDescription_not_in: [String]
     price: cfPriceNestedFilter
     price_exists: Boolean
     roomsCollection_exists: Boolean
