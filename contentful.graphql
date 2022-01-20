@@ -64,6 +64,32 @@ type BrandLinkingCollections {
     layoutCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): LayoutCollection
 }
 
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/contactInformation)"
+type ContactInformation implements Entry {
+    city(locale: String): String
+    companyName(locale: String): String
+    contentfulMetadata: ContentfulMetadata!
+    country(locale: String): String
+    email(locale: String): String
+    linkedFrom(allowedLocales: [String]): ContactInformationLinkingCollections
+    phoneNumber(locale: String): String
+    street(locale: String): String
+    sys: Sys!
+    zipCode(locale: String): String
+}
+
+type ContactInformationCollection {
+    items: [ContactInformation]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type ContactInformationLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    footerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterCollection
+}
+
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/location)"
 type ContentTypeLocation implements Entry {
     city(locale: String): String
@@ -130,9 +156,11 @@ type EntryCollection {
 
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/footer)"
 type Footer implements Entry {
+    contactInformation(locale: String, preview: Boolean): ContactInformation
     contentfulMetadata: ContentfulMetadata!
     linkedFrom(allowedLocales: [String]): FooterLinkingCollections
     navItemsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterNavItemsCollection
+    socialMedia(locale: String, preview: Boolean): SocialMedia
     sys: Sys!
     title(locale: String): String
 }
@@ -246,10 +274,11 @@ type Layout implements Entry {
     brand(locale: String, preview: Boolean): Brand
     contentfulMetadata: ContentfulMetadata!
     footer(locale: String, preview: Boolean): Footer
+    layoutName(locale: String): String
     linkedFrom(allowedLocales: [String]): LayoutLinkingCollections
     mainNavigation(locale: String, preview: Boolean): MainNavigation
+    name(locale: String): String
     sys: Sys!
-    title(locale: String): String
 }
 
 type LayoutCollection {
@@ -365,6 +394,8 @@ type Query {
     assetCollection(limit: Int = 100, locale: String, order: [AssetOrder], preview: Boolean, skip: Int = 0, where: AssetFilter): AssetCollection
     brand(id: String!, locale: String, preview: Boolean): Brand
     brandCollection(limit: Int = 100, locale: String, order: [BrandOrder], preview: Boolean, skip: Int = 0, where: BrandFilter): BrandCollection
+    contactInformation(id: String!, locale: String, preview: Boolean): ContactInformation
+    contactInformationCollection(limit: Int = 100, locale: String, order: [ContactInformationOrder], preview: Boolean, skip: Int = 0, where: ContactInformationFilter): ContactInformationCollection
     contentTypeLocation(id: String!, locale: String, preview: Boolean): ContentTypeLocation
     contentTypeLocationCollection(limit: Int = 100, locale: String, order: [ContentTypeLocationOrder], preview: Boolean, skip: Int = 0, where: ContentTypeLocationFilter): ContentTypeLocationCollection
     entryCollection(limit: Int = 100, locale: String, order: [EntryOrder], preview: Boolean, skip: Int = 0, where: EntryFilter): EntryCollection
@@ -400,6 +431,8 @@ type Query {
     sectionHeroCollection(limit: Int = 100, locale: String, order: [SectionHeroOrder], preview: Boolean, skip: Int = 0, where: SectionHeroFilter): SectionHeroCollection
     seoData(id: String!, locale: String, preview: Boolean): SeoData
     seoDataCollection(limit: Int = 100, locale: String, order: [SeoDataOrder], preview: Boolean, skip: Int = 0, where: SeoDataFilter): SeoDataCollection
+    socialMedia(id: String!, locale: String, preview: Boolean): SocialMedia
+    socialMediaCollection(limit: Int = 100, locale: String, order: [SocialMediaOrder], preview: Boolean, skip: Int = 0, where: SocialMediaFilter): SocialMediaCollection
     text(id: String!, locale: String, preview: Boolean): Text
     textCollection(limit: Int = 100, locale: String, order: [TextOrder], preview: Boolean, skip: Int = 0, where: TextFilter): TextCollection
     unit(id: String!, locale: String, preview: Boolean): Unit
@@ -575,6 +608,29 @@ type SeoDataLinkingCollections {
     unitCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): UnitCollection
 }
 
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/socialMedia)"
+type SocialMedia implements Entry {
+    accountName(locale: String): String
+    contentfulMetadata: ContentfulMetadata!
+    githubUrl(locale: String): String
+    instagramUrl(locale: String): String
+    linkedFrom(allowedLocales: [String]): SocialMediaLinkingCollections
+    linkedinUrl(locale: String): String
+    sys: Sys!
+}
+
+type SocialMediaCollection {
+    items: [SocialMedia]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type SocialMediaLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    footerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterCollection
+}
+
 type Sys {
     environmentId: String!
     firstPublishedAt: DateTime
@@ -703,6 +759,31 @@ enum BrandOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
+}
+
+enum ContactInformationOrder {
+    city_ASC
+    city_DESC
+    companyName_ASC
+    companyName_DESC
+    country_ASC
+    country_DESC
+    email_ASC
+    email_DESC
+    phoneNumber_ASC
+    phoneNumber_DESC
+    street_ASC
+    street_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    zipCode_ASC
+    zipCode_DESC
 }
 
 enum ContentTypeLocationOrder {
@@ -884,6 +965,10 @@ enum KitchenOrder {
 }
 
 enum LayoutOrder {
+    layoutName_ASC
+    layoutName_DESC
+    name_ASC
+    name_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -892,8 +977,6 @@ enum LayoutOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
-    title_ASC
-    title_DESC
 }
 
 enum MainNavigationOrder {
@@ -1079,6 +1162,25 @@ enum SeoDataOrder {
     sys_publishedVersion_DESC
 }
 
+enum SocialMediaOrder {
+    accountName_ASC
+    accountName_DESC
+    githubURL_ASC
+    githubURL_DESC
+    instagramUrl_ASC
+    instagramUrl_DESC
+    linkedinUrl_ASC
+    linkedinUrl_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
 enum TextOrder {
     subtitle_ASC
     subtitle_DESC
@@ -1232,6 +1334,62 @@ input BrandFilter {
     sys: SysFilter
 }
 
+input ContactInformationFilter {
+    AND: [ContactInformationFilter]
+    OR: [ContactInformationFilter]
+    city: String
+    city_contains: String
+    city_exists: Boolean
+    city_in: [String]
+    city_not: String
+    city_not_contains: String
+    city_not_in: [String]
+    companyName: String
+    companyName_contains: String
+    companyName_exists: Boolean
+    companyName_in: [String]
+    companyName_not: String
+    companyName_not_contains: String
+    companyName_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    country: String
+    country_contains: String
+    country_exists: Boolean
+    country_in: [String]
+    country_not: String
+    country_not_contains: String
+    country_not_in: [String]
+    email: String
+    email_contains: String
+    email_exists: Boolean
+    email_in: [String]
+    email_not: String
+    email_not_contains: String
+    email_not_in: [String]
+    phoneNumber: String
+    phoneNumber_contains: String
+    phoneNumber_exists: Boolean
+    phoneNumber_in: [String]
+    phoneNumber_not: String
+    phoneNumber_not_contains: String
+    phoneNumber_not_in: [String]
+    street: String
+    street_contains: String
+    street_exists: Boolean
+    street_in: [String]
+    street_not: String
+    street_not_contains: String
+    street_not_in: [String]
+    sys: SysFilter
+    zipCode: String
+    zipCode_contains: String
+    zipCode_exists: Boolean
+    zipCode_in: [String]
+    zipCode_not: String
+    zipCode_not_contains: String
+    zipCode_not_in: [String]
+}
+
 input ContentTypeLocationFilter {
     AND: [ContentTypeLocationFilter]
     OR: [ContentTypeLocationFilter]
@@ -1310,8 +1468,12 @@ input EntryFilter {
 input FooterFilter {
     AND: [FooterFilter]
     OR: [FooterFilter]
+    contactInformation: cfContactInformationNestedFilter
+    contactInformation_exists: Boolean
     contentfulMetadata: ContentfulMetadataFilter
     navItemsCollection_exists: Boolean
+    socialMedia: cfSocialMediaNestedFilter
+    socialMedia_exists: Boolean
     sys: SysFilter
     title: String
     title_contains: String
@@ -1470,16 +1632,23 @@ input LayoutFilter {
     contentfulMetadata: ContentfulMetadataFilter
     footer: cfFooterNestedFilter
     footer_exists: Boolean
+    layoutName: String
+    layoutName_contains: String
+    layoutName_exists: Boolean
+    layoutName_in: [String]
+    layoutName_not: String
+    layoutName_not_contains: String
+    layoutName_not_in: [String]
     mainNavigation: cfMainNavigationNestedFilter
     mainNavigation_exists: Boolean
+    name: String
+    name_contains: String
+    name_exists: Boolean
+    name_in: [String]
+    name_not: String
+    name_not_contains: String
+    name_not_in: [String]
     sys: SysFilter
-    title: String
-    title_contains: String
-    title_exists: Boolean
-    title_in: [String]
-    title_not: String
-    title_not_contains: String
-    title_not_in: [String]
 }
 
 input MainNavigationFilter {
@@ -1748,6 +1917,41 @@ input SeoDataFilter {
     sys: SysFilter
 }
 
+input SocialMediaFilter {
+    AND: [SocialMediaFilter]
+    OR: [SocialMediaFilter]
+    accountName: String
+    accountName_contains: String
+    accountName_exists: Boolean
+    accountName_in: [String]
+    accountName_not: String
+    accountName_not_contains: String
+    accountName_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    githubURL: String
+    githubURL_contains: String
+    githubURL_exists: Boolean
+    githubURL_in: [String]
+    githubURL_not: String
+    githubURL_not_contains: String
+    githubURL_not_in: [String]
+    instagramUrl: String
+    instagramUrl_contains: String
+    instagramUrl_exists: Boolean
+    instagramUrl_in: [String]
+    instagramUrl_not: String
+    instagramUrl_not_contains: String
+    instagramUrl_not_in: [String]
+    linkedinUrl: String
+    linkedinUrl_contains: String
+    linkedinUrl_exists: Boolean
+    linkedinUrl_in: [String]
+    linkedinUrl_not: String
+    linkedinUrl_not_contains: String
+    linkedinUrl_not_in: [String]
+    sys: SysFilter
+}
+
 input SysFilter {
     firstPublishedAt: DateTime
     firstPublishedAt_exists: Boolean
@@ -1907,11 +2111,69 @@ input cfBrandNestedFilter {
     sys: SysFilter
 }
 
+input cfContactInformationNestedFilter {
+    AND: [cfContactInformationNestedFilter]
+    OR: [cfContactInformationNestedFilter]
+    city: String
+    city_contains: String
+    city_exists: Boolean
+    city_in: [String]
+    city_not: String
+    city_not_contains: String
+    city_not_in: [String]
+    companyName: String
+    companyName_contains: String
+    companyName_exists: Boolean
+    companyName_in: [String]
+    companyName_not: String
+    companyName_not_contains: String
+    companyName_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    country: String
+    country_contains: String
+    country_exists: Boolean
+    country_in: [String]
+    country_not: String
+    country_not_contains: String
+    country_not_in: [String]
+    email: String
+    email_contains: String
+    email_exists: Boolean
+    email_in: [String]
+    email_not: String
+    email_not_contains: String
+    email_not_in: [String]
+    phoneNumber: String
+    phoneNumber_contains: String
+    phoneNumber_exists: Boolean
+    phoneNumber_in: [String]
+    phoneNumber_not: String
+    phoneNumber_not_contains: String
+    phoneNumber_not_in: [String]
+    street: String
+    street_contains: String
+    street_exists: Boolean
+    street_in: [String]
+    street_not: String
+    street_not_contains: String
+    street_not_in: [String]
+    sys: SysFilter
+    zipCode: String
+    zipCode_contains: String
+    zipCode_exists: Boolean
+    zipCode_in: [String]
+    zipCode_not: String
+    zipCode_not_contains: String
+    zipCode_not_in: [String]
+}
+
 input cfFooterNestedFilter {
     AND: [cfFooterNestedFilter]
     OR: [cfFooterNestedFilter]
+    contactInformation_exists: Boolean
     contentfulMetadata: ContentfulMetadataFilter
     navItemsCollection_exists: Boolean
+    socialMedia_exists: Boolean
     sys: SysFilter
     title: String
     title_contains: String
@@ -1956,15 +2218,22 @@ input cfLayoutNestedFilter {
     brand_exists: Boolean
     contentfulMetadata: ContentfulMetadataFilter
     footer_exists: Boolean
+    layoutName: String
+    layoutName_contains: String
+    layoutName_exists: Boolean
+    layoutName_in: [String]
+    layoutName_not: String
+    layoutName_not_contains: String
+    layoutName_not_in: [String]
     mainNavigation_exists: Boolean
+    name: String
+    name_contains: String
+    name_exists: Boolean
+    name_in: [String]
+    name_not: String
+    name_not_contains: String
+    name_not_in: [String]
     sys: SysFilter
-    title: String
-    title_contains: String
-    title_exists: Boolean
-    title_in: [String]
-    title_not: String
-    title_not_contains: String
-    title_not_in: [String]
 }
 
 input cfMainNavigationNestedFilter {
@@ -2042,5 +2311,40 @@ input cfSeoDataNestedFilter {
     metaTitle_not_contains: String
     metaTitle_not_in: [String]
     ogImage_exists: Boolean
+    sys: SysFilter
+}
+
+input cfSocialMediaNestedFilter {
+    AND: [cfSocialMediaNestedFilter]
+    OR: [cfSocialMediaNestedFilter]
+    accountName: String
+    accountName_contains: String
+    accountName_exists: Boolean
+    accountName_in: [String]
+    accountName_not: String
+    accountName_not_contains: String
+    accountName_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    githubURL: String
+    githubURL_contains: String
+    githubURL_exists: Boolean
+    githubURL_in: [String]
+    githubURL_not: String
+    githubURL_not_contains: String
+    githubURL_not_in: [String]
+    instagramUrl: String
+    instagramUrl_contains: String
+    instagramUrl_exists: Boolean
+    instagramUrl_in: [String]
+    instagramUrl_not: String
+    instagramUrl_not_contains: String
+    instagramUrl_not_in: [String]
+    linkedinUrl: String
+    linkedinUrl_contains: String
+    linkedinUrl_exists: Boolean
+    linkedinUrl_in: [String]
+    linkedinUrl_not: String
+    linkedinUrl_not_contains: String
+    linkedinUrl_not_in: [String]
     sys: SysFilter
 }

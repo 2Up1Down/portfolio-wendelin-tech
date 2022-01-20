@@ -10,7 +10,7 @@ const GET_HOME_PAGE = (locale) => gql`
         }
         title
         layout {
-          title
+          layoutName
           mainNavigation {
             navItemsCollection {
               items {
