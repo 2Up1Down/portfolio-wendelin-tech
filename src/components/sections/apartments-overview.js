@@ -14,6 +14,7 @@ const ApartmentsOverview = ({ apartments }) => {
           {apartments.map(({ id, slug, title, description, image }) => (
             <ApartmentCard
               key={id}
+              id={id}
               title={title}
               slug={slug}
               description={description}

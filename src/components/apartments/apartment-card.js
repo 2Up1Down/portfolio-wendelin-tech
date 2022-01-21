@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import PropTypes from "prop-types";
 
 const ApartmentCard = ({
   id,
@@ -33,6 +34,17 @@ const ApartmentCard = ({
       </a>
     </Link>
   );
+};
+
+ApartmentCard.propTypes = {
+  id: PropTypes.string.isRequired,
+  slug: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  image: PropTypes.shape({
+    url: PropTypes.string,
+    fileName: PropTypes.string,
+  }),
 };
 
 export default ApartmentCard;
