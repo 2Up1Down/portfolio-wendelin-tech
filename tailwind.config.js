@@ -1,5 +1,9 @@
 module.exports = {
-  content: ["./src/pages/**/*.{html,js}", "./src/components/**/*.{html,js}"],
+  content: [
+    "./src/pages/**/*.{html,js}",
+    "./src/components/**/*.{html,js}",
+    "./src/styles/**/*.{html,js}",
+  ],
   theme: {
     fontFamily: {
       Poppins: ["Poppins, sans-serif"],
