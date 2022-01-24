@@ -54,6 +54,50 @@ const GET_PAGE = (slug, locale) => gql`
                 slug
                 body {
                     json
+                    links {
+
+                        assets {
+                            block {
+                                sys {
+                                    id
+                                }
+                                title
+                                fileName
+                                url
+                            }
+                        }
+                        entries {
+                            inline {
+                                sys {
+                                    id
+                                }
+                                __typename
+                                ... on Unit {
+                                    title
+                                    featuredImage {
+                                        url
+                                        fileName
+                                        width
+                                        height
+                                    }
+                                    overviewDescription
+                                    slug
+                                }
+                                ... on Brand {
+                                    brand
+                                    logo {
+                                        url
+                                        fileName
+                                    }
+                                }
+                            }
+                            block {
+                                sys {
+                                    id
+                                }
+                            }
+                        }
+                    }
                 }
                 seoData {
                     metaTitle

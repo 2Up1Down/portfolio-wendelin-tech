@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
+import ApartmentCard from "../components/apartments/apartment-card";
 
 export function renderOptions(links) {
   // create an asset map
@@ -51,6 +53,7 @@ export function renderOptions(links) {
       [BLOCKS.PARAGRAPH]: (node, children) => (
         <p className="text-base mb-2">{children}</p>
       ),
+
       [BLOCKS.UL_LIST]: (node, children) => (
         <ul className="list-disc list-outside ml-10">{children}</ul>
       ),
@@ -63,6 +66,7 @@ export function renderOptions(links) {
           {children}
         </blockquote>
       ),
+
       [BLOCKS.HR]: (node, children) => (
         <div className="h-1 w-full bg-gray-400 my-4" />
       ),
@@ -73,10 +77,35 @@ export function renderOptions(links) {
 
         if (entry.__typename === "Unit")
           return (
-            <div className="border-4 border-red-400">
-              <p>This is an embedded entry</p>
-              <h1 className="text-green-500 text-2xl">{entry.title}</h1>
-            </div>
+            <article className="my-2">
+              <Link href={`/apartments/${entry.slug}`}>
+                <a>
+                  <div className="bg-white rounded-lg border border-gray-200 shadow-md flex items-center overflow-hidden">
+                    <div className="w-40 h-40 relative">
+                      <Image
+                        src={entry.featuredImage?.url || "/placeholder.png"}
+                        alt={entry.featuredImage?.fileName}
+                        // width={100}
+                        // height={100}
+                        layout="fill"
+                        objectFit="cover"
+                        // layout="responsive"
+                      />
+                    </div>
+
+                    <div className="mx-4 mb-4">
+                      <h5 className="mb-1 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                        {entry.title}
+                      </h5>
+
+                      <p className=" font-normal text-gray-700 dark:text-gray-400">
+                        {entry.overviewDescription}
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
+            </article>
           );
 
         // render the entries as needed by looking at the __typename
@@ -109,7 +138,14 @@ export function renderOptions(links) {
         const asset = assetMap.get(node.data.target.sys.id);
 
         // render the asset accordingly
-        return <img src={asset.url} alt="My image alt text" />;
+        return (
+          <img
+            src={asset.url}
+            alt="My image alt text"
+            height={asset.height}
+            width={asset.width}
+          />
+        );
       },
 
       //////////
