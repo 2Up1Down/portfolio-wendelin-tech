@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
 
 export function renderOptions(links) {
@@ -121,8 +122,9 @@ export function renderOptions(links) {
         if (entry.__typename === "Unit")
           return (
             <span className="">
-              <span>This is an inline entry</span>
-              <span className="text-green-500 text-2xl">{entry.title}</span>
+              <span>inline entry</span>
+              <span className="text-green-500">{entry.title}</span>
+              <span className="">{node.data.target.sys.id}</span>
             </span>
           );
 
@@ -136,6 +138,35 @@ export function renderOptions(links) {
         // if (entry.__typename === "BlogPost") {
         //   return <a href={`/blog/${entry.slug}`}>{entry.title}</a>;
         // }
+      },
+
+      [INLINES.HYPERLINK]: ({ data }, children) => {
+        return (
+          <a
+            href={data.uri}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline underline-offset-2"
+          >
+            this is a hyperlink
+          </a>
+        );
+      },
+      [INLINES.ENTRY_HYPERLINK]: (node, children) => {
+        console.log(node);
+        return (
+          <span className="bg-red-500">
+            entry hyperlink not yet implemented
+          </span>
+        );
+      },
+      [INLINES.ASSET_HYPERLINK]: (node, children) => {
+        // console.log(node);
+        return (
+          <span className="bg-red-500">
+            asset hyperlink not yet implemented
+          </span>
+        );
       },
 
       ////////
