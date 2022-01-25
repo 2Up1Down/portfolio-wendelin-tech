@@ -1,12 +1,25 @@
 import React from "react";
-import { getAllSlugs, getPage } from "../utils/contentful/query-pages";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+
 import Layout from "../components/common/layout";
+import { getAllSlugs, getPage } from "../utils/contentful/query-pages";
+import { renderOptions } from "../styles/contentful-rich-text";
 
 const Page = ({ page }) => {
+  const { title, body } = page;
+
   return (
     <Layout>
-      <div className="container">
-        <pre>{JSON.stringify(page, null, 2)}</pre>
+      <div className="">
+        <section className="container py-16">
+          <div className="text-center">
+            <h1 className="text-5xl ">{title}</h1>
+          </div>
+          <div className="max-w-2xl m-auto">
+            {body &&
+              documentToReactComponents(body.json, renderOptions(body.links))}
+          </div>
+        </section>
       </div>
     </Layout>
   );
