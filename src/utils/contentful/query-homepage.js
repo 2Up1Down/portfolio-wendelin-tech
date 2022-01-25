@@ -14,8 +14,17 @@ const GET_HOME_PAGE = (locale) => gql`
           mainNavigation {
             navItemsCollection {
               items {
+                sys {
+                  id
+                }
                 title
-                slug
+                externalUrl
+                internalUrl {
+                  __typename
+                  ... on Page {
+                    slug
+                  }
+                }
               }
             }
           }

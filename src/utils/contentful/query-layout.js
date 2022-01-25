@@ -19,7 +19,13 @@ const GET_LAYOUT = (locale, layoutName) => gql`
                                 id
                             }
                             title
-                            slug
+                            externalUrl
+                            internalUrl {
+                                __typename
+                                ... on Page {
+                                    slug
+                                }
+                            }
                         }
                     }
                 }
@@ -37,7 +43,13 @@ const GET_LAYOUT = (locale, layoutName) => gql`
                                 id
                             }
                             title
-                            slug
+                            externalUrl
+                            internalUrl {
+                                __typename
+                                ... on Page {
+                                    slug
+                                }
+                            }
                         }
                     }
                     contactInformation {

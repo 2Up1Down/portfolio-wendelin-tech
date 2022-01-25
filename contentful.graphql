@@ -9,7 +9,29 @@ interface Entry {
     sys: Sys!
 }
 
+union NavItemInternalUrl = HomePage | Page
+
 union RoomRoomType = Kitchen | OtherRoomType | RoomTypeBathroom | RoomTypeBedroom | RoomTypeLivingRoom | RoomTypeStoreroom
+
+"[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/apartmentsPage)"
+type ApartmentsPage implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    description(locale: String): String
+    linkedFrom(allowedLocales: [String]): ApartmentsPageLinkingCollections
+    sys: Sys!
+    title(locale: String): String
+}
+
+type ApartmentsPageCollection {
+    items: [ApartmentsPage]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type ApartmentsPageLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
 
 "Represents a binary file in a space. An asset can be any file type."
 type Asset {
@@ -205,6 +227,7 @@ type HomePageCollection {
 
 type HomePageLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    navItemCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): NavItemCollection
 }
 
 type HomePageSectionsCollection {
@@ -329,8 +352,9 @@ type MainNavigationNavItemsCollection {
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/navItem)"
 type NavItem implements Entry {
     contentfulMetadata: ContentfulMetadata!
+    externalUrl(locale: String): String
+    internalUrl(locale: String, preview: Boolean): NavItemInternalUrl
     linkedFrom(allowedLocales: [String]): NavItemLinkingCollections
-    slug(locale: String): String
     sys: Sys!
     title(locale: String): String
 }
@@ -410,6 +434,7 @@ type PageCollection {
 
 type PageLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    navItemCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): NavItemCollection
 }
 
 "[See type definition](https://app.contentful.com/spaces/7jl72tq3q532/content_types/price)"
@@ -433,6 +458,8 @@ type PriceLinkingCollections {
 }
 
 type Query {
+    apartmentsPage(id: String!, locale: String, preview: Boolean): ApartmentsPage
+    apartmentsPageCollection(limit: Int = 100, locale: String, order: [ApartmentsPageOrder], preview: Boolean, skip: Int = 0, where: ApartmentsPageFilter): ApartmentsPageCollection
     asset(id: String!, locale: String, preview: Boolean): Asset
     assetCollection(limit: Int = 100, locale: String, order: [AssetOrder], preview: Boolean, skip: Int = 0, where: AssetFilter): AssetCollection
     brand(id: String!, locale: String, preview: Boolean): Brand
@@ -771,6 +798,19 @@ type UnitRoomsCollection {
     total: Int!
 }
 
+enum ApartmentsPageOrder {
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    title_ASC
+    title_DESC
+}
+
 enum AssetOrder {
     contentType_ASC
     contentType_DESC
@@ -1039,8 +1079,8 @@ enum MainNavigationOrder {
 }
 
 enum NavItemOrder {
-    slug_ASC
-    slug_DESC
+    externalUrl_ASC
+    externalUrl_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -1310,6 +1350,27 @@ scalar Quality
 
 "The Rectangle scalar type represents a rectangle, defined by the coordinates of its top left and bottom right corners. The Rectangle type is used to represent a searchable area together with the '_within_rectangle' filter."
 scalar Rectangle
+
+input ApartmentsPageFilter {
+    AND: [ApartmentsPageFilter]
+    OR: [ApartmentsPageFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    description: String
+    description_contains: String
+    description_exists: Boolean
+    description_in: [String]
+    description_not: String
+    description_not_contains: String
+    description_not_in: [String]
+    sys: SysFilter
+    title: String
+    title_contains: String
+    title_exists: Boolean
+    title_in: [String]
+    title_not: String
+    title_not_contains: String
+    title_not_in: [String]
+}
 
 input AssetFilter {
     AND: [AssetFilter]
@@ -1731,13 +1792,14 @@ input NavItemFilter {
     AND: [NavItemFilter]
     OR: [NavItemFilter]
     contentfulMetadata: ContentfulMetadataFilter
-    slug: String
-    slug_contains: String
-    slug_exists: Boolean
-    slug_in: [String]
-    slug_not: String
-    slug_not_contains: String
-    slug_not_in: [String]
+    externalUrl: String
+    externalUrl_contains: String
+    externalUrl_exists: Boolean
+    externalUrl_in: [String]
+    externalUrl_not: String
+    externalUrl_not_contains: String
+    externalUrl_not_in: [String]
+    internalUrl_exists: Boolean
     sys: SysFilter
     title: String
     title_contains: String
