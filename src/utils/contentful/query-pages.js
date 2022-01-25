@@ -64,6 +64,8 @@ const GET_PAGE = (slug, locale) => gql`
                                 title
                                 fileName
                                 url
+                                width
+                                height
                             }
                         }
                         entries {

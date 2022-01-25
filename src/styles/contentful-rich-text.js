@@ -85,11 +85,8 @@ export function renderOptions(links) {
                       <Image
                         src={entry.featuredImage?.url || "/placeholder.png"}
                         alt={entry.featuredImage?.fileName}
-                        // width={100}
-                        // height={100}
                         layout="fill"
                         objectFit="cover"
-                        // layout="responsive"
                       />
                     </div>
 
@@ -137,14 +134,16 @@ export function renderOptions(links) {
         // find the asset in the assetMap by ID
         const asset = assetMap.get(node.data.target.sys.id);
 
-        // render the asset accordingly
         return (
-          <img
-            src={asset.url}
-            alt="My image alt text"
-            height={asset.height}
-            width={asset.width}
-          />
+          <div className="my-2">
+            <Image
+              src={asset.url}
+              alt="My image alt text"
+              layout="responsive"
+              height={asset.height}
+              width={asset.width}
+            />
+          </div>
         );
       },
 
@@ -189,7 +188,7 @@ export function renderOptions(links) {
         );
       },
       [INLINES.ENTRY_HYPERLINK]: (node, children) => {
-        console.log(node);
+        // console.log(node);
         return (
           <span className="bg-red-500">
             entry hyperlink not yet implemented
