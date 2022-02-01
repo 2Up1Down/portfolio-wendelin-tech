@@ -1,32 +1,23 @@
 import { gql } from "@apollo/client";
 import { client } from "../apollo-client";
 
-const GET_HOME_PAGE = (locale) => gql`
-  query GetHomePage {
-      homePageCollection(limit: 1, locale: "${locale}") {
+const GET_HOMEPAGE = (locale) => gql`
+  query GetHomepage {
+      homepageCollection(limit: 1, locale: "${locale}") {
       items {
         sys {
           id
         }
-        title
-        layout {
-          layoutName
-          mainNavigation {
-            navItemsCollection {
-              items {
-                sys {
-                  id
-                }
-                title
-                externalUrl
-                internalUrl {
-                  __typename
-                  ... on Page {
-                    slug
-                  }
-                }
-              }
-            }
+        heroSection {
+          title
+          subtitle
+          buttonText
+        }
+
+        whatIDo {
+          title
+          description {
+            json
           }
         }
         seoData {
@@ -42,15 +33,15 @@ const GET_HOME_PAGE = (locale) => gql`
   }
 `;
 
-const extractHomePageEntries = (fetchResponse) => {
-  return fetchResponse?.data?.homePageCollection?.items[0];
+const extractHomepageEntries = (fetchResponse) => {
+  return fetchResponse?.data?.homepageCollection?.items[0];
 };
 
-export const getHomePageData = async (locale) => {
+export const getHomepageData = async (locale) => {
   try {
-    const entries = await client.query({ query: GET_HOME_PAGE(locale) });
+    const entries = await client.query({ query: GET_HOMEPAGE(locale) });
 
-    return extractHomePageEntries(entries);
+    return extractHomepageEntries(entries);
   } catch (e) {
     console.log(e);
     return {};

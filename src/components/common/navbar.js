@@ -10,8 +10,18 @@ const menu = [
   },
   {
     id: "2",
-    label: "Apartments",
-    slug: "/apartments",
+    label: "Expertise",
+    slug: "/expertise",
+  },
+  {
+    id: "5",
+    label: "Portfolio",
+    slug: "/portfolio",
+  },
+  {
+    id: "5",
+    label: "Blog",
+    slug: "/blog",
   },
   {
     id: "3",

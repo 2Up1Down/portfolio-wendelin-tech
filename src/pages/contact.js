@@ -9,7 +9,7 @@ const ContactPage = () => {
         <h1>Hello from Contact page</h1>
 
         <div className="flex flex-col items-center">
-          <ContactForm formId="myyokala" />
+          <ContactForm formId="" />
         </div>
       </div>
     </Layout>
