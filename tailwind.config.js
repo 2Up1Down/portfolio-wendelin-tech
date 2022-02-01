@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./src/pages/**/*.{html,js}",
@@ -5,8 +7,17 @@ module.exports = {
     "./src/styles/**/*.{html,js}",
   ],
   theme: {
+    colors: {
+      primary: "hsla(148, 39%, 19%, 1)",
+      primaryLight: "hsla(148, 54%, 30%, 1)",
+      accent: "hsla(40, 100%, 42%, 1)",
+      text: "#181717",
+      "text-light": "#606060",
+    },
     fontFamily: {
-      Poppins: ["Poppins, sans-serif"],
+      headline: ["Roboto", "sans-serif"],
+      curly: ["Moon Dance", "cursive"],
+      mono: ["DM Mono", ...defaultTheme.fontFamily.mono],
     },
     container: {
       center: true,
