@@ -23,7 +23,7 @@ const GET_HOMEPAGE = (locale) => gql`
         seoData {
           metaTitle
           metaDescription
-          metaTags
+          metaKeywords
           ogImage {
             url
           }

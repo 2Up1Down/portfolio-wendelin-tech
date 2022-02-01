@@ -1,13 +1,22 @@
 import Layout from "../components/common/layout";
 import { getHomepageData } from "../utils/contentful/query-homepage";
+import JsonStringify from "../components/common/json-stringify";
+import DefaultHead from "../components/common/default-head";
 
 export default function Home({ homepageData }) {
+  const {
+    seoData: { metaTitle, metaDescription, metaKeywords, ogImage },
+  } = homepageData;
   return (
     <Layout>
-      <div className="container">hello world</div>
-      <div className="container">
-        <pre>{JSON.stringify(homepageData, null, 2)}</pre>
-      </div>
+      <DefaultHead
+        title={metaTitle}
+        description={metaDescription}
+        keywords={metaKeywords}
+        image={ogImage}
+      />
+
+      <JsonStringify jsonObj={homepageData} />
     </Layout>
   );
 }

@@ -527,7 +527,7 @@ type SeoData implements Entry {
     contentfulMetadata: ContentfulMetadata!
     linkedFrom(allowedLocales: [String]): SeoDataLinkingCollections
     metaDescription(locale: String): String
-    metaTags(locale: String): [String]
+    metaKeywords(locale: String): [String]
     metaTitle(locale: String): String
     ogImage(locale: String, preview: Boolean): Asset
     sys: Sys!
@@ -1590,10 +1590,10 @@ input SeoDataFilter {
     metaDescription_not: String
     metaDescription_not_contains: String
     metaDescription_not_in: [String]
-    metaTags_contains_all: [String]
-    metaTags_contains_none: [String]
-    metaTags_contains_some: [String]
-    metaTags_exists: Boolean
+    metaKeywords_contains_all: [String]
+    metaKeywords_contains_none: [String]
+    metaKeywords_contains_some: [String]
+    metaKeywords_exists: Boolean
     metaTitle: String
     metaTitle_contains: String
     metaTitle_exists: Boolean
@@ -1873,10 +1873,10 @@ input cfSeoDataNestedFilter {
     metaDescription_not: String
     metaDescription_not_contains: String
     metaDescription_not_in: [String]
-    metaTags_contains_all: [String]
-    metaTags_contains_none: [String]
-    metaTags_contains_some: [String]
-    metaTags_exists: Boolean
+    metaKeywords_contains_all: [String]
+    metaKeywords_contains_none: [String]
+    metaKeywords_contains_some: [String]
+    metaKeywords_exists: Boolean
     metaTitle: String
     metaTitle_contains: String
     metaTitle_exists: Boolean
