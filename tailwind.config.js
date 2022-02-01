@@ -1,4 +1,5 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
+const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: [
@@ -13,11 +14,16 @@ module.exports = {
       accent: "hsla(40, 100%, 42%, 1)",
       text: "#181717",
       "text-light": "#606060",
+      black: colors.black,
+      white: colors.white,
+      gray: colors.gray,
+      lime: colors.lime,
     },
     fontFamily: {
       headline: ["Roboto", "sans-serif"],
       curly: ["Moon Dance", "cursive"],
       mono: ["DM Mono", ...defaultTheme.fontFamily.mono],
+      sans: ["Roboto", ...defaultTheme.fontFamily.sans],
     },
     container: {
       center: true,

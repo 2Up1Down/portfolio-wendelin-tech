@@ -33,7 +33,7 @@ const menu = [
 const Navbar = ({ isOpen }) => {
   return (
     <div className={`${isOpen ? "block" : "hidden"} items-center md:flex`}>
-      <ul className="flex flex-col gap-2 items-center md:flex-row md:gap-4">
+      <ul className="flex flex-col gap-2 items-center md:flex-row md:gap-8">
         {menu.map((item) => (
           <NavItem key={item.id} item={item} />
         ))}
