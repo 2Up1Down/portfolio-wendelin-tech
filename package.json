@@ -1,5 +1,5 @@
 {
-  "name": "berglick-contentful",
+  "name": "wendelin-tech-contentful",
   "private": true,
   "scripts": {
     "dev": "next dev",
