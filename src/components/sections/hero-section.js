@@ -13,7 +13,7 @@ const HeroSection = ({
   secondaryButtonUrl = "",
 }) => {
   return (
-    <div className="bg-gray-50">
+    <section className="bg-gray-50">
       <div className="container h-screen grid place-items-center background-image-wrapper ">
         <div className="flex flex-col items-center text-center content-section">
           <div className="max-w-lg mb-4 ">
@@ -62,7 +62,7 @@ const HeroSection = ({
           position: relative;
         }
       `}</style>
-    </div>
+    </section>
   );
 };
 
