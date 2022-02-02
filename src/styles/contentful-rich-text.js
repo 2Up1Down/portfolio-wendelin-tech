@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
-import ApartmentCard from "../components/apartments/apartment-card";
 
 export function renderOptions(links) {
   // create an asset map
@@ -219,6 +218,22 @@ export function renderOptions(links) {
           <span className="bg-green-200 text-2xl">{text}</span>
         ),
       },
+    },
+  };
+}
+
+export function renderTitleOptions() {
+  return {
+    renderNode: {
+      [BLOCKS.HEADING_1]: (node, children) => (
+        <h1 className="text-5xl leading-[4rem]">{children}</h1>
+      ),
+    },
+
+    renderMark: {
+      [MARKS.ITALIC]: (text) => (
+        <span className="font-curly text-6xl">{text}</span>
+      ),
     },
   };
 }

@@ -9,9 +9,15 @@ const GET_HOMEPAGE = (locale) => gql`
           id
         }
         heroSection {
-          title
+          title {
+            json
+          }
           subtitle
           buttonText
+          backgroundImage {
+            url
+            title
+          }
         }
 
         whatIDo {

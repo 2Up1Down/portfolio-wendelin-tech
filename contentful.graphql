@@ -255,7 +255,7 @@ type HeroSection implements Entry {
     linkedFrom(allowedLocales: [String]): HeroSectionLinkingCollections
     subtitle(locale: String): String
     sys: Sys!
-    title(locale: String): String
+    title(locale: String): HeroSectionTitle
 }
 
 type HeroSectionCollection {
@@ -268,6 +268,27 @@ type HeroSectionCollection {
 type HeroSectionLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
     homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type HeroSectionTitle {
+    json: JSON!
+    links: HeroSectionTitleLinks!
+}
+
+type HeroSectionTitleAssets {
+    block: [Asset]!
+    hyperlink: [Asset]!
+}
+
+type HeroSectionTitleEntries {
+    block: [Entry]!
+    hyperlink: [Entry]!
+    inline: [Entry]!
+}
+
+type HeroSectionTitleLinks {
+    assets: HeroSectionTitleAssets!
+    entries: HeroSectionTitleEntries!
 }
 
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/homepage)"
@@ -1364,13 +1385,9 @@ input HeroSectionFilter {
     subtitle_not_contains: String
     subtitle_not_in: [String]
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input HomepageFilter {
@@ -1831,13 +1848,9 @@ input cfHeroSectionNestedFilter {
     subtitle_not_contains: String
     subtitle_not_in: [String]
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input cfPartnersSectionNestedFilter {
