@@ -1,12 +1,16 @@
 import Layout from "../components/common/layout";
-import { getHomepageData } from "../utils/contentful/query-homepage";
-import JsonStringify from "../components/common/json-stringify";
 import DefaultHead from "../components/common/default-head";
+import HeroSection from "../components/sections/hero-section";
+import JsonStringify from "../components/common/json-stringify";
+import { getHomepageData } from "../utils/contentful/query-homepage";
 
 export default function Home({ homepageData }) {
   const {
     seoData: { metaTitle, metaDescription, metaKeywords, ogImage },
   } = homepageData;
+
+  const { heroSection } = homepageData;
+
   return (
     <Layout>
       <DefaultHead
@@ -16,7 +20,9 @@ export default function Home({ homepageData }) {
         image={ogImage}
       />
 
-      <JsonStringify jsonObj={homepageData} />
+      <HeroSection {...heroSection} />
+
+      <JsonStringify jsonObj={heroSection} />
     </Layout>
   );
 }

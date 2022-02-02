@@ -8,7 +8,7 @@ const HeroSection = ({
   title = {},
   subtitle = "",
   buttonText = "",
-  image = {},
+  backgroundImage = {},
 }) => {
   return (
     <div className="bg-gray-50">
@@ -44,7 +44,7 @@ const HeroSection = ({
           width: 100%;
           height: 100%;
           opacity: 0.2;
-          background-image: url(${image.url});
+          background-image: url(${backgroundImage.url});
           background-repeat: no-repeat;
           background-position: center;
           background-size: contain;
