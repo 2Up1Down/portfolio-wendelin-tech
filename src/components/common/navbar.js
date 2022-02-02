@@ -19,7 +19,7 @@ const menu = [
     slug: "/portfolio",
   },
   {
-    id: "5",
+    id: "6",
     label: "Blog",
     slug: "/blog",
   },
