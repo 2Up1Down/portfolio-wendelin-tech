@@ -1,5 +1,4 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
-const colors = require("tailwindcss/colors");
 
 module.exports = {
   content: [
@@ -12,12 +11,8 @@ module.exports = {
       primary: "hsla(148, 39%, 19%, 1)",
       "primary-light": "hsla(148, 54%, 30%, 1)",
       accent: "hsla(40, 100%, 42%, 1)",
-      text: "#181717",
+      "text-base": "#181717",
       "text-light": "#606060",
-      black: colors.black,
-      white: colors.white,
-      gray: colors.gray,
-      lime: colors.lime,
     },
     fontFamily: {
       headline: ["Roboto", "sans-serif"],

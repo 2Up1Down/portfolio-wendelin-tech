@@ -250,9 +250,12 @@ type EntryCollection {
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/heroSection)"
 type HeroSection implements Entry {
     backgroundImage(locale: String, preview: Boolean): Asset
-    buttonText(locale: String): String
     contentfulMetadata: ContentfulMetadata!
     linkedFrom(allowedLocales: [String]): HeroSectionLinkingCollections
+    primaryButtonText(locale: String): String
+    primaryButtonUrl(locale: String): String
+    secondaryButtonText(locale: String): String
+    secondaryButtonUrl(locale: String): String
     subtitle(locale: String): String
     sys: Sys!
     title(locale: String): HeroSectionTitle
@@ -884,8 +887,14 @@ enum EntryOrder {
 }
 
 enum HeroSectionOrder {
-    buttonText_ASC
-    buttonText_DESC
+    primaryButtonText_ASC
+    primaryButtonText_DESC
+    primaryButtonUrl_ASC
+    primaryButtonUrl_DESC
+    secondaryButtonText_ASC
+    secondaryButtonText_DESC
+    secondaryButtonUrl_ASC
+    secondaryButtonUrl_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -1369,14 +1378,35 @@ input HeroSectionFilter {
     AND: [HeroSectionFilter]
     OR: [HeroSectionFilter]
     backgroundImage_exists: Boolean
-    buttonText: String
-    buttonText_contains: String
-    buttonText_exists: Boolean
-    buttonText_in: [String]
-    buttonText_not: String
-    buttonText_not_contains: String
-    buttonText_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
+    primaryButtonText: String
+    primaryButtonText_contains: String
+    primaryButtonText_exists: Boolean
+    primaryButtonText_in: [String]
+    primaryButtonText_not: String
+    primaryButtonText_not_contains: String
+    primaryButtonText_not_in: [String]
+    primaryButtonUrl: String
+    primaryButtonUrl_contains: String
+    primaryButtonUrl_exists: Boolean
+    primaryButtonUrl_in: [String]
+    primaryButtonUrl_not: String
+    primaryButtonUrl_not_contains: String
+    primaryButtonUrl_not_in: [String]
+    secondaryButtonText: String
+    secondaryButtonText_contains: String
+    secondaryButtonText_exists: Boolean
+    secondaryButtonText_in: [String]
+    secondaryButtonText_not: String
+    secondaryButtonText_not_contains: String
+    secondaryButtonText_not_in: [String]
+    secondaryButtonUrl: String
+    secondaryButtonUrl_contains: String
+    secondaryButtonUrl_exists: Boolean
+    secondaryButtonUrl_in: [String]
+    secondaryButtonUrl_not: String
+    secondaryButtonUrl_not_contains: String
+    secondaryButtonUrl_not_in: [String]
     subtitle: String
     subtitle_contains: String
     subtitle_exists: Boolean
@@ -1832,14 +1862,35 @@ input cfHeroSectionNestedFilter {
     AND: [cfHeroSectionNestedFilter]
     OR: [cfHeroSectionNestedFilter]
     backgroundImage_exists: Boolean
-    buttonText: String
-    buttonText_contains: String
-    buttonText_exists: Boolean
-    buttonText_in: [String]
-    buttonText_not: String
-    buttonText_not_contains: String
-    buttonText_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
+    primaryButtonText: String
+    primaryButtonText_contains: String
+    primaryButtonText_exists: Boolean
+    primaryButtonText_in: [String]
+    primaryButtonText_not: String
+    primaryButtonText_not_contains: String
+    primaryButtonText_not_in: [String]
+    primaryButtonUrl: String
+    primaryButtonUrl_contains: String
+    primaryButtonUrl_exists: Boolean
+    primaryButtonUrl_in: [String]
+    primaryButtonUrl_not: String
+    primaryButtonUrl_not_contains: String
+    primaryButtonUrl_not_in: [String]
+    secondaryButtonText: String
+    secondaryButtonText_contains: String
+    secondaryButtonText_exists: Boolean
+    secondaryButtonText_in: [String]
+    secondaryButtonText_not: String
+    secondaryButtonText_not_contains: String
+    secondaryButtonText_not_in: [String]
+    secondaryButtonUrl: String
+    secondaryButtonUrl_contains: String
+    secondaryButtonUrl_exists: Boolean
+    secondaryButtonUrl_in: [String]
+    secondaryButtonUrl_not: String
+    secondaryButtonUrl_not_contains: String
+    secondaryButtonUrl_not_in: [String]
     subtitle: String
     subtitle_contains: String
     subtitle_exists: Boolean

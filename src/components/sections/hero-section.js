@@ -1,33 +1,41 @@
 import React from "react";
-import Link from "next/link";
-import { MdNorthEast } from "react-icons/md";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { renderTitleOptions } from "../../styles/contentful-rich-text";
+import ArrowLink from "../common/arrow-link";
 
 const HeroSection = ({
   title = {},
   subtitle = "",
-  buttonText = "",
   backgroundImage = {},
+  primaryButtonText = "",
+  primaryButtonUrl = "",
+  secondaryButtonText = "",
+  secondaryButtonUrl = "",
 }) => {
   return (
     <div className="bg-gray-50">
-      <div className="container h-screen grid place-items-center background-image-wrapper">
+      <div className="container h-screen grid place-items-center background-image-wrapper ">
         <div className="flex flex-col items-center text-center content-section">
-          <h1 className="max-w-lg mb-4 ">
+          <div className="max-w-lg mb-4 ">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
-          </h1>
+          </div>
 
           <h2 className="max-w-sm text-text-light mb-10 leading-6">
             {subtitle}
           </h2>
-          <Link href={"/"}>
-            <a className="text-primary-light text-lg flex border-b-primary-light border-b-2 place-items-center">
-              <span className="pr-1">{buttonText}</span>
-              <MdNorthEast size={16} />
-            </a>
-          </Link>
+          <div className="flex gap-8">
+            <ArrowLink url={primaryButtonUrl} size="large">
+              {primaryButtonText}
+            </ArrowLink>
+            <ArrowLink
+              url={secondaryButtonUrl}
+              variant="primary-light"
+              size="large"
+            >
+              {secondaryButtonText}
+            </ArrowLink>
+          </div>
         </div>
       </div>
       <style jsx>{`

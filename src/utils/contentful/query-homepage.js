@@ -13,11 +13,15 @@ const GET_HOMEPAGE = (locale) => gql`
             json
           }
           subtitle
-          buttonText
           backgroundImage {
             url
             title
           }
+          primaryButtonText
+          primaryButtonUrl
+          secondaryButtonText
+          secondaryButtonUrl
+          
         }
 
         whatIDo {
