@@ -8,6 +8,7 @@ const GET_HOMEPAGE = (locale) => gql`
         sys {
           id
         }
+        
         heroSection {
           title {
             json
@@ -25,11 +26,14 @@ const GET_HOMEPAGE = (locale) => gql`
         }
 
         whatIDo {
-          title
+          title {
+            json
+          }
           description {
             json
           }
         }
+        
         seoData {
           metaTitle
           metaDescription

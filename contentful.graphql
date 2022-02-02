@@ -727,8 +727,9 @@ type WhatSection implements Entry {
     contentfulMetadata: ContentfulMetadata!
     description(locale: String): WhatSectionDescription
     linkedFrom(allowedLocales: [String]): WhatSectionLinkingCollections
+    sectionDescription(locale: String): String
     sys: Sys!
-    title(locale: String): String
+    title(locale: String): WhatSectionTitle
 }
 
 type WhatSectionCollection {
@@ -762,6 +763,27 @@ type WhatSectionDescriptionLinks {
 type WhatSectionLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
     homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type WhatSectionTitle {
+    json: JSON!
+    links: WhatSectionTitleLinks!
+}
+
+type WhatSectionTitleAssets {
+    block: [Asset]!
+    hyperlink: [Asset]!
+}
+
+type WhatSectionTitleEntries {
+    block: [Entry]!
+    hyperlink: [Entry]!
+    inline: [Entry]!
+}
+
+type WhatSectionTitleLinks {
+    assets: WhatSectionTitleAssets!
+    entries: WhatSectionTitleEntries!
 }
 
 enum AboutMeSectionOrder {
@@ -1113,6 +1135,8 @@ enum TestimonialSectionOrder {
 enum WhatSectionOrder {
     buttonText_ASC
     buttonText_DESC
+    sectionDescription_ASC
+    sectionDescription_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -1780,14 +1804,17 @@ input WhatSectionFilter {
     description_contains: String
     description_exists: Boolean
     description_not_contains: String
+    sectionDescription: String
+    sectionDescription_contains: String
+    sectionDescription_exists: Boolean
+    sectionDescription_in: [String]
+    sectionDescription_not: String
+    sectionDescription_not_contains: String
+    sectionDescription_not_in: [String]
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input cfAboutMeSectionNestedFilter {
@@ -1984,12 +2011,15 @@ input cfWhatSectionNestedFilter {
     description_contains: String
     description_exists: Boolean
     description_not_contains: String
+    sectionDescription: String
+    sectionDescription_contains: String
+    sectionDescription_exists: Boolean
+    sectionDescription_in: [String]
+    sectionDescription_not: String
+    sectionDescription_not_contains: String
+    sectionDescription_not_in: [String]
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }

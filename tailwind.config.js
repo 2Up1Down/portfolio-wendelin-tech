@@ -12,7 +12,9 @@ module.exports = {
       "primary-light": "hsla(148, 54%, 30%, 1)",
       accent: "hsla(40, 100%, 42%, 1)",
       "text-base": "#181717",
-      "text-light": "#606060",
+      "gray-dark": "#606060",
+      "gray-light": "#F1F1F1",
+      white: "#FFFFFF",
     },
     fontFamily: {
       headline: ["Roboto", "sans-serif"],
