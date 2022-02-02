@@ -12,11 +12,8 @@ const HeroSection = ({
 }) => {
   return (
     <div className="bg-gray-50">
-      <div
-        className="container h-screen grid place-items-center bg-no-repeat bg-center bg-contain backdrop-opacity-50"
-        style={{ backgroundImage: `url(${image.url})` }}
-      >
-        <div className="flex flex-col items-center text-center">
+      <div className="container h-screen grid place-items-center background-image-wrapper">
+        <div className="flex flex-col items-center text-center content-section">
           <h1 className="max-w-lg mb-4 ">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
@@ -33,6 +30,30 @@ const HeroSection = ({
           </Link>
         </div>
       </div>
+      <style jsx>{`
+        .background-image-wrapper {
+          position: relative;
+        }
+
+        .background-image-wrapper:before {
+          content: " ";
+          display: block;
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          opacity: 0.2;
+          background-image: url(${image.url});
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+        }
+
+        .content-section {
+          position: relative;
+        }
+      `}</style>
     </div>
   );
 };
