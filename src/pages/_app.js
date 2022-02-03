@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import * as ga from "../utils/ga";
+import Head from "next/head";
 
+import * as ga from "../utils/ga";
 import "../styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
@@ -22,7 +23,14 @@ function MyApp({ Component, pageProps }) {
     };
   }, [router.events]);
 
-  return <Component {...pageProps} />;
+  return (
+    <>
+      <Head>
+        <meta name="author" content="Wendelin Steiner" />
+      </Head>
+      <Component {...pageProps} />
+    </>
+  );
 }
 
 export default MyApp;
