@@ -33,6 +33,26 @@ const GET_HOMEPAGE = (locale) => gql`
             json
           }
         }
+
+        servicesSection {
+          title {
+            json
+          }
+          servicesCollection {
+            items {
+              sys {
+                id
+              }
+              title
+              slug
+              image: featuredImage {
+                title
+                url
+              }
+              excerpt
+            }
+          }
+        }
         
         seoData {
           metaTitle

@@ -31,7 +31,11 @@ module.exports = {
         "2xl": "1124px",
       },
     },
-    extend: {},
+    extend: {
+      aspectRatio: {
+        "4/5": "4 / 5",
+      },
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };

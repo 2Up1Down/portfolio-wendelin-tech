@@ -305,7 +305,7 @@ type Homepage implements Entry {
     partnersSection(locale: String, preview: Boolean): PartnersSection
     portfolioCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepagePortfolioCollection
     seoData(locale: String, preview: Boolean): SeoData
-    servicesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageServicesCollection
+    servicesSection(locale: String, preview: Boolean): ServicesSection
     sys: Sys!
     testimonialSection(locale: String, preview: Boolean): TestimonialSection
     whatIDo(locale: String, preview: Boolean): WhatSection
@@ -324,13 +324,6 @@ type HomepageLinkingCollections {
 
 type HomepagePortfolioCollection {
     items: [Project]!
-    limit: Int!
-    skip: Int!
-    total: Int!
-}
-
-type HomepageServicesCollection {
-    items: [Service]!
     limit: Int!
     skip: Int!
     total: Int!
@@ -538,6 +531,8 @@ type Query {
     seoDataCollection(limit: Int = 100, locale: String, order: [SeoDataOrder], preview: Boolean, skip: Int = 0, where: SeoDataFilter): SeoDataCollection
     service(id: String!, locale: String, preview: Boolean): Service
     serviceCollection(limit: Int = 100, locale: String, order: [ServiceOrder], preview: Boolean, skip: Int = 0, where: ServiceFilter): ServiceCollection
+    servicesSection(id: String!, locale: String, preview: Boolean): ServicesSection
+    servicesSectionCollection(limit: Int = 100, locale: String, order: [ServicesSectionOrder], preview: Boolean, skip: Int = 0, where: ServicesSectionFilter): ServicesSectionCollection
     testimonial(id: String!, locale: String, preview: Boolean): Testimonial
     testimonialCollection(limit: Int = 100, locale: String, order: [TestimonialOrder], preview: Boolean, skip: Int = 0, where: TestimonialFilter): TestimonialCollection
     testimonialSection(id: String!, locale: String, preview: Boolean): TestimonialSection
@@ -574,7 +569,7 @@ type SeoDataLinkingCollections {
 type Service implements Entry {
     content(locale: String): ServiceContent
     contentfulMetadata: ContentfulMetadata!
-    excerpt(locale: String): ServiceExcerpt
+    excerpt(locale: String): String
     featuredImage(locale: String, preview: Boolean): Asset
     linkedFrom(allowedLocales: [String]): ServiceLinkingCollections
     seoData(locale: String, preview: Boolean): SeoData
@@ -611,31 +606,60 @@ type ServiceContentLinks {
     entries: ServiceContentEntries!
 }
 
-type ServiceExcerpt {
-    json: JSON!
-    links: ServiceExcerptLinks!
+type ServiceLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    projectCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ProjectCollection
+    servicesSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ServicesSectionCollection
 }
 
-type ServiceExcerptAssets {
+"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/servicesSection)"
+type ServicesSection implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): ServicesSectionLinkingCollections
+    sectionName(locale: String): String
+    servicesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ServicesSectionServicesCollection
+    sys: Sys!
+    title(locale: String): ServicesSectionTitle
+}
+
+type ServicesSectionCollection {
+    items: [ServicesSection]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type ServicesSectionLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type ServicesSectionServicesCollection {
+    items: [Service]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type ServicesSectionTitle {
+    json: JSON!
+    links: ServicesSectionTitleLinks!
+}
+
+type ServicesSectionTitleAssets {
     block: [Asset]!
     hyperlink: [Asset]!
 }
 
-type ServiceExcerptEntries {
+type ServicesSectionTitleEntries {
     block: [Entry]!
     hyperlink: [Entry]!
     inline: [Entry]!
 }
 
-type ServiceExcerptLinks {
-    assets: ServiceExcerptAssets!
-    entries: ServiceExcerptEntries!
-}
-
-type ServiceLinkingCollections {
-    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
-    homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
-    projectCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ProjectCollection
+type ServicesSectionTitleLinks {
+    assets: ServicesSectionTitleAssets!
+    entries: ServicesSectionTitleEntries!
 }
 
 type Sys {
@@ -1106,6 +1130,19 @@ enum ServiceOrder {
     title_DESC
 }
 
+enum ServicesSectionOrder {
+    sectionName_ASC
+    sectionName_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
 enum TestimonialOrder {
     author_ASC
     author_DESC
@@ -1466,7 +1503,8 @@ input HomepageFilter {
     portfolioCollection_exists: Boolean
     seoData: cfSeoDataNestedFilter
     seoData_exists: Boolean
-    servicesCollection_exists: Boolean
+    servicesSection: cfServicesSectionNestedFilter
+    servicesSection_exists: Boolean
     sys: SysFilter
     testimonialSection: cfTestimonialSectionNestedFilter
     testimonialSection_exists: Boolean
@@ -1683,9 +1721,13 @@ input ServiceFilter {
     content_exists: Boolean
     content_not_contains: String
     contentfulMetadata: ContentfulMetadataFilter
+    excerpt: String
     excerpt_contains: String
     excerpt_exists: Boolean
+    excerpt_in: [String]
+    excerpt_not: String
     excerpt_not_contains: String
+    excerpt_not_in: [String]
     featuredImage_exists: Boolean
     seoData: cfSeoDataNestedFilter
     seoData_exists: Boolean
@@ -1704,6 +1746,24 @@ input ServiceFilter {
     title_not: String
     title_not_contains: String
     title_not_in: [String]
+}
+
+input ServicesSectionFilter {
+    AND: [ServicesSectionFilter]
+    OR: [ServicesSectionFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    sectionName: String
+    sectionName_contains: String
+    sectionName_exists: Boolean
+    sectionName_in: [String]
+    sectionName_not: String
+    sectionName_not_contains: String
+    sectionName_not_in: [String]
+    servicesCollection_exists: Boolean
+    sys: SysFilter
+    title_contains: String
+    title_exists: Boolean
+    title_not_contains: String
 }
 
 input SysFilter {
@@ -1977,6 +2037,24 @@ input cfSeoDataNestedFilter {
     metaTitle_not_in: [String]
     ogImage_exists: Boolean
     sys: SysFilter
+}
+
+input cfServicesSectionNestedFilter {
+    AND: [cfServicesSectionNestedFilter]
+    OR: [cfServicesSectionNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    sectionName: String
+    sectionName_contains: String
+    sectionName_exists: Boolean
+    sectionName_in: [String]
+    sectionName_not: String
+    sectionName_not_contains: String
+    sectionName_not_in: [String]
+    servicesCollection_exists: Boolean
+    sys: SysFilter
+    title_contains: String
+    title_exists: Boolean
+    title_not_contains: String
 }
 
 input cfTestimonialSectionNestedFilter {
