@@ -7,8 +7,8 @@ import SocialMedia from "../common/social-media";
 const AboutMeSection = ({ title, description, image }) => {
   return (
     <section className="bg-gray-light">
-      <div className="grid grid-cols-full-width grid-area">
-        <div className="grid-text pl-4 self-center py-32">
+      <div className="pt-12 md:py-0 md:grid grid-cols-full-width grid-area">
+        <div className="grid-text px-4 pb-8 self-center md:pb-0">
           <div className="mb-8">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
@@ -20,7 +20,7 @@ const AboutMeSection = ({ title, description, image }) => {
           <SocialMedia />
         </div>
         <div className="grid-media">
-          <div className="relative w-full min-h-full">
+          <div className="relative w-full h-80 md:min-h-[700px]">
             <Image
               src={image.url}
               alt={image.title}
