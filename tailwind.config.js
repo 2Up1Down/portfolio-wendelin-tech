@@ -26,14 +26,19 @@ module.exports = {
       center: true,
       padding: "1rem",
       screens: {
-        lg: "1124px",
-        xl: "1124px",
-        "2xl": "1124px",
+        lg: "1128px",
+        xl: "1128px",
+        "2xl": "1128px",
       },
     },
     extend: {
       aspectRatio: {
         "4/5": "4 / 5",
+      },
+      gridTemplateColumns: {
+        // inspired by https://rachelandrew.co.uk/archives/2017/06/01/breaking-out-with-css-grid-explained/
+        "full-width":
+          "[full-start] auto [main-start] repeat(12, minmax(0, 94px)) [main-end] auto [full-end];",
       },
     },
   },

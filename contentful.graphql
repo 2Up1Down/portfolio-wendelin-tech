@@ -15,9 +15,9 @@ type AboutMeSection implements Entry {
     description(locale: String): AboutMeSectionDescription
     image(locale: String, preview: Boolean): Asset
     linkedFrom(allowedLocales: [String]): AboutMeSectionLinkingCollections
+    sectionDescription(locale: String): String
     sys: Sys!
-    text(locale: String): String
-    title(locale: String): String
+    title(locale: String): AboutMeSectionTitle
 }
 
 type AboutMeSectionCollection {
@@ -51,6 +51,27 @@ type AboutMeSectionDescriptionLinks {
 type AboutMeSectionLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
     homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type AboutMeSectionTitle {
+    json: JSON!
+    links: AboutMeSectionTitleLinks!
+}
+
+type AboutMeSectionTitleAssets {
+    block: [Asset]!
+    hyperlink: [Asset]!
+}
+
+type AboutMeSectionTitleEntries {
+    block: [Entry]!
+    hyperlink: [Entry]!
+    inline: [Entry]!
+}
+
+type AboutMeSectionTitleLinks {
+    assets: AboutMeSectionTitleAssets!
+    entries: AboutMeSectionTitleEntries!
 }
 
 "Represents a binary file in a space. An asset can be any file type."
@@ -811,6 +832,8 @@ type WhatSectionTitleLinks {
 }
 
 enum AboutMeSectionOrder {
+    sectionDescription_ASC
+    sectionDescription_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -819,8 +842,6 @@ enum AboutMeSectionOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
-    title_ASC
-    title_DESC
 }
 
 enum AssetOrder {
@@ -1213,21 +1234,17 @@ input AboutMeSectionFilter {
     description_exists: Boolean
     description_not_contains: String
     image_exists: Boolean
+    sectionDescription: String
+    sectionDescription_contains: String
+    sectionDescription_exists: Boolean
+    sectionDescription_in: [String]
+    sectionDescription_not: String
+    sectionDescription_not_contains: String
+    sectionDescription_not_in: [String]
     sys: SysFilter
-    text: String
-    text_contains: String
-    text_exists: Boolean
-    text_in: [String]
-    text_not: String
-    text_not_contains: String
-    text_not_in: [String]
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input AssetFilter {
@@ -1885,21 +1902,17 @@ input cfAboutMeSectionNestedFilter {
     description_exists: Boolean
     description_not_contains: String
     image_exists: Boolean
+    sectionDescription: String
+    sectionDescription_contains: String
+    sectionDescription_exists: Boolean
+    sectionDescription_in: [String]
+    sectionDescription_not: String
+    sectionDescription_not_contains: String
+    sectionDescription_not_in: [String]
     sys: SysFilter
-    text: String
-    text_contains: String
-    text_exists: Boolean
-    text_in: [String]
-    text_not: String
-    text_not_contains: String
-    text_not_in: [String]
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input cfCtaNestedFilter {

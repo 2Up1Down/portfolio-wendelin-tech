@@ -53,6 +53,19 @@ const GET_HOMEPAGE = (locale) => gql`
             }
           }
         }
+
+        aboutMe {
+          title {
+            json
+          }
+          description {
+            json
+          }
+          image {
+            title
+            url
+          }
+        }
         
         seoData {
           metaTitle
