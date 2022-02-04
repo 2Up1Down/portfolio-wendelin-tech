@@ -30,19 +30,6 @@ const AboutMeSection = ({ title, description, image }) => {
           </div>
         </div>
       </div>
-      <style jsx>{`
-        .grid-area {
-          grid-template-areas: ". text text text text text . . . media media media media media";
-        }
-
-        .grid-text {
-          grid-area: text;
-        }
-
-        .grid-media {
-          grid-area: media;
-        }
-      `}</style>
     </section>
   );
 };
