@@ -25,7 +25,7 @@ const HeroSection = ({
             {subtitle}
           </h2>
           <div className="flex gap-8">
-            <ArrowLink url={primaryButtonUrl} size="large">
+            <ArrowLink url={primaryButtonUrl} size="large" direction="none">
               {primaryButtonText}
             </ArrowLink>
             <ArrowLink

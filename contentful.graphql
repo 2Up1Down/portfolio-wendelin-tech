@@ -324,7 +324,7 @@ type Homepage implements Entry {
     linkedFrom(allowedLocales: [String]): HomepageLinkingCollections
     pageTitle(locale: String): String
     partnersSection(locale: String, preview: Boolean): PartnersSection
-    portfolioCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepagePortfolioCollection
+    portfolioSection(locale: String, preview: Boolean): PortfolioSection
     seoData(locale: String, preview: Boolean): SeoData
     servicesSection(locale: String, preview: Boolean): ServicesSection
     sys: Sys!
@@ -341,13 +341,6 @@ type HomepageCollection {
 
 type HomepageLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
-}
-
-type HomepagePortfolioCollection {
-    items: [Project]!
-    limit: Int!
-    skip: Int!
-    total: Int!
 }
 
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/page)"
@@ -434,14 +427,66 @@ type PartnersSectionPartnersCollection {
     total: Int!
 }
 
+"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/portfolioSection)"
+type PortfolioSection implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    labelServices(locale: String): String
+    labelTechnologies(locale: String): String
+    linkedFrom(allowedLocales: [String]): PortfolioSectionLinkingCollections
+    projectsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): PortfolioSectionProjectsCollection
+    sectionDescription(locale: String): String
+    sys: Sys!
+    title(locale: String): PortfolioSectionTitle
+}
+
+type PortfolioSectionCollection {
+    items: [PortfolioSection]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type PortfolioSectionLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type PortfolioSectionProjectsCollection {
+    items: [Project]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type PortfolioSectionTitle {
+    json: JSON!
+    links: PortfolioSectionTitleLinks!
+}
+
+type PortfolioSectionTitleAssets {
+    block: [Asset]!
+    hyperlink: [Asset]!
+}
+
+type PortfolioSectionTitleEntries {
+    block: [Entry]!
+    hyperlink: [Entry]!
+    inline: [Entry]!
+}
+
+type PortfolioSectionTitleLinks {
+    assets: PortfolioSectionTitleAssets!
+    entries: PortfolioSectionTitleEntries!
+}
+
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/project)"
 type Project implements Entry {
     content(locale: String): ProjectContent
     contentfulMetadata: ContentfulMetadata!
     customer(locale: String, preview: Boolean): Customer
     date(locale: String): DateTime
-    excerpt(locale: String): ProjectExcerpt
-    featuredImage(locale: String, preview: Boolean): Asset
+    excerpt(locale: String): String
+    image(locale: String, preview: Boolean): Asset
     linkedFrom(allowedLocales: [String]): ProjectLinkingCollections
     servicesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ProjectServicesCollection
     slug(locale: String): String
@@ -449,7 +494,6 @@ type Project implements Entry {
     technologies(locale: String): [String]
     testimonialsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ProjectTestimonialsCollection
     title(locale: String): String
-    url(locale: String): String
 }
 
 type ProjectCollection {
@@ -480,30 +524,9 @@ type ProjectContentLinks {
     entries: ProjectContentEntries!
 }
 
-type ProjectExcerpt {
-    json: JSON!
-    links: ProjectExcerptLinks!
-}
-
-type ProjectExcerptAssets {
-    block: [Asset]!
-    hyperlink: [Asset]!
-}
-
-type ProjectExcerptEntries {
-    block: [Entry]!
-    hyperlink: [Entry]!
-    inline: [Entry]!
-}
-
-type ProjectExcerptLinks {
-    assets: ProjectExcerptAssets!
-    entries: ProjectExcerptEntries!
-}
-
 type ProjectLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
-    homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+    portfolioSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): PortfolioSectionCollection
 }
 
 type ProjectServicesCollection {
@@ -546,6 +569,8 @@ type Query {
     partnerCollection(limit: Int = 100, locale: String, order: [PartnerOrder], preview: Boolean, skip: Int = 0, where: PartnerFilter): PartnerCollection
     partnersSection(id: String!, locale: String, preview: Boolean): PartnersSection
     partnersSectionCollection(limit: Int = 100, locale: String, order: [PartnersSectionOrder], preview: Boolean, skip: Int = 0, where: PartnersSectionFilter): PartnersSectionCollection
+    portfolioSection(id: String!, locale: String, preview: Boolean): PortfolioSection
+    portfolioSectionCollection(limit: Int = 100, locale: String, order: [PortfolioSectionOrder], preview: Boolean, skip: Int = 0, where: PortfolioSectionFilter): PortfolioSectionCollection
     project(id: String!, locale: String, preview: Boolean): Project
     projectCollection(limit: Int = 100, locale: String, order: [ProjectOrder], preview: Boolean, skip: Int = 0, where: ProjectFilter): ProjectCollection
     seoData(id: String!, locale: String, preview: Boolean): SeoData
@@ -1102,6 +1127,23 @@ enum PartnersSectionOrder {
     title_DESC
 }
 
+enum PortfolioSectionOrder {
+    labelServices_ASC
+    labelServices_DESC
+    labelTechnologies_ASC
+    labelTechnologies_DESC
+    sectionDescription_ASC
+    sectionDescription_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
 enum ProjectOrder {
     date_ASC
     date_DESC
@@ -1117,8 +1159,6 @@ enum ProjectOrder {
     sys_publishedVersion_DESC
     title_ASC
     title_DESC
-    url_ASC
-    url_DESC
 }
 
 enum SeoDataOrder {
@@ -1517,7 +1557,8 @@ input HomepageFilter {
     pageTitle_not_in: [String]
     partnersSection: cfPartnersSectionNestedFilter
     partnersSection_exists: Boolean
-    portfolioCollection_exists: Boolean
+    portfolioSection: cfPortfolioSectionNestedFilter
+    portfolioSection_exists: Boolean
     seoData: cfSeoDataNestedFilter
     seoData_exists: Boolean
     servicesSection: cfServicesSectionNestedFilter
@@ -1653,6 +1694,38 @@ input PartnersSectionFilter {
     title_not_in: [String]
 }
 
+input PortfolioSectionFilter {
+    AND: [PortfolioSectionFilter]
+    OR: [PortfolioSectionFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    labelServices: String
+    labelServices_contains: String
+    labelServices_exists: Boolean
+    labelServices_in: [String]
+    labelServices_not: String
+    labelServices_not_contains: String
+    labelServices_not_in: [String]
+    labelTechnologies: String
+    labelTechnologies_contains: String
+    labelTechnologies_exists: Boolean
+    labelTechnologies_in: [String]
+    labelTechnologies_not: String
+    labelTechnologies_not_contains: String
+    labelTechnologies_not_in: [String]
+    projectsCollection_exists: Boolean
+    sectionDescription: String
+    sectionDescription_contains: String
+    sectionDescription_exists: Boolean
+    sectionDescription_in: [String]
+    sectionDescription_not: String
+    sectionDescription_not_contains: String
+    sectionDescription_not_in: [String]
+    sys: SysFilter
+    title_contains: String
+    title_exists: Boolean
+    title_not_contains: String
+}
+
 input ProjectFilter {
     AND: [ProjectFilter]
     OR: [ProjectFilter]
@@ -1671,10 +1744,14 @@ input ProjectFilter {
     date_lte: DateTime
     date_not: DateTime
     date_not_in: [DateTime]
+    excerpt: String
     excerpt_contains: String
     excerpt_exists: Boolean
+    excerpt_in: [String]
+    excerpt_not: String
     excerpt_not_contains: String
-    featuredImage_exists: Boolean
+    excerpt_not_in: [String]
+    image_exists: Boolean
     servicesCollection_exists: Boolean
     slug: String
     slug_contains: String
@@ -1696,13 +1773,6 @@ input ProjectFilter {
     title_not: String
     title_not_contains: String
     title_not_in: [String]
-    url: String
-    url_contains: String
-    url_exists: Boolean
-    url_in: [String]
-    url_not: String
-    url_not_contains: String
-    url_not_in: [String]
 }
 
 input SeoDataFilter {
@@ -2024,6 +2094,38 @@ input cfPartnersSectionNestedFilter {
     title_not: String
     title_not_contains: String
     title_not_in: [String]
+}
+
+input cfPortfolioSectionNestedFilter {
+    AND: [cfPortfolioSectionNestedFilter]
+    OR: [cfPortfolioSectionNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    labelServices: String
+    labelServices_contains: String
+    labelServices_exists: Boolean
+    labelServices_in: [String]
+    labelServices_not: String
+    labelServices_not_contains: String
+    labelServices_not_in: [String]
+    labelTechnologies: String
+    labelTechnologies_contains: String
+    labelTechnologies_exists: Boolean
+    labelTechnologies_in: [String]
+    labelTechnologies_not: String
+    labelTechnologies_not_contains: String
+    labelTechnologies_not_in: [String]
+    projectsCollection_exists: Boolean
+    sectionDescription: String
+    sectionDescription_contains: String
+    sectionDescription_exists: Boolean
+    sectionDescription_in: [String]
+    sectionDescription_not: String
+    sectionDescription_not_contains: String
+    sectionDescription_not_in: [String]
+    sys: SysFilter
+    title_contains: String
+    title_exists: Boolean
+    title_not_contains: String
 }
 
 input cfSeoDataNestedFilter {

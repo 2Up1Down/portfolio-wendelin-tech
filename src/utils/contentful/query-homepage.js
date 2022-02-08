@@ -66,6 +66,37 @@ const GET_HOMEPAGE = (locale) => gql`
             url
           }
         }
+
+        portfolioSection {
+          title {
+            json
+          }
+          labelTechnologies
+          labelServices
+          projectsCollection {
+            items {
+              sys {
+                id
+              }
+              title
+              excerpt
+              image {
+                title
+                url
+              }
+              technologies
+              servicesCollection {
+                items {
+                  title
+                }
+              }
+              customer {
+                customer
+                url
+              }
+            }
+          }
+        }        
         
         seoData {
           metaTitle
