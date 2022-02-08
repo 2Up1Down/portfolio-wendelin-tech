@@ -32,6 +32,7 @@ const HeroSection = ({
               url={secondaryButtonUrl}
               variant="primary-light"
               size="large"
+              direction="north-east"
             >
               {secondaryButtonText}
             </ArrowLink>

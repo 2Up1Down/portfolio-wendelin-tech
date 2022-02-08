@@ -13,6 +13,7 @@ const ArrowLink = ({
   variant = "base",
   size = "normal",
   className,
+  direction = "none",
   ...rest
 }) => {
   return (
@@ -24,8 +25,12 @@ const ArrowLink = ({
             ${classes.variant[variant]}
             ${className}`)}
       >
-        <span className="pr-1">{children}</span>
-        <MdNorthEast size={16} />
+        {children}
+        {direction !== "none" && (
+          <span className="pl-1 -translate-y-[0.15rem]">
+            <MdNorthEast size={16} />
+          </span>
+        )}
       </a>
     </Link>
   );
@@ -53,6 +58,7 @@ ArrowLink.propTypes = {
   className: PropTypes.string,
   variant: PropTypes.oneOf(["primary", "primary-light", "accent", "base"]),
   size: PropTypes.oneOf(["small", "normal", "large"]),
+  direction: PropTypes.oneOf(["", "none", "north-east"]),
 };
 
 export default ArrowLink;
