@@ -8,11 +8,11 @@
 
     /* About me section */
     .area-about {
-        grid-template-areas: "lside text  text  text  text  text  text  text  media  media media media media media";
+        grid-template-areas: "  .  about about about about about about about  media  media media media media media";
     }
 
-    .grid-text {
-        grid-area: text;
+    .grid-about {
+        grid-area: about;
     }
 
     .grid-media {
