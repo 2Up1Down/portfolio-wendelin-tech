@@ -24,21 +24,27 @@
 
 
     /*!* Portfolio section *!*/
-    /*.area-portfolio {*/
-    /*    grid-template-areas: "title title title title title title title title title title title title title title"*/
-    /*                         "text  text  text  text  text  text  text  text  text  text  text  text  text  text "*/
-    /*                         "ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl "*/
-    /*                         "image image image image image image image image image image image image image image";*/
-    /*}*/
-
-
 
     .area-portfolio {
         grid-template-areas: "title"
-                             "text "
-                             "ctrl "
+                             "text"
+                             "ctrl"
                              "image";
+
     }
+
+
+
+    @screen md {
+        .area-portfolio {
+            grid-template-columns: 1fr 2fr;
+            grid-template-areas: "title title"
+                                 "text  text "
+                                 "ctrl  ctrl "
+                                 "  .   image";
+        }
+    }
+
 
     @screen lg {
         .area-portfolio {

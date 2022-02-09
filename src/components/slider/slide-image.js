@@ -10,20 +10,22 @@ const SlideImage = ({
 
   return (
     <div
-      className={`absolute transition-opacity duration-500 ease-in-out lg:pl-0 lg:-translate-x-16  ${
+      className={`absolute transition-opacity duration-500 ease-in-out ${
         active ? "opacity-100" : "opacity-0"
       }`}
     >
-      {image && (
-        <Image
-          src={image.url}
-          alt={image.title}
-          height={1080}
-          width={1920}
-          objectFit="cover"
-          className="absolute"
-        />
-      )}
+      <div className="md:-translate-y-1/2 lg:translate-y-0 lg:-translate-x-16">
+        {image && (
+          <Image
+            src={image.url}
+            alt={image.title}
+            height={1080}
+            width={1920}
+            objectFit="cover"
+            className="absolute"
+          />
+        )}
+      </div>
     </div>
   );
 };

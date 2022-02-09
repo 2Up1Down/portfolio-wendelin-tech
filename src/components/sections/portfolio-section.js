@@ -46,7 +46,7 @@ const PortfolioSection = ({
           </div>
         </div>
 
-        <div className="grid-text bg-primary pl-4">
+        <div className="grid-text bg-primary px-4">
           <div className="relative h-96">
             {projects.map((project, index) => (
               <SlideText
@@ -61,7 +61,7 @@ const PortfolioSection = ({
           </div>
         </div>
 
-        <div className="grid-ctrl bg-primary pl-4 pt-8 pb-16 flex gap-8 justify-center lg:justify-start">
+        <div className="grid-ctrl bg-primary pl-4 pt-4 pb-4 sm:pb-8 md:pb-32 flex gap-8 justify-start">
           <ButtonSlider direction="prev" onClick={prevSlide} />
           <SliderIndicators
             total={projects.length}

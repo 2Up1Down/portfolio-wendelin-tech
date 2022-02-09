@@ -15,8 +15,9 @@ const SlideText = ({ project, labelTechnologies, labelServices, active }) => {
         </h3>
         <p className="mb-8">{excerpt}</p>
         <h4 className="mb-6 font-bold">{labelTechnologies}</h4>
-        <p className="mb-8">{technologies.toString()}</p>
+        <p className="mb-8">{technologies.join(", ")}</p>
         <h4 className="mb-6 font-bold">{labelServices}</h4>
+        <p className="mb-8">{technologies.join(", ")}</p>
       </div>
     </article>
   );
