@@ -11,6 +11,8 @@
         grid-template-areas: "  .  about about about about about about about  media  media media media media media";
     }
 
+
+
     .grid-about {
         grid-area: about;
     }
@@ -21,12 +23,39 @@
 
 
 
-    /* Portfolio section */
+    /*!* Portfolio section *!*/
+    /*.area-portfolio {*/
+    /*    grid-template-areas: "title title title title title title title title title title title title title title"*/
+    /*                         "text  text  text  text  text  text  text  text  text  text  text  text  text  text "*/
+    /*                         "ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl "*/
+    /*                         "image image image image image image image image image image image image image image";*/
+    /*}*/
+
+
+
     .area-portfolio {
-        grid-template-areas: "lside title title title title title title title   .     .     .     .     .     .  "
-                             "lside text  text  text  text  text  text  text  image image image image image image"
-                             "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .     .  ";
+        grid-template-areas: "title"
+                             "text "
+                             "ctrl "
+                             "image";
     }
+
+    @screen lg {
+        .area-portfolio {
+            grid-template-areas: "lside title title title title title title   .     .     .     .     .     .     .  "
+                                 "lside text  text  text  text  text  text  image image image image image image image"
+                                 "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .     .     .  ";
+        }
+    }
+
+    @screen 2xl {
+        .area-portfolio {
+            grid-template-areas: "lside title title title title title title title title    .     .     .     .     .  "
+                                 "lside text  text  text  text  text  text  text  text  image image image image image"
+                                 "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .  ";
+        }
+    }
+
 
 
     .grid-lside {

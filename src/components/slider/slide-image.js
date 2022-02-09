@@ -10,7 +10,7 @@ const SlideImage = ({
 
   return (
     <div
-      className={`absolute transition-opacity -translate-x-16 duration-500 ease-in-out ${
+      className={`absolute transition-opacity duration-500 ease-in-out lg:pl-0 lg:-translate-x-16  ${
         active ? "opacity-100" : "opacity-0"
       }`}
     >

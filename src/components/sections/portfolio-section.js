@@ -35,12 +35,12 @@ const PortfolioSection = ({
 
   return (
     <section className="text-white">
-      <div className="grid grid-cols-full-width area-portfolio">
-        <div className="grid-lside bg-primary" />
+      <div className="grid lg:grid-cols-full-width area-portfolio">
+        <div className="grid-lside bg-primary hidden lg:block" />
 
         <div className="grid-title bg-primary px-4">
           <div className="max-w-xl border-b-2 pt-16 opacity-20" />
-          <div className="mb-8 pt-16">
+          <div className="pb-8 pt-16">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
@@ -61,6 +61,16 @@ const PortfolioSection = ({
           </div>
         </div>
 
+        <div className="grid-ctrl bg-primary pl-4 pt-8 pb-16 flex gap-8 justify-center lg:justify-start">
+          <ButtonSlider direction="prev" onClick={prevSlide} />
+          <SliderIndicators
+            total={projects.length}
+            activeIndicator={slideIndex}
+            onClick={moveIndicator}
+          />
+          <ButtonSlider direction="next" onClick={nextSlide} />
+        </div>
+
         <div className="grid-image justify-self-stretch">
           <div className="relative w-full aspect-video">
             {projects.map((project, index) => (
@@ -71,16 +81,6 @@ const PortfolioSection = ({
               />
             ))}
           </div>
-        </div>
-
-        <div className="grid-ctrl bg-primary pl-4 pt-8 pb-16 flex gap-8">
-          <ButtonSlider direction="prev" onClick={prevSlide} />
-          <SliderIndicators
-            total={projects.length}
-            activeIndicator={slideIndex}
-            onClick={moveIndicator}
-          />
-          <ButtonSlider direction="next" onClick={nextSlide} />
         </div>
       </div>
     </section>
