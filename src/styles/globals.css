@@ -5,14 +5,10 @@
 @tailwind utilities;
 
 @layer utilities {
-    .grid-area {
-        grid-template-areas: ". text text text text text . media media media media media media media";
-    }
 
-    @screen xl {
-        .grid-area {
-            grid-template-areas: ". text text text text text . . . media media media media media";
-        }
+    /* About me section */
+    .area-about {
+        grid-template-areas: "lside text  text  text  text  text  text  text  media  media media media media media";
     }
 
     .grid-text {
@@ -22,4 +18,36 @@
     .grid-media {
         grid-area: media;
     }
+
+
+
+    /* Portfolio section */
+    .area-portfolio {
+        grid-template-areas: "lside title title title title title title title   .     .     .     .     .     .  "
+                             "lside text  text  text  text  text  text  text  image image image image image image"
+                             "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .     .  ";
+    }
+
+
+    .grid-lside {
+        grid-area: lside;
+    }
+
+    .grid-title {
+        grid-area: title;
+    }
+
+    .grid-text {
+        grid-area: text;
+    }
+
+    .grid-image {
+        grid-area: image;
+    }
+
+    .grid-ctrl {
+        grid-area: ctrl;
+    }
+
+
 }

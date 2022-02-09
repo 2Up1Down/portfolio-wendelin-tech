@@ -37,6 +37,7 @@ module.exports = {
       },
       gridTemplateColumns: {
         // inspired by https://rachelandrew.co.uk/archives/2017/06/01/breaking-out-with-css-grid-explained/
+        // 94px + 12 = 1128px --> corresponds to the container width
         "full-width":
           "[full-start] auto [main-start] repeat(12, minmax(0, 94px)) [main-end] auto [full-end];",
       },
