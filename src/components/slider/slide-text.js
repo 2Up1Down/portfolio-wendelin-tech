@@ -1,7 +1,7 @@
 import React from "react";
 
 const SlideText = ({ project, labelTechnologies, labelServices, active }) => {
-  const { title, excerpt, technologies, customer } = project;
+  const { title, excerpt, technologies, customer, services } = project;
 
   return (
     <article
@@ -17,7 +17,7 @@ const SlideText = ({ project, labelTechnologies, labelServices, active }) => {
         <h4 className="mb-6 font-bold">{labelTechnologies}</h4>
         <p className="mb-8">{technologies.join(", ")}</p>
         <h4 className="mb-6 font-bold">{labelServices}</h4>
-        <p className="mb-8">{technologies.join(", ")}</p>
+        <p className="mb-8">{services.join(", ")}</p>
       </div>
     </article>
   );

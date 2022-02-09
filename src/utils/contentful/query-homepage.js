@@ -85,11 +85,7 @@ const GET_HOMEPAGE = (locale) => gql`
                 url
               }
               technologies
-              servicesCollection {
-                items {
-                  title
-                }
-              }
+              services
               customer {
                 customer
                 url

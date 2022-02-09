@@ -47,7 +47,9 @@ const PortfolioSection = ({
         </div>
 
         <div className="grid-text bg-primary px-4">
-          <div className="relative h-96">
+          {/*Height media query is a terrible work around, as absolute images don't occupy any space, but absolute images are needed for the slider*/}
+          {/*TODO come up with a cleaner implementation*/}
+          <div className="relative h-[28rem] sm:h-[24rem] lg:h-[28rem]">
             {projects.map((project, index) => (
               <SlideText
                 key={project.sys.id}
@@ -61,7 +63,7 @@ const PortfolioSection = ({
           </div>
         </div>
 
-        <div className="grid-ctrl bg-primary pl-4 pt-4 pb-4 sm:pb-8 md:pb-32 flex gap-8 justify-start">
+        <div className="grid-ctrl bg-primary pl-4 pt-12 pb-4 sm:pb-8 md:pb-32 flex gap-8 justify-start">
           <ButtonSlider direction="prev" onClick={prevSlide} />
           <SliderIndicators
             total={projects.length}

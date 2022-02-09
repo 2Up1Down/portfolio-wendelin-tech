@@ -488,7 +488,7 @@ type Project implements Entry {
     excerpt(locale: String): String
     image(locale: String, preview: Boolean): Asset
     linkedFrom(allowedLocales: [String]): ProjectLinkingCollections
-    servicesCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ProjectServicesCollection
+    services(locale: String): [String]
     slug(locale: String): String
     sys: Sys!
     technologies(locale: String): [String]
@@ -527,13 +527,6 @@ type ProjectContentLinks {
 type ProjectLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
     portfolioSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): PortfolioSectionCollection
-}
-
-type ProjectServicesCollection {
-    items: [Service]!
-    limit: Int!
-    skip: Int!
-    total: Int!
 }
 
 type ProjectTestimonialsCollection {
@@ -654,7 +647,6 @@ type ServiceContentLinks {
 
 type ServiceLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
-    projectCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ProjectCollection
     servicesSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ServicesSectionCollection
 }
 
@@ -1752,7 +1744,10 @@ input ProjectFilter {
     excerpt_not_contains: String
     excerpt_not_in: [String]
     image_exists: Boolean
-    servicesCollection_exists: Boolean
+    services_contains_all: [String]
+    services_contains_none: [String]
+    services_contains_some: [String]
+    services_exists: Boolean
     slug: String
     slug_contains: String
     slug_exists: Boolean
