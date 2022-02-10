@@ -6,12 +6,13 @@
 
 @layer utilities {
 
+    /* CSS for About me and Portfolio section is mixed together. It's not an ideal approach, but unfortunately the design is tightly coupled together...*/
+    /* If further styles are added, this should be placed in a separate CSS file. Its good as it is for now. */
+
     /* About me section */
     .area-about {
-        grid-template-areas: "  .  about about about about about about about  media  media media media media media";
+        grid-template-areas: "  .   about about about about about about media media  media media media media media";
     }
-
-
 
     .grid-about {
         grid-area: about;
@@ -21,10 +22,7 @@
         grid-area: media;
     }
 
-
-
     /*!* Portfolio section *!*/
-
     .area-portfolio {
         grid-template-areas: "title"
                              "text"
@@ -32,8 +30,6 @@
                              "image";
 
     }
-
-
 
     @screen md {
         .area-portfolio {
@@ -52,6 +48,10 @@
                                  "lside text  text  text  text  text  text  image image image image image image image"
                                  "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .     .     .  ";
         }
+
+        .area-about {
+            grid-template-areas: "  .   about about about about about about media media  media media media media media";
+        }
     }
 
     @screen 2xl {
@@ -60,9 +60,11 @@
                                  "lside text  text  text  text  text  text  text  text  image image image image image"
                                  "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .  ";
         }
+
+        .area-about {
+            grid-template-areas: "  .  about about about about about about about  about  media media media media media";
+        }
     }
-
-
 
     .grid-lside {
         grid-area: lside;
@@ -83,6 +85,4 @@
     .grid-ctrl {
         grid-area: ctrl;
     }
-
-
 }
