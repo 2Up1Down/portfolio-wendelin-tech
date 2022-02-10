@@ -16,6 +16,7 @@ type AboutMeSection implements Entry {
     image(locale: String, preview: Boolean): Asset
     linkedFrom(allowedLocales: [String]): AboutMeSectionLinkingCollections
     sectionDescription(locale: String): String
+    socialMedia(locale: String, preview: Boolean): SocialMedia
     sys: Sys!
     title(locale: String): AboutMeSectionTitle
 }
@@ -572,6 +573,8 @@ type Query {
     serviceCollection(limit: Int = 100, locale: String, order: [ServiceOrder], preview: Boolean, skip: Int = 0, where: ServiceFilter): ServiceCollection
     servicesSection(id: String!, locale: String, preview: Boolean): ServicesSection
     servicesSectionCollection(limit: Int = 100, locale: String, order: [ServicesSectionOrder], preview: Boolean, skip: Int = 0, where: ServicesSectionFilter): ServicesSectionCollection
+    socialMedia(id: String!, locale: String, preview: Boolean): SocialMedia
+    socialMediaCollection(limit: Int = 100, locale: String, order: [SocialMediaOrder], preview: Boolean, skip: Int = 0, where: SocialMediaFilter): SocialMediaCollection
     testimonial(id: String!, locale: String, preview: Boolean): Testimonial
     testimonialCollection(limit: Int = 100, locale: String, order: [TestimonialOrder], preview: Boolean, skip: Int = 0, where: TestimonialFilter): TestimonialCollection
     testimonialSection(id: String!, locale: String, preview: Boolean): TestimonialSection
@@ -698,6 +701,30 @@ type ServicesSectionTitleEntries {
 type ServicesSectionTitleLinks {
     assets: ServicesSectionTitleAssets!
     entries: ServicesSectionTitleEntries!
+}
+
+"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/socialMedia)"
+type SocialMedia implements Entry {
+    account(locale: String): String
+    contentfulMetadata: ContentfulMetadata!
+    github(locale: String): String
+    instagram(locale: String): String
+    linkedFrom(allowedLocales: [String]): SocialMediaLinkingCollections
+    linkedin(locale: String): String
+    sys: Sys!
+    twitter(locale: String): String
+}
+
+type SocialMediaCollection {
+    items: [SocialMedia]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type SocialMediaLinkingCollections {
+    aboutMeSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AboutMeSectionCollection
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
 }
 
 type Sys {
@@ -1196,6 +1223,27 @@ enum ServicesSectionOrder {
     sys_publishedVersion_DESC
 }
 
+enum SocialMediaOrder {
+    account_ASC
+    account_DESC
+    github_ASC
+    github_DESC
+    instagram_ASC
+    instagram_DESC
+    linkedin_ASC
+    linkedin_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    twitter_ASC
+    twitter_DESC
+}
+
 enum TestimonialOrder {
     author_ASC
     author_DESC
@@ -1273,6 +1321,8 @@ input AboutMeSectionFilter {
     sectionDescription_not: String
     sectionDescription_not_contains: String
     sectionDescription_not_in: [String]
+    socialMedia: cfSocialMediaNestedFilter
+    socialMedia_exists: Boolean
     sys: SysFilter
     title_contains: String
     title_exists: Boolean
@@ -1848,6 +1898,48 @@ input ServicesSectionFilter {
     title_not_contains: String
 }
 
+input SocialMediaFilter {
+    AND: [SocialMediaFilter]
+    OR: [SocialMediaFilter]
+    account: String
+    account_contains: String
+    account_exists: Boolean
+    account_in: [String]
+    account_not: String
+    account_not_contains: String
+    account_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    github: String
+    github_contains: String
+    github_exists: Boolean
+    github_in: [String]
+    github_not: String
+    github_not_contains: String
+    github_not_in: [String]
+    instagram: String
+    instagram_contains: String
+    instagram_exists: Boolean
+    instagram_in: [String]
+    instagram_not: String
+    instagram_not_contains: String
+    instagram_not_in: [String]
+    linkedin: String
+    linkedin_contains: String
+    linkedin_exists: Boolean
+    linkedin_in: [String]
+    linkedin_not: String
+    linkedin_not_contains: String
+    linkedin_not_in: [String]
+    sys: SysFilter
+    twitter: String
+    twitter_contains: String
+    twitter_exists: Boolean
+    twitter_in: [String]
+    twitter_not: String
+    twitter_not_contains: String
+    twitter_not_in: [String]
+}
+
 input SysFilter {
     firstPublishedAt: DateTime
     firstPublishedAt_exists: Boolean
@@ -1974,6 +2066,7 @@ input cfAboutMeSectionNestedFilter {
     sectionDescription_not: String
     sectionDescription_not_contains: String
     sectionDescription_not_in: [String]
+    socialMedia_exists: Boolean
     sys: SysFilter
     title_contains: String
     title_exists: Boolean
@@ -2165,6 +2258,48 @@ input cfServicesSectionNestedFilter {
     title_contains: String
     title_exists: Boolean
     title_not_contains: String
+}
+
+input cfSocialMediaNestedFilter {
+    AND: [cfSocialMediaNestedFilter]
+    OR: [cfSocialMediaNestedFilter]
+    account: String
+    account_contains: String
+    account_exists: Boolean
+    account_in: [String]
+    account_not: String
+    account_not_contains: String
+    account_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    github: String
+    github_contains: String
+    github_exists: Boolean
+    github_in: [String]
+    github_not: String
+    github_not_contains: String
+    github_not_in: [String]
+    instagram: String
+    instagram_contains: String
+    instagram_exists: Boolean
+    instagram_in: [String]
+    instagram_not: String
+    instagram_not_contains: String
+    instagram_not_in: [String]
+    linkedin: String
+    linkedin_contains: String
+    linkedin_exists: Boolean
+    linkedin_in: [String]
+    linkedin_not: String
+    linkedin_not_contains: String
+    linkedin_not_in: [String]
+    sys: SysFilter
+    twitter: String
+    twitter_contains: String
+    twitter_exists: Boolean
+    twitter_in: [String]
+    twitter_not: String
+    twitter_not_contains: String
+    twitter_not_in: [String]
 }
 
 input cfTestimonialSectionNestedFilter {

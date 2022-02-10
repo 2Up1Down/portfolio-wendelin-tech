@@ -3,7 +3,7 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import { renderTitleOptions } from "../../styles/contentful-rich-text";
 import SocialMedia from "../common/social-media";
 
-const AboutMeSection = ({ title, description, image }) => {
+const AboutMeSection = ({ title, description, image, socialMedia }) => {
   return (
     <section className="bg-gray-light">
       <div className="pt-12 md:py-0 md:grid grid-cols-full-width area-about">
@@ -16,7 +16,7 @@ const AboutMeSection = ({ title, description, image }) => {
             {description &&
               documentToReactComponents(description.json, renderTitleOptions())}
           </div>
-          <SocialMedia />
+          <SocialMedia accounts={socialMedia} />
         </div>
         {/* inspired by https://stackoverflow.com/questions/70805041/background-image-in-tailwindcss-using-dynamic-url-react-js */}
         <div

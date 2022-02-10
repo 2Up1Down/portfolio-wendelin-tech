@@ -65,6 +65,12 @@ const GET_HOMEPAGE = (locale) => gql`
             title
             url
           }
+          socialMedia {
+            github
+            instagram
+            linkedin
+            twitter
+          }
         }
 
         portfolioSection {
