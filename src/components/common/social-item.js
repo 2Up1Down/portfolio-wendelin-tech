@@ -15,11 +15,11 @@ const SocialItem = ({ platform = "", url = "/" }) => {
 
   return (
     <Link href={url}>
-      <a target="_blank">
-        {platform === supportedPlatforms.github && <FaGithub />}
-        {platform === supportedPlatforms.instagram && <FaInstagram />}
+      <a>
         {platform === supportedPlatforms.linkedin && <FaLinkedin />}
         {platform === supportedPlatforms.twitter && <FaTwitter />}
+        {platform === supportedPlatforms.instagram && <FaInstagram />}
+        {platform === supportedPlatforms.github && <FaGithub />}
       </a>
     </Link>
   );
