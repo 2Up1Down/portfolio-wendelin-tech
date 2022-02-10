@@ -14,7 +14,7 @@ const SlideImage = ({
         active ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="md:-translate-y-1/2 lg:translate-y-0 lg:-translate-x-16">
+      <div className="md:-translate-y-1/2 lg:translate-y-0 lg:-translate-x-16 drop-shadow-[0_40px_80px_rgba(0,0,0,0.25)]">
         {image && (
           <Image
             src={image.url}
