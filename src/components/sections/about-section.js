@@ -7,12 +7,12 @@ const AboutMeSection = ({ title, description, image, socialMedia }) => {
   return (
     <section className="bg-gray-light">
       <div className="pt-12 md:py-0 md:grid grid-cols-full-width area-about">
-        <div className="grid-about px-4 pb-8 self-center md:pb-0">
+        <div className="grid-about px-4 pb-12 self-center md:pb-0">
           <div className="mb-8">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
-          <div className="mb-8">
+          <div className="mb-8 max-w-lg">
             {description &&
               documentToReactComponents(description.json, renderTitleOptions())}
           </div>
