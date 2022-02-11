@@ -241,5 +241,11 @@ export function renderTitleOptions() {
         <span className="font-curly text-6xl">{text}</span>
       ),
     },
+
+    renderText: (text) => {
+      return text.split("\n").reduce((children, textSegment, index) => {
+        return [...children, index > 0 && <br key={index} />, textSegment];
+      }, []);
+    },
   };
 }
