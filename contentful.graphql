@@ -100,6 +100,7 @@ type AssetCollection {
 type AssetLinkingCollections {
     aboutMeSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AboutMeSectionCollection
     contentCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): ContentCollection
+    ctaCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CtaCollection
     customerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CustomerCollection
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
     heroSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HeroSectionCollection
@@ -222,10 +223,13 @@ type ContentfulTag {
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/cta)"
 type Cta implements Entry {
     buttonText(locale: String): String
+    buttonUrl(locale: String): String
     contentfulMetadata: ContentfulMetadata!
+    description(locale: String): String
+    image(locale: String, preview: Boolean): Asset
     linkedFrom(allowedLocales: [String]): CtaLinkingCollections
     sys: Sys!
-    title(locale: String): String
+    title(locale: String): CtaTitle
 }
 
 type CtaCollection {
@@ -238,6 +242,27 @@ type CtaCollection {
 type CtaLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
     homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type CtaTitle {
+    json: JSON!
+    links: CtaTitleLinks!
+}
+
+type CtaTitleAssets {
+    block: [Asset]!
+    hyperlink: [Asset]!
+}
+
+type CtaTitleEntries {
+    block: [Entry]!
+    hyperlink: [Entry]!
+    inline: [Entry]!
+}
+
+type CtaTitleLinks {
+    assets: CtaTitleAssets!
+    entries: CtaTitleEntries!
 }
 
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/customer)"
@@ -961,6 +986,8 @@ enum ContentSectionOrder {
 enum CtaOrder {
     buttonText_ASC
     buttonText_DESC
+    buttonUrl_ASC
+    buttonUrl_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -1494,15 +1521,26 @@ input CtaFilter {
     buttonText_not: String
     buttonText_not_contains: String
     buttonText_not_in: [String]
+    buttonUrl: String
+    buttonUrl_contains: String
+    buttonUrl_exists: Boolean
+    buttonUrl_in: [String]
+    buttonUrl_not: String
+    buttonUrl_not_contains: String
+    buttonUrl_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
+    description: String
+    description_contains: String
+    description_exists: Boolean
+    description_in: [String]
+    description_not: String
+    description_not_contains: String
+    description_not_in: [String]
+    image_exists: Boolean
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input CustomerFilter {
@@ -2083,15 +2121,26 @@ input cfCtaNestedFilter {
     buttonText_not: String
     buttonText_not_contains: String
     buttonText_not_in: [String]
+    buttonUrl: String
+    buttonUrl_contains: String
+    buttonUrl_exists: Boolean
+    buttonUrl_in: [String]
+    buttonUrl_not: String
+    buttonUrl_not_contains: String
+    buttonUrl_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
+    description: String
+    description_contains: String
+    description_exists: Boolean
+    description_in: [String]
+    description_not: String
+    description_not_contains: String
+    description_not_in: [String]
+    image_exists: Boolean
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input cfCustomerNestedFilter {

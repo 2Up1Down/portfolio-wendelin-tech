@@ -7,14 +7,21 @@ import ServicesSection from "../components/sections/services-section";
 import AboutMeSection from "../components/sections/about-section";
 import { getHomepageData } from "../utils/contentful/query-homepage";
 import PortfolioSection from "../components/sections/portfolio-section";
+import CtaSection from "../components/sections/cta-section";
 
 export default function Home({ homepageData }) {
   const {
     seoData: { metaTitle, metaDescription, metaKeywords, ogImage },
   } = homepageData;
 
-  const { heroSection, whatIDo, servicesSection, aboutMe, portfolioSection } =
-    homepageData;
+  const {
+    heroSection,
+    whatIDo,
+    servicesSection,
+    aboutMe,
+    portfolioSection,
+    cta,
+  } = homepageData;
 
   return (
     <Layout>
@@ -30,8 +37,9 @@ export default function Home({ homepageData }) {
       <ServicesSection {...servicesSection} />
       <AboutMeSection {...aboutMe} />
       <PortfolioSection {...portfolioSection} />
+      <CtaSection {...cta} />
 
-      <JsonStringify jsonObj={portfolioSection} />
+      <JsonStringify jsonObj={cta} />
     </Layout>
   );
 }

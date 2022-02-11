@@ -98,7 +98,20 @@ const GET_HOMEPAGE = (locale) => gql`
               }
             }
           }
-        }        
+        }
+
+        cta {
+          title {
+            json
+          }
+          description
+          buttonText
+          buttonUrl
+          image {
+            title
+            url
+          }
+        }
         
         seoData {
           metaTitle
