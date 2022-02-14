@@ -369,6 +369,11 @@ type HomepageLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
 }
 
+type Location {
+    lat: Float
+    lon: Float
+}
+
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/page)"
 type Page implements Entry {
     contentSectionsCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): PageContentSectionsCollection
@@ -600,6 +605,8 @@ type Query {
     servicesSectionCollection(limit: Int = 100, locale: String, order: [ServicesSectionOrder], preview: Boolean, skip: Int = 0, where: ServicesSectionFilter): ServicesSectionCollection
     socialMedia(id: String!, locale: String, preview: Boolean): SocialMedia
     socialMediaCollection(limit: Int = 100, locale: String, order: [SocialMediaOrder], preview: Boolean, skip: Int = 0, where: SocialMediaFilter): SocialMediaCollection
+    spot(id: String!, locale: String, preview: Boolean): Spot
+    spotCollection(limit: Int = 100, locale: String, order: [SpotOrder], preview: Boolean, skip: Int = 0, where: SpotFilter): SpotCollection
     testimonial(id: String!, locale: String, preview: Boolean): Testimonial
     testimonialCollection(limit: Int = 100, locale: String, order: [TestimonialOrder], preview: Boolean, skip: Int = 0, where: TestimonialFilter): TestimonialCollection
     testimonialSection(id: String!, locale: String, preview: Boolean): TestimonialSection
@@ -752,6 +759,27 @@ type SocialMediaLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
 }
 
+"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/spot)"
+type Spot implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    coordinates(locale: String): Location
+    linkedFrom(allowedLocales: [String]): SpotLinkingCollections
+    slug(locale: String): String
+    sys: Sys!
+    text(locale: String): String
+}
+
+type SpotCollection {
+    items: [Spot]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type SpotLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+}
+
 type Sys {
     environmentId: String!
     firstPublishedAt: DateTime
@@ -766,9 +794,9 @@ type Testimonial implements Entry {
     author(locale: String): String
     citation(locale: String): String
     contentfulMetadata: ContentfulMetadata!
-    description(locale: String): String
     image(locale: String, preview: Boolean): Asset
     linkedFrom(allowedLocales: [String]): TestimonialLinkingCollections
+    position(locale: String): String
     sys: Sys!
 }
 
@@ -1271,11 +1299,26 @@ enum SocialMediaOrder {
     twitter_DESC
 }
 
+enum SpotOrder {
+    slug_ASC
+    slug_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    text_ASC
+    text_DESC
+}
+
 enum TestimonialOrder {
     author_ASC
     author_DESC
-    description_ASC
-    description_DESC
+    position_ASC
+    position_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -1312,6 +1355,9 @@ enum WhatSectionOrder {
     sys_publishedVersion_DESC
 }
 
+"The Circle scalar type represents a circle, defined by the coordinates of its center and a radius. The Circle type is used to represent a searchable area together with the '_within_circle' filter."
+scalar Circle
+
 """
 
 A date-time string at UTC, such as 2007-12-03T10:15:30Z,
@@ -1332,6 +1378,9 @@ scalar JSON
 
 "The 'Quality' type represents quality as whole numeric values between `1` and `100`."
 scalar Quality
+
+"The Rectangle scalar type represents a rectangle, defined by the coordinates of its top left and bottom right corners. The Rectangle type is used to represent a searchable area together with the '_within_rectangle' filter."
+scalar Rectangle
 
 input AboutMeSectionFilter {
     AND: [AboutMeSectionFilter]
@@ -1978,6 +2027,30 @@ input SocialMediaFilter {
     twitter_not_in: [String]
 }
 
+input SpotFilter {
+    AND: [SpotFilter]
+    OR: [SpotFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    coordinates_exists: Boolean
+    coordinates_within_circle: Circle
+    coordinates_within_rectangle: Rectangle
+    slug: String
+    slug_contains: String
+    slug_exists: Boolean
+    slug_in: [String]
+    slug_not: String
+    slug_not_contains: String
+    slug_not_in: [String]
+    sys: SysFilter
+    text: String
+    text_contains: String
+    text_exists: Boolean
+    text_in: [String]
+    text_not: String
+    text_not_contains: String
+    text_not_in: [String]
+}
+
 input SysFilter {
     firstPublishedAt: DateTime
     firstPublishedAt_exists: Boolean
@@ -2033,14 +2106,14 @@ input TestimonialFilter {
     citation_not_contains: String
     citation_not_in: [String]
     contentfulMetadata: ContentfulMetadataFilter
-    description: String
-    description_contains: String
-    description_exists: Boolean
-    description_in: [String]
-    description_not: String
-    description_not_contains: String
-    description_not_in: [String]
     image_exists: Boolean
+    position: String
+    position_contains: String
+    position_exists: Boolean
+    position_in: [String]
+    position_not: String
+    position_not_contains: String
+    position_not_in: [String]
     sys: SysFilter
 }
 

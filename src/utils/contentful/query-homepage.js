@@ -112,6 +112,29 @@ const GET_HOMEPAGE = (locale) => gql`
             url
           }
         }
+
+        testimonialSection {
+          title {
+            json
+          }
+          subtitle
+          testimonialsCollection {
+            items {
+              sys {
+                id
+              }
+              author
+              position
+              citation
+              image {
+                title
+                url
+                height
+                width
+              }
+            }
+          }
+        }
         
         seoData {
           metaTitle

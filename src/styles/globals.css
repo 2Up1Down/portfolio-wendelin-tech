@@ -85,4 +85,15 @@
     .grid-ctrl {
         grid-area: ctrl;
     }
+
+
+    /* Testimonial section */
+    .area-testimonial {
+        grid-template-areas: "  .   card  card  card  card  card  card  card  card  card  card  card  card  card ";
+    }
+
+    .grid-card  {
+        grid-area: card ;
+    }
+
 }
