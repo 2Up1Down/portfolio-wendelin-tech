@@ -226,10 +226,14 @@ export function renderTitleOptions() {
   return {
     renderNode: {
       [BLOCKS.HEADING_1]: (node, children) => (
-        <h1 className="text-5xl leading-[4rem]">{children}</h1>
+        <h1 className="text-4xl leading-[3rem] sm:text-5xl sm:leading-[4rem]">
+          {children}
+        </h1>
       ),
       [BLOCKS.HEADING_2]: (node, children) => (
-        <h2 className="text-5xl leading-[4rem]">{children}</h2>
+        <h2 className="text-4xl leading-[3rem] sm:text-5xl sm:leading-[4rem]">
+          {children}
+        </h2>
       ),
       [BLOCKS.PARAGRAPH]: (node, children) => (
         <p className="font-sans font-light">{children}</p>
@@ -238,7 +242,7 @@ export function renderTitleOptions() {
 
     renderMark: {
       [MARKS.ITALIC]: (text) => (
-        <span className="font-curly text-6xl">{text}</span>
+        <span className="font-curly text-5xl sm:text-6xl">{text}</span>
       ),
     },
 
