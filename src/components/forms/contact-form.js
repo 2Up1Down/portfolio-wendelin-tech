@@ -1,6 +1,7 @@
 import React from "react";
 import FormInput from "./form-input";
 import FormTextarea from "./form-textarea";
+import Button from "../common/button";
 
 const ContactForm = ({ formId }) => {
   return (
@@ -33,9 +34,13 @@ const ContactForm = ({ formId }) => {
           placeholder="Your message"
           required
         />
-        <button type="submit" value="Submit" className="py-2 bg-orange-300">
+        <Button
+          type="submit"
+          value="Submit"
+          className="py-2 bg-accent text-white"
+        >
           Submit
-        </button>
+        </Button>
       </fieldset>
     </form>
   );

@@ -135,6 +135,14 @@ const GET_HOMEPAGE = (locale) => gql`
             }
           }
         }
+
+        contactSection {
+          title {
+            json
+          }
+          subtitle
+          formId
+        }
         
         seoData {
           metaTitle

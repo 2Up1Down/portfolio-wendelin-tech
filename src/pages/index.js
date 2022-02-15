@@ -9,6 +9,7 @@ import { getHomepageData } from "../utils/contentful/query-homepage";
 import PortfolioSection from "../components/sections/portfolio-section";
 import CtaSection from "../components/sections/cta-section";
 import TestimonialSection from "../components/sections/testimonial-section";
+import ContactSection from "../components/sections/contact-section";
 
 export default function Home({ homepageData }) {
   const {
@@ -23,6 +24,7 @@ export default function Home({ homepageData }) {
     portfolioSection,
     cta,
     testimonialSection,
+    contactSection,
   } = homepageData;
 
   return (
@@ -41,8 +43,9 @@ export default function Home({ homepageData }) {
       <PortfolioSection {...portfolioSection} />
       <CtaSection {...cta} />
       <TestimonialSection {...testimonialSection} />
+      <ContactSection {...contactSection} />
 
-      <JsonStringify jsonObj={testimonialSection} />
+      <JsonStringify jsonObj={contactSection} />
     </Layout>
   );
 }

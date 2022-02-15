@@ -8,6 +8,7 @@ module.exports = {
   ],
   theme: {
     colors: {
+      transparent: "transparent",
       primary: "hsla(148, 39%, 19%, 1)",
       "primary-light": "hsla(148, 54%, 30%, 1)",
       accent: "hsla(40, 100%, 42%, 1)",
