@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 import FormInput from "./form-input";
 import FormTextarea from "./form-textarea";
-import Button from "../common/button";
+import { Button } from "../common/button";
 import en from "../../../public/locales/en/contact";
 import de from "../../../public/locales/de/contact";
 
@@ -40,11 +40,7 @@ const ContactForm = ({ formId }) => {
           placeholder={t.message}
           required
         />
-        <Button
-          type="submit"
-          value="Submit"
-          className="py-2 bg-accent text-white hover:bg-accent-dark transition-all"
-        >
+        <Button type="submit" value="Submit" width="full" variant="accent">
           {t.submit}
         </Button>
       </fieldset>

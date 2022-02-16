@@ -1,19 +1,19 @@
 import React from "react";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { renderTitleOptions } from "../../styles/contentful-rich-text";
-import ButtonLink from "../common/button-link";
+import Button from "../common/button";
 
 const CtaSection = ({ title, description, buttonText, buttonUrl, image }) => {
   return (
-    <section className="min-h-screen grid place-items-center background-image-wrapper bg-gray-light">
+    <section className="background-image-wrapper grid min-h-screen place-items-center bg-gray-light">
       <div className="content-section container max-w-md">
         <div className="pb-8 pt-16">
           {title && documentToReactComponents(title.json, renderTitleOptions())}
         </div>
         <div className="pb-8">{description}</div>
-        <ButtonLink url={buttonUrl} variant="accent">
+        <Button url={buttonUrl} variant="accent">
           {buttonText}
-        </ButtonLink>
+        </Button>
       </div>
       <style jsx>{`
         .background-image-wrapper {
