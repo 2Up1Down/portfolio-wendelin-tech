@@ -3,7 +3,7 @@ import SocialItem from "./social-item";
 
 const SocialMedia = ({ accounts }) => {
   return (
-    <div className="text-primary flex text-3xl space-x-4">
+    <div className="flex space-x-4 text-3xl">
       {Object.entries(accounts).map(([key, value]) => (
         <SocialItem key={key} platform={key} url={value} />
       ))}

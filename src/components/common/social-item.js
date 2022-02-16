@@ -15,7 +15,7 @@ const SocialItem = ({ platform = "", url = "/" }) => {
 
   return (
     <Link href={url}>
-      <a>
+      <a className="text-primary transition-all duration-300 ease-in-out hover:text-primary-light">
         {platform === supportedPlatforms.linkedin && <FaLinkedin />}
         {platform === supportedPlatforms.twitter && <FaTwitter />}
         {platform === supportedPlatforms.instagram && <FaInstagram />}
