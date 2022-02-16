@@ -1,5 +1,5 @@
 import React from "react";
-import TestimonialCard from "../testimonial/testimonial-card";
+import TestimonialCard from "../cards/testimonial-card";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { renderTitleOptions } from "../../styles/contentful-rich-text";
 
@@ -15,7 +15,7 @@ const TestimonialSection = ({ title, subtitle, testimonialsCollection }) => {
         <div className="mb-8 max-w-lg">{subtitle}</div>
       </div>
 
-      <div className="container-snap snap-x flex space-x-5 overflow-x-scroll overflow-x-hidden">
+      <div className="container-snap flex snap-x space-x-5 overflow-x-hidden overflow-x-scroll">
         {testimonials &&
           testimonials.map((testimonial) => (
             <TestimonialCard
