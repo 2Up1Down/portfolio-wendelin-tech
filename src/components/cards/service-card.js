@@ -1,20 +1,20 @@
 import React from "react";
 import Image from "next/image";
 
-const ServiceOverview = ({ title, excerpt, image }) => {
+const ServiceCard = ({ title, excerpt, image }) => {
   return (
-    <article className="group mb-4 aspect-4/5 relative w-full ease-in-out duration-500 overflow-hidden">
+    <article className="group relative mb-4 aspect-4/5 w-full overflow-hidden duration-500 ease-in-out">
       <Image
         src={image.url}
         alt={image.title}
         layout="fill"
         objectFit="cover"
         objectPosition="center"
-        className="grayscale md:grayscale-0 group-hover:grayscale transition ease-in-out duration-500"
+        className="grayscale transition duration-500 ease-in-out group-hover:grayscale md:grayscale-0"
       />
 
-      <div className="gradient-background text-white p-6 absolute bottom-0 md:translate-y-[calc(100%-5.5rem)] group-hover:translate-y-0 ease-in-out duration-500">
-        <h3 className="text-2xl mb-4 mt-4">{title}</h3>
+      <div className="gradient-background absolute bottom-0 p-6 text-white duration-500 ease-in-out group-hover:translate-y-0 md:translate-y-[calc(100%-5.5rem)]">
+        <h3 className="mb-4 mt-4 text-2xl">{title}</h3>
         <p className="">{excerpt}</p>
       </div>
 
@@ -33,4 +33,4 @@ const ServiceOverview = ({ title, excerpt, image }) => {
   );
 };
 
-export default ServiceOverview;
+export default ServiceCard;

@@ -1,5 +1,5 @@
 import React from "react";
-import ServiceOverview from "../service/service-overview";
+import ServiceCard from "../cards/service-card";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { renderTitleOptions } from "../../styles/contentful-rich-text";
 
@@ -10,15 +10,15 @@ const ServicesSection = ({ title, servicesCollection }) => {
 
   return (
     <section className="">
-      <div className="container min-h-screen py-32 grid place-items-center">
+      <div className="container grid min-h-screen place-items-center py-32">
         <div className="w-full">
           <div className="mb-8">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
-          <div className="grid grid-ram">
+          <div className="grid-ram grid">
             {services.map((service) => (
-              <ServiceOverview key={service.sys.id} {...service} />
+              <ServiceCard key={service.sys.id} {...service} />
             ))}
           </div>
         </div>
