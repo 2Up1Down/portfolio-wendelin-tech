@@ -1,9 +1,15 @@
 import React from "react";
+import { useRouter } from "next/router";
 import FormInput from "./form-input";
 import FormTextarea from "./form-textarea";
 import Button from "../common/button";
+import en from "../../../public/locales/en/contact";
+import de from "../../../public/locales/de/contact";
 
 const ContactForm = ({ formId }) => {
+  const { locale } = useRouter();
+  const t = locale === "de" ? de : en;
+
   return (
     <form
       id="fs-frm"
@@ -17,21 +23,21 @@ const ContactForm = ({ formId }) => {
         <FormInput
           name="name"
           type="text"
-          label="Full Name"
-          placeholder="First and Last Name"
+          label={t.name}
+          placeholder={t.name}
           required={true}
         />
         <FormInput
           name="email"
           type="email"
-          label="Email"
-          placeholder="email@domain.tld"
+          label={t.email}
+          placeholder={t.email}
           required={true}
         />
         <FormTextarea
           name="message"
-          label="Message"
-          placeholder="Your message"
+          label={t.message}
+          placeholder={t.message}
           required
         />
         <Button
@@ -39,7 +45,7 @@ const ContactForm = ({ formId }) => {
           value="Submit"
           className="py-2 bg-accent text-white"
         >
-          Submit
+          {t.submit}
         </Button>
       </fieldset>
     </form>
