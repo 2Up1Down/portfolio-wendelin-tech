@@ -43,7 +43,7 @@ const ContactForm = ({ formId }) => {
         <Button
           type="submit"
           value="Submit"
-          className="py-2 bg-accent text-white"
+          className="py-2 bg-accent text-white hover:bg-accent-dark transition-all"
         >
           {t.submit}
         </Button>

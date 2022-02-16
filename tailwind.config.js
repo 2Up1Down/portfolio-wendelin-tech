@@ -12,6 +12,7 @@ module.exports = {
       primary: "hsla(148, 39%, 19%, 1)",
       "primary-light": "hsla(148, 54%, 30%, 1)",
       accent: "hsla(40, 100%, 42%, 1)",
+      "accent-dark": "hsla(40, 100%, 33%, 1)",
       "text-base": "#181717",
       "gray-dark": "#606060",
       "gray-light": "#F1F1F1",
