@@ -477,11 +477,12 @@ type PartnerLinkingCollections {
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/partnersSection)"
 type PartnersSection implements Entry {
     contentfulMetadata: ContentfulMetadata!
-    description(locale: String): String
     linkedFrom(allowedLocales: [String]): PartnersSectionLinkingCollections
     partnersCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): PartnersSectionPartnersCollection
+    sectionName(locale: String): String
+    subtitle(locale: String): String
     sys: Sys!
-    title(locale: String): String
+    title(locale: String): PartnersSectionTitle
 }
 
 type PartnersSectionCollection {
@@ -501,6 +502,27 @@ type PartnersSectionPartnersCollection {
     limit: Int!
     skip: Int!
     total: Int!
+}
+
+type PartnersSectionTitle {
+    json: JSON!
+    links: PartnersSectionTitleLinks!
+}
+
+type PartnersSectionTitleAssets {
+    block: [Asset]!
+    hyperlink: [Asset]!
+}
+
+type PartnersSectionTitleEntries {
+    block: [Entry]!
+    hyperlink: [Entry]!
+    inline: [Entry]!
+}
+
+type PartnersSectionTitleLinks {
+    assets: PartnersSectionTitleAssets!
+    entries: PartnersSectionTitleEntries!
 }
 
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/portfolioSection)"
@@ -1251,6 +1273,8 @@ enum PartnerOrder {
 }
 
 enum PartnersSectionOrder {
+    sectionName_ASC
+    sectionName_DESC
     sys_firstPublishedAt_ASC
     sys_firstPublishedAt_DESC
     sys_id_ASC
@@ -1259,8 +1283,6 @@ enum PartnersSectionOrder {
     sys_publishedAt_DESC
     sys_publishedVersion_ASC
     sys_publishedVersion_DESC
-    title_ASC
-    title_DESC
 }
 
 enum PortfolioSectionOrder {
@@ -1900,22 +1922,25 @@ input PartnersSectionFilter {
     AND: [PartnersSectionFilter]
     OR: [PartnersSectionFilter]
     contentfulMetadata: ContentfulMetadataFilter
-    description: String
-    description_contains: String
-    description_exists: Boolean
-    description_in: [String]
-    description_not: String
-    description_not_contains: String
-    description_not_in: [String]
     partnersCollection_exists: Boolean
+    sectionName: String
+    sectionName_contains: String
+    sectionName_exists: Boolean
+    sectionName_in: [String]
+    sectionName_not: String
+    sectionName_not_contains: String
+    sectionName_not_in: [String]
+    subtitle: String
+    subtitle_contains: String
+    subtitle_exists: Boolean
+    subtitle_in: [String]
+    subtitle_not: String
+    subtitle_not_contains: String
+    subtitle_not_in: [String]
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input PortfolioSectionFilter {
@@ -2414,22 +2439,25 @@ input cfPartnersSectionNestedFilter {
     AND: [cfPartnersSectionNestedFilter]
     OR: [cfPartnersSectionNestedFilter]
     contentfulMetadata: ContentfulMetadataFilter
-    description: String
-    description_contains: String
-    description_exists: Boolean
-    description_in: [String]
-    description_not: String
-    description_not_contains: String
-    description_not_in: [String]
     partnersCollection_exists: Boolean
+    sectionName: String
+    sectionName_contains: String
+    sectionName_exists: Boolean
+    sectionName_in: [String]
+    sectionName_not: String
+    sectionName_not_contains: String
+    sectionName_not_in: [String]
+    subtitle: String
+    subtitle_contains: String
+    subtitle_exists: Boolean
+    subtitle_in: [String]
+    subtitle_not: String
+    subtitle_not_contains: String
+    subtitle_not_in: [String]
     sys: SysFilter
-    title: String
     title_contains: String
     title_exists: Boolean
-    title_in: [String]
-    title_not: String
     title_not_contains: String
-    title_not_in: [String]
 }
 
 input cfPortfolioSectionNestedFilter {

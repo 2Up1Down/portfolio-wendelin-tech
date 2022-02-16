@@ -144,6 +144,29 @@ const GET_HOMEPAGE = (locale) => gql`
           formId
         }
         
+        partnersSection {
+          title {
+            json
+          }
+          subtitle
+          partnersCollection {
+            items {
+              sys {
+                id
+              }
+              company
+              description
+              logo {
+                url
+                title
+                width
+                height
+              }
+              url
+            }
+          }
+        }
+        
         seoData {
           metaTitle
           metaDescription

@@ -10,6 +10,7 @@ import PortfolioSection from "../components/sections/portfolio-section";
 import CtaSection from "../components/sections/cta-section";
 import TestimonialSection from "../components/sections/testimonial-section";
 import ContactSection from "../components/sections/contact-section";
+import PartnersSection from "../components/sections/partners-section";
 
 export default function Home({ homepageData }) {
   const {
@@ -25,6 +26,7 @@ export default function Home({ homepageData }) {
     cta,
     testimonialSection,
     contactSection,
+    partnersSection,
   } = homepageData;
 
   return (
@@ -44,8 +46,9 @@ export default function Home({ homepageData }) {
       <CtaSection {...cta} />
       <TestimonialSection {...testimonialSection} />
       <ContactSection {...contactSection} />
+      <PartnersSection {...partnersSection} />
 
-      <JsonStringify jsonObj={contactSection} />
+      <JsonStringify jsonObj={partnersSection} />
     </Layout>
   );
 }
