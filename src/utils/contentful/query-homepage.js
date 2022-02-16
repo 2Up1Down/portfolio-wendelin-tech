@@ -167,6 +167,29 @@ const GET_HOMEPAGE = (locale) => gql`
           }
         }
         
+        footer {
+          companyAddress
+          companyName
+          companyPlace
+          email
+          copyright
+          linksCollection {
+            items {
+               sys {
+                 id
+               }
+              text
+              url
+            }
+          }
+          socialMedia {
+            twitter
+            linkedin
+            instagram
+            github
+          }
+        }
+        
         seoData {
           metaTitle
           metaDescription

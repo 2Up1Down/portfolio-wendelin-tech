@@ -5,12 +5,12 @@ import JsonStringify from "../components/common/json-stringify";
 import WhatIDoSection from "../components/sections/what-i-do-section";
 import ServicesSection from "../components/sections/services-section";
 import AboutMeSection from "../components/sections/about-section";
-import { getHomepageData } from "../utils/contentful/query-homepage";
 import PortfolioSection from "../components/sections/portfolio-section";
 import CtaSection from "../components/sections/cta-section";
 import TestimonialSection from "../components/sections/testimonial-section";
 import ContactSection from "../components/sections/contact-section";
 import PartnersSection from "../components/sections/partners-section";
+import { getHomepageData } from "../utils/contentful/query-homepage";
 
 export default function Home({ homepageData }) {
   const {
@@ -27,10 +27,11 @@ export default function Home({ homepageData }) {
     testimonialSection,
     contactSection,
     partnersSection,
+    footer,
   } = homepageData;
 
   return (
-    <Layout>
+    <Layout footer={footer}>
       <DefaultHead
         title={metaTitle}
         description={metaDescription}
@@ -48,7 +49,7 @@ export default function Home({ homepageData }) {
       <ContactSection {...contactSection} />
       <PartnersSection {...partnersSection} />
 
-      <JsonStringify jsonObj={partnersSection} />
+      <JsonStringify jsonObj={footer} />
     </Layout>
   );
 }

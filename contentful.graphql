@@ -103,6 +103,7 @@ type AssetLinkingCollections {
     ctaCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CtaCollection
     customerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): CustomerCollection
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    headerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HeaderCollection
     heroSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HeroSectionCollection
     pageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): PageCollection
     partnerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): PartnerCollection
@@ -338,6 +339,69 @@ type EntryCollection {
     total: Int!
 }
 
+"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/footer)"
+type Footer implements Entry {
+    companyAddress(locale: String): String
+    companyName(locale: String): String
+    companyPlace(locale: String): String
+    contentfulMetadata: ContentfulMetadata!
+    copyright(locale: String): String
+    email(locale: String): String
+    footerVariant(locale: String): String
+    linkedFrom(allowedLocales: [String]): FooterLinkingCollections
+    linksCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterLinksCollection
+    socialMedia(locale: String, preview: Boolean): SocialMedia
+    sys: Sys!
+}
+
+type FooterCollection {
+    items: [Footer]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type FooterLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type FooterLinksCollection {
+    items: [Link]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/header)"
+type Header implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    headerVariant(locale: String): String
+    linkedFrom(allowedLocales: [String]): HeaderLinkingCollections
+    linksCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HeaderLinksCollection
+    logo(locale: String, preview: Boolean): Asset
+    sys: Sys!
+}
+
+type HeaderCollection {
+    items: [Header]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type HeaderLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    homepageCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HomepageCollection
+}
+
+type HeaderLinksCollection {
+    items: [Link]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/heroSection)"
 type HeroSection implements Entry {
     backgroundImage(locale: String, preview: Boolean): Asset
@@ -391,6 +455,8 @@ type Homepage implements Entry {
     contactSection(locale: String, preview: Boolean): ContactSection
     contentfulMetadata: ContentfulMetadata!
     cta(locale: String, preview: Boolean): Cta
+    footer(locale: String, preview: Boolean): Footer
+    header(locale: String, preview: Boolean): Header
     heroSection(locale: String, preview: Boolean): HeroSection
     linkedFrom(allowedLocales: [String]): HomepageLinkingCollections
     pageTitle(locale: String): String
@@ -414,9 +480,26 @@ type HomepageLinkingCollections {
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
 }
 
-type Location {
-    lat: Float
-    lon: Float
+"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/link)"
+type Link implements Entry {
+    contentfulMetadata: ContentfulMetadata!
+    linkedFrom(allowedLocales: [String]): LinkLinkingCollections
+    sys: Sys!
+    text(locale: String): String
+    url(locale: String): String
+}
+
+type LinkCollection {
+    items: [Link]!
+    limit: Int!
+    skip: Int!
+    total: Int!
+}
+
+type LinkLinkingCollections {
+    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    footerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterCollection
+    headerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): HeaderCollection
 }
 
 "[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/page)"
@@ -652,10 +735,16 @@ type Query {
     customer(id: String!, locale: String, preview: Boolean): Customer
     customerCollection(limit: Int = 100, locale: String, order: [CustomerOrder], preview: Boolean, skip: Int = 0, where: CustomerFilter): CustomerCollection
     entryCollection(limit: Int = 100, locale: String, order: [EntryOrder], preview: Boolean, skip: Int = 0, where: EntryFilter): EntryCollection
+    footer(id: String!, locale: String, preview: Boolean): Footer
+    footerCollection(limit: Int = 100, locale: String, order: [FooterOrder], preview: Boolean, skip: Int = 0, where: FooterFilter): FooterCollection
+    header(id: String!, locale: String, preview: Boolean): Header
+    headerCollection(limit: Int = 100, locale: String, order: [HeaderOrder], preview: Boolean, skip: Int = 0, where: HeaderFilter): HeaderCollection
     heroSection(id: String!, locale: String, preview: Boolean): HeroSection
     heroSectionCollection(limit: Int = 100, locale: String, order: [HeroSectionOrder], preview: Boolean, skip: Int = 0, where: HeroSectionFilter): HeroSectionCollection
     homepage(id: String!, locale: String, preview: Boolean): Homepage
     homepageCollection(limit: Int = 100, locale: String, order: [HomepageOrder], preview: Boolean, skip: Int = 0, where: HomepageFilter): HomepageCollection
+    link(id: String!, locale: String, preview: Boolean): Link
+    linkCollection(limit: Int = 100, locale: String, order: [LinkOrder], preview: Boolean, skip: Int = 0, where: LinkFilter): LinkCollection
     page(id: String!, locale: String, preview: Boolean): Page
     pageCollection(limit: Int = 100, locale: String, order: [PageOrder], preview: Boolean, skip: Int = 0, where: PageFilter): PageCollection
     partner(id: String!, locale: String, preview: Boolean): Partner
@@ -674,8 +763,6 @@ type Query {
     servicesSectionCollection(limit: Int = 100, locale: String, order: [ServicesSectionOrder], preview: Boolean, skip: Int = 0, where: ServicesSectionFilter): ServicesSectionCollection
     socialMedia(id: String!, locale: String, preview: Boolean): SocialMedia
     socialMediaCollection(limit: Int = 100, locale: String, order: [SocialMediaOrder], preview: Boolean, skip: Int = 0, where: SocialMediaFilter): SocialMediaCollection
-    spot(id: String!, locale: String, preview: Boolean): Spot
-    spotCollection(limit: Int = 100, locale: String, order: [SpotOrder], preview: Boolean, skip: Int = 0, where: SpotFilter): SpotCollection
     testimonial(id: String!, locale: String, preview: Boolean): Testimonial
     testimonialCollection(limit: Int = 100, locale: String, order: [TestimonialOrder], preview: Boolean, skip: Int = 0, where: TestimonialFilter): TestimonialCollection
     testimonialSection(id: String!, locale: String, preview: Boolean): TestimonialSection
@@ -826,27 +913,7 @@ type SocialMediaCollection {
 type SocialMediaLinkingCollections {
     aboutMeSectionCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): AboutMeSectionCollection
     entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
-}
-
-"[See type definition](https://app.contentful.com/spaces/768h60wjczrv/content_types/spot)"
-type Spot implements Entry {
-    contentfulMetadata: ContentfulMetadata!
-    coordinates(locale: String): Location
-    linkedFrom(allowedLocales: [String]): SpotLinkingCollections
-    slug(locale: String): String
-    sys: Sys!
-    text(locale: String): String
-}
-
-type SpotCollection {
-    items: [Spot]!
-    limit: Int!
-    skip: Int!
-    total: Int!
-}
-
-type SpotLinkingCollections {
-    entryCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): EntryCollection
+    footerCollection(limit: Int = 100, locale: String, preview: Boolean, skip: Int = 0): FooterCollection
 }
 
 type Sys {
@@ -1136,6 +1203,40 @@ enum EntryOrder {
     sys_publishedVersion_DESC
 }
 
+enum FooterOrder {
+    companyAddress_ASC
+    companyAddress_DESC
+    companyName_ASC
+    companyName_DESC
+    companyPlace_ASC
+    companyPlace_DESC
+    email_ASC
+    email_DESC
+    footerVariant_ASC
+    footerVariant_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
+enum HeaderOrder {
+    headerVariant_ASC
+    headerVariant_DESC
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+}
+
 enum HeroSectionOrder {
     primaryButtonText_ASC
     primaryButtonText_DESC
@@ -1234,6 +1335,21 @@ enum ImageResizeStrategy {
     SCALE
     "Creates a thumbnail from the image."
     THUMB
+}
+
+enum LinkOrder {
+    sys_firstPublishedAt_ASC
+    sys_firstPublishedAt_DESC
+    sys_id_ASC
+    sys_id_DESC
+    sys_publishedAt_ASC
+    sys_publishedAt_DESC
+    sys_publishedVersion_ASC
+    sys_publishedVersion_DESC
+    text_ASC
+    text_DESC
+    url_ASC
+    url_DESC
 }
 
 enum PageOrder {
@@ -1383,21 +1499,6 @@ enum SocialMediaOrder {
     twitter_DESC
 }
 
-enum SpotOrder {
-    slug_ASC
-    slug_DESC
-    sys_firstPublishedAt_ASC
-    sys_firstPublishedAt_DESC
-    sys_id_ASC
-    sys_id_DESC
-    sys_publishedAt_ASC
-    sys_publishedAt_DESC
-    sys_publishedVersion_ASC
-    sys_publishedVersion_DESC
-    text_ASC
-    text_DESC
-}
-
 enum TestimonialOrder {
     author_ASC
     author_DESC
@@ -1439,9 +1540,6 @@ enum WhatSectionOrder {
     sys_publishedVersion_DESC
 }
 
-"The Circle scalar type represents a circle, defined by the coordinates of its center and a radius. The Circle type is used to represent a searchable area together with the '_within_circle' filter."
-scalar Circle
-
 """
 
 A date-time string at UTC, such as 2007-12-03T10:15:30Z,
@@ -1462,9 +1560,6 @@ scalar JSON
 
 "The 'Quality' type represents quality as whole numeric values between `1` and `100`."
 scalar Quality
-
-"The Rectangle scalar type represents a rectangle, defined by the coordinates of its top left and bottom right corners. The Rectangle type is used to represent a searchable area together with the '_within_rectangle' filter."
-scalar Rectangle
 
 input AboutMeSectionFilter {
     AND: [AboutMeSectionFilter]
@@ -1736,6 +1831,74 @@ input EntryFilter {
     sys: SysFilter
 }
 
+input FooterFilter {
+    AND: [FooterFilter]
+    OR: [FooterFilter]
+    companyAddress: String
+    companyAddress_contains: String
+    companyAddress_exists: Boolean
+    companyAddress_in: [String]
+    companyAddress_not: String
+    companyAddress_not_contains: String
+    companyAddress_not_in: [String]
+    companyName: String
+    companyName_contains: String
+    companyName_exists: Boolean
+    companyName_in: [String]
+    companyName_not: String
+    companyName_not_contains: String
+    companyName_not_in: [String]
+    companyPlace: String
+    companyPlace_contains: String
+    companyPlace_exists: Boolean
+    companyPlace_in: [String]
+    companyPlace_not: String
+    companyPlace_not_contains: String
+    companyPlace_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    copyright: String
+    copyright_contains: String
+    copyright_exists: Boolean
+    copyright_in: [String]
+    copyright_not: String
+    copyright_not_contains: String
+    copyright_not_in: [String]
+    email: String
+    email_contains: String
+    email_exists: Boolean
+    email_in: [String]
+    email_not: String
+    email_not_contains: String
+    email_not_in: [String]
+    footerVariant: String
+    footerVariant_contains: String
+    footerVariant_exists: Boolean
+    footerVariant_in: [String]
+    footerVariant_not: String
+    footerVariant_not_contains: String
+    footerVariant_not_in: [String]
+    linksCollection_exists: Boolean
+    socialMedia: cfSocialMediaNestedFilter
+    socialMedia_exists: Boolean
+    sys: SysFilter
+}
+
+input HeaderFilter {
+    AND: [HeaderFilter]
+    OR: [HeaderFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    headerVariant: String
+    headerVariant_contains: String
+    headerVariant_exists: Boolean
+    headerVariant_in: [String]
+    headerVariant_not: String
+    headerVariant_not_contains: String
+    headerVariant_not_in: [String]
+    linksCollection_exists: Boolean
+    logo_exists: Boolean
+    sys: SysFilter
+}
+
 input HeroSectionFilter {
     AND: [HeroSectionFilter]
     OR: [HeroSectionFilter]
@@ -1792,6 +1955,10 @@ input HomepageFilter {
     contentfulMetadata: ContentfulMetadataFilter
     cta: cfCtaNestedFilter
     cta_exists: Boolean
+    footer: cfFooterNestedFilter
+    footer_exists: Boolean
+    header: cfHeaderNestedFilter
+    header_exists: Boolean
     heroSection: cfHeroSectionNestedFilter
     heroSection_exists: Boolean
     pageTitle: String
@@ -1847,6 +2014,27 @@ input ImageTransformOptions {
     resizeStrategy: ImageResizeStrategy
     "Desired width in pixels. Defaults to the original image width."
     width: Dimension
+}
+
+input LinkFilter {
+    AND: [LinkFilter]
+    OR: [LinkFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    sys: SysFilter
+    text: String
+    text_contains: String
+    text_exists: Boolean
+    text_in: [String]
+    text_not: String
+    text_not_contains: String
+    text_not_in: [String]
+    url: String
+    url_contains: String
+    url_exists: Boolean
+    url_in: [String]
+    url_not: String
+    url_not_contains: String
+    url_not_in: [String]
 }
 
 input PageFilter {
@@ -2147,30 +2335,6 @@ input SocialMediaFilter {
     twitter_not_in: [String]
 }
 
-input SpotFilter {
-    AND: [SpotFilter]
-    OR: [SpotFilter]
-    contentfulMetadata: ContentfulMetadataFilter
-    coordinates_exists: Boolean
-    coordinates_within_circle: Circle
-    coordinates_within_rectangle: Rectangle
-    slug: String
-    slug_contains: String
-    slug_exists: Boolean
-    slug_in: [String]
-    slug_not: String
-    slug_not_contains: String
-    slug_not_in: [String]
-    sys: SysFilter
-    text: String
-    text_contains: String
-    text_exists: Boolean
-    text_in: [String]
-    text_not: String
-    text_not_contains: String
-    text_not_in: [String]
-}
-
 input SysFilter {
     firstPublishedAt: DateTime
     firstPublishedAt_exists: Boolean
@@ -2387,6 +2551,73 @@ input cfCustomerNestedFilter {
     url_not: String
     url_not_contains: String
     url_not_in: [String]
+}
+
+input cfFooterNestedFilter {
+    AND: [cfFooterNestedFilter]
+    OR: [cfFooterNestedFilter]
+    companyAddress: String
+    companyAddress_contains: String
+    companyAddress_exists: Boolean
+    companyAddress_in: [String]
+    companyAddress_not: String
+    companyAddress_not_contains: String
+    companyAddress_not_in: [String]
+    companyName: String
+    companyName_contains: String
+    companyName_exists: Boolean
+    companyName_in: [String]
+    companyName_not: String
+    companyName_not_contains: String
+    companyName_not_in: [String]
+    companyPlace: String
+    companyPlace_contains: String
+    companyPlace_exists: Boolean
+    companyPlace_in: [String]
+    companyPlace_not: String
+    companyPlace_not_contains: String
+    companyPlace_not_in: [String]
+    contentfulMetadata: ContentfulMetadataFilter
+    copyright: String
+    copyright_contains: String
+    copyright_exists: Boolean
+    copyright_in: [String]
+    copyright_not: String
+    copyright_not_contains: String
+    copyright_not_in: [String]
+    email: String
+    email_contains: String
+    email_exists: Boolean
+    email_in: [String]
+    email_not: String
+    email_not_contains: String
+    email_not_in: [String]
+    footerVariant: String
+    footerVariant_contains: String
+    footerVariant_exists: Boolean
+    footerVariant_in: [String]
+    footerVariant_not: String
+    footerVariant_not_contains: String
+    footerVariant_not_in: [String]
+    linksCollection_exists: Boolean
+    socialMedia_exists: Boolean
+    sys: SysFilter
+}
+
+input cfHeaderNestedFilter {
+    AND: [cfHeaderNestedFilter]
+    OR: [cfHeaderNestedFilter]
+    contentfulMetadata: ContentfulMetadataFilter
+    headerVariant: String
+    headerVariant_contains: String
+    headerVariant_exists: Boolean
+    headerVariant_in: [String]
+    headerVariant_not: String
+    headerVariant_not_contains: String
+    headerVariant_not_in: [String]
+    linksCollection_exists: Boolean
+    logo_exists: Boolean
+    sys: SysFilter
 }
 
 input cfHeroSectionNestedFilter {
