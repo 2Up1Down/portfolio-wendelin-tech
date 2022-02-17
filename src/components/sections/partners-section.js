@@ -5,7 +5,6 @@ import PartnerCard from "../cards/partner-card";
 
 const PartnersSection = ({ title, subtitle, partnersCollection }) => {
   const partners = partnersCollection.items;
-  console.log(partners);
 
   return (
     <section className="grid  place-items-center bg-white">

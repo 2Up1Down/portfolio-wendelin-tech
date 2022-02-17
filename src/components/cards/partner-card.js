@@ -28,7 +28,3 @@ const PartnerCard = ({ company, description, logo, url, id }) => {
 };
 
 export default PartnerCard;
-
-// translate-y-full
-
-// group-hover:block group-hover:translate-y-0
