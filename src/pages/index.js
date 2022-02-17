@@ -18,6 +18,7 @@ export default function Home({ homepageData }) {
   } = homepageData;
 
   const {
+    header,
     heroSection,
     whatIDo,
     servicesSection,
@@ -31,13 +32,14 @@ export default function Home({ homepageData }) {
   } = homepageData;
 
   return (
-    <Layout footer={footer}>
+    <Layout footer={footer} header={header}>
       <DefaultHead
         title={metaTitle}
         description={metaDescription}
         keywords={metaKeywords}
         image={ogImage}
       />
+      <JsonStringify jsonObj={header} />
 
       <HeroSection {...heroSection} />
       <WhatIDoSection {...whatIDo} />
@@ -48,8 +50,6 @@ export default function Home({ homepageData }) {
       <TestimonialSection {...testimonialSection} />
       <ContactSection {...contactSection} />
       <PartnersSection {...partnersSection} />
-
-      <JsonStringify jsonObj={footer} />
     </Layout>
   );
 }

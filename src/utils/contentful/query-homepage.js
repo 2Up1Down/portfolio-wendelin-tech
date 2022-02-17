@@ -9,6 +9,24 @@ const GET_HOMEPAGE = (locale) => gql`
           id
         }
         
+        header {
+          logo {
+            title
+            url
+            width
+            height
+          }
+          linksCollection {
+            items {
+              sys {
+                id
+              }
+              text
+              url
+            }
+          }
+        }
+        
         heroSection {
           title {
             json
