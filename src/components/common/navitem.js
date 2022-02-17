@@ -3,9 +3,11 @@ import Link from "next/link";
 
 const NavItem = ({ item }) => {
   return (
-    <li key={item.id} className="">
+    <li key={item.id} className="py-2 text-lg md:py-0 md:text-base">
       <Link href={item.url}>
-        <a className="hover:text-gray-500">{item.text}</a>
+        <a className="">
+          <span className="hover:text-primary-light">{item.text}</span>
+        </a>
       </Link>
     </li>
   );
