@@ -9,7 +9,7 @@ const LocaleSwitcher = () => {
   return (
     <div className="group relative">
       <Link href={{ pathname, query }} as={asPath} locale={activeLocale}>
-        <a>
+        <a className="hidden md:inline-flex">
           <div className="flex place-items-center uppercase ">
             <span>{activeLocale}</span>
             <span>
@@ -18,13 +18,13 @@ const LocaleSwitcher = () => {
           </div>
         </a>
       </Link>
-      <ul className="absolute right-0 hidden origin-top-right -translate-x-2 flex-col justify-start bg-white py-2 shadow group-hover:flex">
+      <ul className="right-0 flex origin-top-right justify-start py-2 group-hover:flex md:absolute md:hidden md:-translate-x-2 md:flex-col md:bg-white md:shadow">
         {locales.map((locale) => {
           return (
             <li
-              className={`my-1 px-2 ${
+              className={`px-2 hover:bg-gray-light md:my-1 ${
                 locale === activeLocale && "bg-gray-light"
-              }  hover:bg-gray-light`}
+              }`}
               key={locale}
             >
               <Link href={{ pathname, query }} as={asPath} locale={locale}>
