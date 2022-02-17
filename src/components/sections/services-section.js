@@ -9,7 +9,7 @@ const ServicesSection = ({ title, servicesCollection }) => {
   const services = servicesCollection.items;
 
   return (
-    <section className="">
+    <section className="" id="services">
       <div className="container grid min-h-screen place-items-center py-32">
         <div className="w-full">
           <div className="mb-8">

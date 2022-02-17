@@ -5,8 +5,8 @@ import { renderTitleOptions } from "../../styles/contentful-rich-text";
 
 const ContactSection = ({ title, subtitle, formId }) => {
   return (
-    <section className="bg-primary">
-      <div className="container min-h-screen py-32 grid place-items-center">
+    <section className="bg-primary" id="contact">
+      <div className="container grid min-h-screen place-items-center py-32">
         <div className="">
           <div className="mb-4 text-center text-white">
             {title &&

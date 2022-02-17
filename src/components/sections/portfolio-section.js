@@ -34,9 +34,9 @@ const PortfolioSection = ({
   };
 
   return (
-    <section className="text-white">
-      <div className="grid lg:grid-cols-full-width area-portfolio">
-        <div className="grid-lside bg-primary hidden lg:block" />
+    <section className="text-white" id="portfolio">
+      <div className="area-portfolio grid lg:grid-cols-full-width">
+        <div className="grid-lside hidden bg-primary lg:block" />
 
         <div className="grid-title bg-primary px-4">
           <div className="max-w-xl border-b-2 pt-16 opacity-20" />
@@ -63,7 +63,7 @@ const PortfolioSection = ({
           </div>
         </div>
 
-        <div className="grid-ctrl bg-primary pl-4 pt-12 pb-4 sm:pb-8 md:pb-32 flex gap-8 justify-start">
+        <div className="grid-ctrl flex justify-start gap-8 bg-primary pl-4 pt-12 pb-4 sm:pb-8 md:pb-32">
           <ButtonSlider direction="prev" onClick={prevSlide} />
           <SliderIndicators
             total={projects.length}
@@ -74,7 +74,7 @@ const PortfolioSection = ({
         </div>
 
         <div className="grid-image justify-self-stretch">
-          <div className="relative w-full aspect-video">
+          <div className="relative aspect-video w-full">
             {projects.map((project, index) => (
               <SlideImage
                 key={index}

@@ -7,7 +7,7 @@ const PartnersSection = ({ title, subtitle, partnersCollection }) => {
   const partners = partnersCollection.items;
 
   return (
-    <section className="grid  place-items-center bg-white">
+    <section className="grid  place-items-center bg-white" id="partners">
       <div className="content-section container py-28">
         <div className="text-center">
           <div className="pb-8">

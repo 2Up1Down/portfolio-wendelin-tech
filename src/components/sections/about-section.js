@@ -5,9 +5,9 @@ import SocialMedia from "../common/social-media";
 
 const AboutMeSection = ({ title, description, image, socialMedia }) => {
   return (
-    <section className="bg-gray-light">
-      <div className="pt-12 md:py-0 md:grid grid-cols-full-width area-about">
-        <div className="grid-about px-4 pb-12 self-center md:pb-0">
+    <section className="bg-gray-light" id="about">
+      <div className="area-about grid-cols-full-width pt-12 md:grid md:py-0">
+        <div className="grid-about self-center px-4 pb-12 md:pb-0">
           <div className="mb-8">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
@@ -20,7 +20,7 @@ const AboutMeSection = ({ title, description, image, socialMedia }) => {
         </div>
         {/* inspired by https://stackoverflow.com/questions/70805041/background-image-in-tailwindcss-using-dynamic-url-react-js */}
         <div
-          className="grid-media bg-primary-light bg-no-repeat bg-cover bg-center h-80 md:min-h-[700px]"
+          className="grid-media h-80 bg-primary-light bg-cover bg-center bg-no-repeat md:min-h-[700px]"
           style={{ backgroundImage: `url(${image.url})` }}
         />
       </div>

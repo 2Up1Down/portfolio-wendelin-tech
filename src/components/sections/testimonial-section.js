@@ -7,7 +7,7 @@ const TestimonialSection = ({ title, subtitle, testimonialsCollection }) => {
   const testimonials = testimonialsCollection.items;
 
   return (
-    <section className="bg-white py-28">
+    <section className="bg-white py-28" id="testimonials">
       <div className="container mb-14">
         <div className="mb-4">
           {title && documentToReactComponents(title.json, renderTitleOptions())}
