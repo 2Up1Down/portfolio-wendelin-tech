@@ -4,8 +4,12 @@ import NavItem from "./navitem";
 
 const Navbar = ({ isOpen, links }) => {
   return (
-    <div className={`${isOpen ? "block" : "hidden"} items-center md:flex`}>
-      <ul className="flex flex-col items-center gap-2 md:flex-row md:gap-8">
+    <div
+      className={`${
+        isOpen ? "translate-x-0" : "-translate-x-full"
+      } absolute left-0 w-screen items-center bg-white shadow-md transition-all duration-1000 ease-in-out md:static md:flex md:translate-x-0 md:justify-end md:shadow-none`}
+    >
+      <ul className="mb-4 flex flex-col items-center gap-2 md:mb-0 md:flex-row md:gap-8">
         {links.map((link) => (
           <NavItem key={link.sys.id} item={{ id: link.sys.id, ...link }} />
         ))}

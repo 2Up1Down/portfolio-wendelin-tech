@@ -14,15 +14,17 @@ const Header = ({ header }) => {
   };
 
   return (
-    <header className="fixed z-[100] w-full bg-white shadow-xl">
-      <nav className="container flex flex-col md:flex-row md:justify-between">
-        <div className="flex items-center justify-between">
-          <Brand logo={logo} />
-          <MobileNavButton isOpen={isOpen} onClick={clickHandler} />
-        </div>
+    <header className="fixed z-[100] w-full bg-white shadow-md">
+      <div className="relative">
+        <nav className="container  md:flex md:flex-row md:justify-between">
+          <div className="flex items-center justify-between">
+            <Brand logo={logo} />
+            <MobileNavButton isOpen={isOpen} onClick={clickHandler} />
+          </div>
 
-        <Navbar isOpen={isOpen} links={links} />
-      </nav>
+          <Navbar isOpen={isOpen} links={links} />
+        </nav>
+      </div>
     </header>
   );
 };
