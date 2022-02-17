@@ -39,7 +39,6 @@ export default function Home({ homepageData }) {
         keywords={metaKeywords}
         image={ogImage}
       />
-      <JsonStringify jsonObj={header} />
 
       <HeroSection {...heroSection} />
       <WhatIDoSection {...whatIDo} />

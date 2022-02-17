@@ -4,8 +4,9 @@ import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import Layout from "../../components/common/layout";
 import { getAllSlugs, getPage } from "../../utils/contentful/query-pages";
 import { renderOptions } from "../../styles/contentful-rich-text";
+import JsonStringify from "../../components/common/json-stringify";
 
-const Page = () => {
+const Page = ({ page }) => {
   return (
     <Layout>
       <div className="">
@@ -13,9 +14,10 @@ const Page = () => {
           <div className="text-center">
             <h1 className="text-5xl ">H1 Title</h1>
           </div>
-          <div className="max-w-2xl m-auto">
+          <div className="m-auto max-w-2xl">
             {body &&
               documentToReactComponents(body.json, renderOptions(body.links))}
+            <JsonStringify jsonObj={page} />
           </div>
         </section>
       </div>
