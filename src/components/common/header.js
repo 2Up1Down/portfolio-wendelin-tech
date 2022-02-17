@@ -22,7 +22,11 @@ const Header = ({ header }) => {
             <MobileNavButton isOpen={isOpen} onClick={clickHandler} />
           </div>
 
-          <Navbar isOpen={isOpen} links={links} />
+          <Navbar
+            isOpen={isOpen}
+            onClick={() => setIsOpen(false)}
+            links={links}
+          />
         </nav>
       </div>
     </header>

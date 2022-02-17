@@ -2,7 +2,7 @@ import React from "react";
 import LocaleSwitcher from "./locale-switcher";
 import NavItem from "./navitem";
 
-const Navbar = ({ isOpen, links }) => {
+const Navbar = ({ isOpen, links, onClick }) => {
   return (
     <div
       className={`${
@@ -11,7 +11,11 @@ const Navbar = ({ isOpen, links }) => {
     >
       <ul className="mb-4 flex flex-col items-center gap-2 md:mb-0 md:flex-row md:gap-8">
         {links.map((link) => (
-          <NavItem key={link.sys.id} item={{ id: link.sys.id, ...link }} />
+          <NavItem
+            key={link.sys.id}
+            onClick={onClick}
+            item={{ id: link.sys.id, ...link }}
+          />
         ))}
 
         <LocaleSwitcher />
