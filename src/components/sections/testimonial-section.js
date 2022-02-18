@@ -15,7 +15,7 @@ const TestimonialSection = ({ title, subtitle, testimonialsCollection }) => {
         <div className="mb-8 max-w-lg">{subtitle}</div>
       </div>
 
-      <div className="container-snap flex snap-x space-x-5 overflow-x-hidden overflow-x-scroll">
+      <div className="container-snap flex snap-x scroll-p-8 space-x-5  overflow-x-hidden overflow-x-scroll">
         {testimonials &&
           testimonials.map((testimonial) => (
             <TestimonialCard
