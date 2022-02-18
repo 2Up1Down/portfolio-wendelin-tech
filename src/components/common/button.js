@@ -56,7 +56,7 @@ const Button = ({
 };
 
 const classes = {
-  base: "text-white inline-block font-medium tracking-wide",
+  base: "text-white inline-block font-medium tracking-wide transition-all ease-in-out",
   size: {
     small: "text-sm py-1 px-2",
     normal: "py-2 px-4",
@@ -67,10 +67,10 @@ const classes = {
     full: "w-full text-center",
   },
   variant: {
-    base: "bg-text-base",
-    primary: "bg-primary",
-    "primary-light": "bg-primary-light",
-    accent: "bg-accent",
+    base: "bg-text-base ",
+    primary: "bg-primary hover:bg-primary-light",
+    "primary-light": "bg-primary-light hover:bg-primary",
+    accent: "bg-accent hover:bg-accent-dark ",
   },
 };
 
