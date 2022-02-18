@@ -7,7 +7,7 @@ const PartnerCard = ({ company, description, logo, url, id }) => {
     <Link href={url}>
       <a target="_blank" rel="noopener noreferrer" className="group">
         <div className="aspect-video max-w-[22rem] overflow-hidden transition-all duration-500 ease-in-out group-hover:shadow-[0_4px_54px_0px_rgba(0,0,0,0.1)]">
-          <div className="relative m-auto aspect-video w-[22rem] text-center  transition-all duration-500 ease-in-out group-hover:w-[11rem]">
+          <div className="relative m-auto aspect-video text-center transition-all  duration-500 ease-in-out group-hover:w-[11rem] sm:w-[22rem]">
             <Image
               src={logo.url}
               layout="fill"
