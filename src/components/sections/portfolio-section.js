@@ -39,7 +39,7 @@ const PortfolioSection = ({
         <div className="grid-lside hidden bg-primary lg:block" />
 
         <div className="grid-title bg-primary px-4">
-          <div className="max-w-xl border-b-2 pt-16 opacity-20" />
+          <div className="max-w-xl border-b-2 pt-16 opacity-0 lg:opacity-20" />
           <div className="pb-8 pt-16">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
