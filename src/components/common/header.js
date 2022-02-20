@@ -5,8 +5,10 @@ import MobileNavButton from "./mobile-nav-button";
 
 const Header = ({ header }) => {
   const [isOpen, setIsOpen] = useState(false);
-
   const { logo, linksCollection } = header;
+
+  if (!logo || !linksCollection) return <p>loading...</p>;
+
   const links = linksCollection.items;
 
   const clickHandler = () => {
