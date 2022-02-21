@@ -9,12 +9,12 @@ import { client } from "../apollo-client";
 
 // for multiple entries
 function extractPageEntries(fetchResponse) {
-  return fetchResponse?.data?.pageCollection?.items;
+  return fetchResponse?.data?.textPageCollection?.items;
 }
 
 // for single entry
 function extractPage(fetchResponse) {
-  return fetchResponse?.data?.pageCollection?.items?.[0];
+  return fetchResponse?.data?.textPageCollection?.items?.[0];
 }
 
 // Fetch all pages
@@ -22,8 +22,11 @@ function extractPage(fetchResponse) {
 
 const GET_SLUG_FROM_PAGES = () => gql`
   query getPages {
-    pageCollection {
+    textPageCollection {
       items {
+        sys {
+          id
+        }
         slug
       }
     }
@@ -48,14 +51,13 @@ export async function getAllSlugs() {
 
 const GET_PAGE = (slug, locale) => gql`
     query getPage {
-        pageCollection(where: { slug: "${slug}" }, limit: 1, locale: "${locale}") {
+        textPageCollection(where: { slug: "${slug}" }, limit: 1, locale: "${locale}") {
             items {
                 title
                 slug
-                body {
+                content {
                     json
                     links {
-
                         assets {
                             block {
                                 sys {
@@ -74,24 +76,7 @@ const GET_PAGE = (slug, locale) => gql`
                                     id
                                 }
                                 __typename
-                                ... on Unit {
-                                    title
-                                    featuredImage {
-                                        url
-                                        fileName
-                                        width
-                                        height
-                                    }
-                                    overviewDescription
-                                    slug
-                                }
-                                ... on Brand {
-                                    brand
-                                    logo {
-                                        url
-                                        fileName
-                                    }
-                                }
+                 
                             }
                             block {
                                 sys {
@@ -100,16 +85,7 @@ const GET_PAGE = (slug, locale) => gql`
                             }
                         }
                     }
-                }
-                seoData {
-                    metaTitle
-                    metaDescription
-                    metaTags
-                    ogImage {
-                        title
-                        url
-                    }
-                }
+                }   
             }
         }
     }
