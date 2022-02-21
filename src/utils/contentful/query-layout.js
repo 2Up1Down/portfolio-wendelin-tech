@@ -4,93 +4,70 @@ import { client } from "../apollo-client";
 // Code inspired by vercels cms-contentful example
 // https://github.com/vercel/next.js/blob/canary/examples/cms-contentful/lib/api.js
 
-const GET_LAYOUT = (locale, layoutName) => gql`
-    query getLayout {
-        layoutCollection(where: {layoutName: "${layoutName}"}, locale: "${locale}", limit: 1) {
+const GET_LAYOUT = (locale) => gql`
+    query GetLayout {
+        headerCollection(limit: 1, locale: "${locale}") {
             items {
                 sys {
                     id
                 }
-                layoutName
-                mainNavigation {
-                    navItemsCollection {
-                        items {
-                            sys {
-                                id
-                            }
-                            title
-                            externalUrl
-                            internalUrl {
-                                __typename
-                                ... on Page {
-                                    slug
-                                }
-                            }
-                        }
-                    }
-                }
-                brand {
-                    logo {
-                        fileName
-                        url
-                    }
-                }
-                footer {
+                
+                logo {
                     title
-                    navItemsCollection {
-                        items {
-                            sys {
-                                id
-                            }
-                            title
-                            externalUrl
-                            internalUrl {
-                                __typename
-                                ... on Page {
-                                    slug
-                                }
-                            }
+                    url
+                    width
+                    height
+                }
+                linksCollection {
+                    items {
+                        sys {
+                            id
                         }
-                    }
-                    contactInformation {
-                        companyName
-                        street
-                        city
-                        zipCode
-                        country
-                        email
-                        phoneNumber
-
-                    }
-                    socialMedia {
-                        instagramUrl
-                        linkedinUrl
-                        githubUrl
+                        text
+                        url
                     }
                 }
             }
         }
+
+        footerCollection(limit: 1, locale: "${locale}") {
+            items {
+                companyAddress
+                companyName
+                companyPlace
+                email
+                copyright
+                linksCollection {
+                    items {
+                        sys {
+                            id
+                        }
+                        text
+                        url
+                    }
+                }
+                socialMedia {
+                    twitter
+                    linkedin
+                    instagram
+                    github
+                }
+            }
+        }
     }
-`;
+    `;
 
 function extractLayout(fetchResponse) {
-  const item = fetchResponse?.data?.layoutCollection?.items?.[0];
+  const header = fetchResponse?.data?.headerCollection?.items?.[0];
+  const footer = fetchResponse?.data?.footerCollection?.items?.[0];
 
-  const layoutData = {
-    menu: item.mainNavigation?.navItemsCollection?.items || [],
-    brand: item.brand || {},
-    footerLinks: item.footer?.navItemsCollection?.items || [],
-    contact: item.contactInformation || {},
-    social: item.socialMedia || [],
-  };
-
-  return layoutData;
+  return { header, footer };
 }
 
-export async function getLayout(locale, layoutName = "default") {
+export async function getLayout(locale) {
   try {
     const entries = await client.query({
-      query: GET_LAYOUT(locale, layoutName),
+      query: GET_LAYOUT(locale),
     });
 
     return extractLayout(entries);
