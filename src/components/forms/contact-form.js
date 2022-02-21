@@ -17,7 +17,7 @@ const ContactForm = ({ formId }) => {
       acceptCharset="utf-8"
       action={`https://formspree.io/f/${formId}`}
       method="post"
-      className="w-full max-w-xl shadow-md"
+      className="shadow-md"
     >
       <fieldset id="fs-frm-inputs" className="flex flex-col">
         <FormInput
