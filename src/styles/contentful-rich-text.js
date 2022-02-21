@@ -50,59 +50,29 @@ export function renderOptions(links) {
         <h6 className="text-base">{children}</h6>
       ),
       [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p className="text-base mb-2">{children}</p>
+        <p className="mb-2 text-base">{children}</p>
       ),
 
       [BLOCKS.UL_LIST]: (node, children) => (
-        <ul className="list-disc list-outside ml-10">{children}</ul>
+        <ul className="ml-10 list-outside list-disc">{children}</ul>
       ),
       [BLOCKS.OL_LIST]: (node, children) => (
-        <ol className="list-decimal list-outside ml-10">{children}</ol>
+        <ol className="ml-10 list-outside list-decimal">{children}</ol>
       ),
       [BLOCKS.LIST_ITEM]: (node, children) => <li className="">{children}</li>,
       [BLOCKS.QUOTE]: (node, children) => (
-        <blockquote className="border-l-4 border-gray-400 ml-4 pl-4">
+        <blockquote className="border-gray-400 ml-4 border-l-4 pl-4">
           {children}
         </blockquote>
       ),
 
       [BLOCKS.HR]: (node, children) => (
-        <div className="h-1 w-full bg-gray-400 my-4" />
+        <div className="bg-gray-400 my-4 h-1 w-full" />
       ),
 
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
         // find the entry in the entryMap by ID
         const entry = entryMap.get(node.data.target.sys.id);
-
-        if (entry.__typename === "Unit")
-          return (
-            <article className="my-2">
-              <Link href={`/apartments/${entry.slug}`}>
-                <a>
-                  <div className="bg-white rounded-lg border border-gray-200 shadow-md flex items-center overflow-hidden">
-                    <div className="w-40 h-40 relative">
-                      <Image
-                        src={entry.featuredImage?.url || "/placeholder.png"}
-                        alt={entry.featuredImage?.fileName}
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-
-                    <div className="mx-4 mb-4">
-                      <h5 className="mb-1 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
-                        {entry.title}
-                      </h5>
-
-                      <p className=" font-normal text-gray-700 dark:text-gray-400">
-                        {entry.overviewDescription}
-                      </p>
-                    </div>
-                  </div>
-                </a>
-              </Link>
-            </article>
-          );
 
         // render the entries as needed by looking at the __typename
         // referenced in the GraphQL query
@@ -153,20 +123,6 @@ export function renderOptions(links) {
         // find the entry in the entryMap by ID
         const entry = entryMap.get(node.data.target.sys.id);
 
-        if (entry.__typename === "Unit")
-          return (
-            <span className="">
-              <span>inline entry</span>
-              <span className="text-green-500">{entry.title}</span>
-              <span className="">{node.data.target.sys.id}</span>
-            </span>
-          );
-
-        if (entry.__typename === "Brand")
-          return (
-            <span className="text-orange-500 text-2xl">{entry.brand}</span>
-          );
-
         // Example for a Blog Post:
         // render the entries as needed
         // if (entry.__typename === "BlogPost") {
@@ -210,13 +166,19 @@ export function renderOptions(links) {
         [MARKS.BOLD]: (text) => <span className="font-bold">{text}</span>,
         [MARKS.ITALIC]: (text) => <span className="italic">{text}</span>,
         [MARKS.UNDERLINE]: (text) => (
-          <span className="underline underline-offset-2 decoration-2 hover:underline-offset-4 ">
+          <span className="underline decoration-2 underline-offset-2 hover:underline-offset-4 ">
             {text}
           </span>
         ),
         [MARKS.CODE]: (text) => (
           <span className="bg-green-200 text-2xl">{text}</span>
         ),
+      },
+
+      renderText: (text) => {
+        return text.split("\n").reduce((children, textSegment, index) => {
+          return [...children, index > 0 && <br key={index} />, textSegment];
+        }, []);
       },
     },
   };
