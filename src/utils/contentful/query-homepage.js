@@ -8,25 +8,7 @@ const GET_HOMEPAGE = (locale) => gql`
         sys {
           id
         }
-        
-        header {
-          logo {
-            title
-            url
-            width
-            height
-          }
-          linksCollection {
-            items {
-              sys {
-                id
-              }
-              text
-              url
-            }
-          }
-        }
-        
+
         heroSection {
           title {
             json
@@ -182,29 +164,6 @@ const GET_HOMEPAGE = (locale) => gql`
               }
               url
             }
-          }
-        }
-        
-        footer {
-          companyAddress
-          companyName
-          companyPlace
-          email
-          copyright
-          linksCollection {
-            items {
-               sys {
-                 id
-               }
-              text
-              url
-            }
-          }
-          socialMedia {
-            twitter
-            linkedin
-            instagram
-            github
           }
         }
         

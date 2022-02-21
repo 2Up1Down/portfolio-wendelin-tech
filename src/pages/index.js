@@ -1,7 +1,6 @@
 import Layout from "../components/common/layout";
 import DefaultHead from "../components/common/default-head";
 import HeroSection from "../components/sections/hero-section";
-import JsonStringify from "../components/common/json-stringify";
 import WhatIDoSection from "../components/sections/what-i-do-section";
 import ServicesSection from "../components/sections/services-section";
 import AboutMeSection from "../components/sections/about-section";
@@ -11,14 +10,15 @@ import TestimonialSection from "../components/sections/testimonial-section";
 import ContactSection from "../components/sections/contact-section";
 import PartnersSection from "../components/sections/partners-section";
 import { getHomepageData } from "../utils/contentful/query-homepage";
+import { getLayout } from "../utils/contentful/query-layout";
 
-export default function Home({ homepageData }) {
+export default function Home({ homepageData, layoutData }) {
   const {
     seoData: { metaTitle, metaDescription, metaKeywords, ogImage },
   } = homepageData;
 
+  const { header, footer } = layoutData;
   const {
-    header,
     heroSection,
     whatIDo,
     servicesSection,
@@ -28,7 +28,6 @@ export default function Home({ homepageData }) {
     testimonialSection,
     contactSection,
     partnersSection,
-    footer,
   } = homepageData;
 
   return (
@@ -55,10 +54,12 @@ export default function Home({ homepageData }) {
 
 export async function getStaticProps({ locale }) {
   const homepageData = await getHomepageData(locale);
+  const layoutData = await getLayout(locale);
 
   return {
     props: {
       homepageData,
+      layoutData,
     },
     revalidate: 60, // in seconds
   };
