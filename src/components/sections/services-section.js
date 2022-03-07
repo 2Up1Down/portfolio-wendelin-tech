@@ -25,7 +25,7 @@ const ServicesSection = ({ title, servicesCollection }) => {
       </div>
       <style jsx>{`
         .grid-ram {
-          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         }
       `}</style>
     </section>

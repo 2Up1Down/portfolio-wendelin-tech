@@ -37,6 +37,7 @@ module.exports = {
     extend: {
       aspectRatio: {
         "4/5": "4 / 5",
+        "10/11": "10 / 11",
       },
       gridTemplateColumns: {
         // inspired by https://rachelandrew.co.uk/archives/2017/06/01/breaking-out-with-css-grid-explained/
