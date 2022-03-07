@@ -13,15 +13,15 @@ const HeroSection = ({
   secondaryButtonUrl = "",
 }) => {
   return (
-    <section className="bg-gray-50">
-      <div className="container h-screen grid place-items-center background-image-wrapper ">
-        <div className="flex flex-col items-center text-center content-section">
-          <div className="max-w-lg mb-4 ">
+    <section className="bg-gray-50 ">
+      <div className="background-image-wrapper container grid h-screen place-items-center ">
+        <div className="content-section flex flex-col items-center text-center">
+          <div className="mb-4 max-w-lg ">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
 
-          <h2 className="max-w-sm text-text-light mb-10 leading-6">
+          <h2 className="text-text-light mb-10 max-w-sm leading-6">
             {subtitle}
           </h2>
           <div className="flex gap-8">
@@ -56,7 +56,11 @@ const HeroSection = ({
           background-image: url(${backgroundImage.url});
           background-repeat: no-repeat;
           background-position: center;
-          background-size: contain;
+          -moz-background-size: auto 70%;
+          -webkit-background-size: auto 70%;
+          -o-background-size: auto 70%;
+          background-size: auto 70%;
+          background-attachment: fixed;
         }
 
         .content-section {
