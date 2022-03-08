@@ -9,15 +9,15 @@ const SlideText = ({ project, labelTechnologies, labelServices, active }) => {
         active ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className=" max-w-lg lg:pr-32 whitespace-pre-wrap">
-        <h3 className="mb-6 text-xl font-bold">
+      <div className=" max-w-lg lg:pr-32">
+        <h3 className="pb-3 text-xl font-bold">
           {title} | {customer.customer}
         </h3>
-        <p className="mb-8">{excerpt}</p>
-        <h4 className="mb-6 font-bold">{labelTechnologies}</h4>
-        <p className="mb-8">{technologies.join(", ")}</p>
-        <h4 className="mb-6 font-bold">{labelServices}</h4>
-        <p className="mb-8">{services.join(", ")}</p>
+        <p className="pb-8">{excerpt}</p>
+        <h4 className="pb-3 font-semibold">{labelTechnologies}</h4>
+        <p className="pb-8">{technologies.join(", ")}</p>
+        <h4 className="pb-3 font-semibold">{labelServices}</h4>
+        <p className="">{services.join(", ")}</p>
       </div>
     </article>
   );

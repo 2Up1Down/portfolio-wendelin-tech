@@ -7,7 +7,7 @@ const WhatIDoSection = ({ title, description }) => {
   return (
     <section className="bg-primary">
       <div className="container relative grid h-screen place-items-center">
-        <div className=" max-w-lg text-left text-gray-light">
+        <div className=" max-w-xl text-center text-gray-light">
           <div className="text-text-light mb-6">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}

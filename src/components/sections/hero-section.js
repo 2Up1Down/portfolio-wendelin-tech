@@ -16,7 +16,7 @@ const HeroSection = ({
     <section className="bg-gray-50 ">
       <div className="background-image-wrapper container grid h-screen place-items-center ">
         <div className="content-section flex flex-col items-center text-center">
-          <div className="mb-4 max-w-lg ">
+          <div className="mb-4 max-w-lg font-normal">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
@@ -24,7 +24,7 @@ const HeroSection = ({
           <h2 className="text-text-light mb-10 max-w-sm leading-6">
             {subtitle}
           </h2>
-          <div className="flex gap-8">
+          <div className="flex gap-8 font-normal">
             <ArrowLink url={primaryButtonUrl} size="large" direction="none">
               {primaryButtonText}
             </ArrowLink>

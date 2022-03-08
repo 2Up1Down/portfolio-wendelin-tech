@@ -10,11 +10,11 @@ const PartnersSection = ({ title, subtitle, partnersCollection }) => {
     <section className="grid  place-items-center bg-white" id="partners">
       <div className="content-section container py-28">
         <div className="text-center">
-          <div className="pb-8">
+          <div className="pb-4">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
-          <div className="pb-12">{subtitle}</div>
+          <div className="pb-12 text-text-subtitle opacity-80">{subtitle}</div>
         </div>
         <div className="flex flex-wrap justify-center gap-4">
           {partners &&

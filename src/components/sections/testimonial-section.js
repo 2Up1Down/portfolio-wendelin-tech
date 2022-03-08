@@ -12,7 +12,9 @@ const TestimonialSection = ({ title, subtitle, testimonialsCollection }) => {
         <div className="mb-4">
           {title && documentToReactComponents(title.json, renderTitleOptions())}
         </div>
-        <div className="mb-8 max-w-lg">{subtitle}</div>
+        <div className="mb-8 max-w-lg text-text-subtitle opacity-80">
+          {subtitle}
+        </div>
       </div>
 
       <div className="container-snap flex snap-x scroll-p-8 space-x-5  overflow-x-hidden overflow-x-scroll">
