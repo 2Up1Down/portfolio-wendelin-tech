@@ -16,7 +16,7 @@ const ServicesSection = ({ title, servicesCollection }) => {
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
-          <div className="grid-ram sm:grid">
+          <div className="grid-ram gap-4 sm:grid lg:gap-0">
             {services.map((service) => (
               <ServiceCard key={service.sys.id} {...service} />
             ))}

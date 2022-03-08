@@ -3,8 +3,8 @@ import Image from "next/image";
 
 const ServiceCard = ({ title, excerpt, image }) => {
   return (
-    <article className="group mb-4 w-full overflow-hidden bg-primary font-light drop-shadow-2xl duration-500 ease-in-out hover:scale-105 lg:relative lg:aspect-10/11">
-      <div className="relative mt-8 h-32 w-full flex-1 duration-500 ease-in-out group-hover:translate-y-0 lg:translate-y-1/3">
+    <article className="group mb-4 w-full overflow-hidden bg-primary font-light drop-shadow-2xl duration-500 ease-in-out lg:relative lg:aspect-10/11">
+      <div className="relative mt-8 h-40 w-full flex-1 duration-500 ease-in-out group-hover:translate-y-0 lg:translate-y-1/3">
         <Image
           src={image.url}
           alt={image.title}
