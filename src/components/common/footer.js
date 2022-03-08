@@ -33,11 +33,11 @@ const Footer = ({ footer }) => {
               </a>
             </address>
           </div>
-          <div className="flex justify-end">
+          <div className="flex md:justify-end">
             <SocialMedia accounts={socialMedia} />
           </div>
         </div>
-        <div className="justify-between pb-6 text-sm md:flex">
+        <div className="justify-between pb-6 text-center text-sm md:flex">
           <p className="mb-2 text-gray-dark opacity-60">
             &copy; {new Date().getFullYear()} {copyright}
           </p>
