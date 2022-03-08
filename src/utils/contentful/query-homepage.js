@@ -96,6 +96,7 @@ const GET_HOMEPAGE = (locale) => gql`
                 customer
                 url
               }
+              slug
             }
           }
         }
