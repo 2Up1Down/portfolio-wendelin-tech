@@ -27,7 +27,7 @@ const ArrowLink = ({
       >
         {children}
         {direction !== "none" && (
-          <span className="pl-1 -translate-y-[0.15rem]">
+          <span className="inline-block pl-1">
             <MdNorthEast size={16} />
           </span>
         )}
@@ -37,7 +37,7 @@ const ArrowLink = ({
 };
 
 const classes = {
-  base: "flex place-items-center",
+  base: "",
   size: {
     small: "text-sm border-b-[1px]",
     normal: "border-b-2",
@@ -45,18 +45,23 @@ const classes = {
   },
   variant: {
     base: "text-text-base border-b-text-base",
-    primary: "text-primary flex border-b-primary",
-
-    "primary-light": "text-primary-light flex border-b-primary-light",
-
-    accent: "text-accent flex border-b-accent",
+    primary: "text-primary border-b-primary",
+    white: "text-white border-b-white",
+    "primary-light": "text-primary-light border-b-primary-light",
+    accent: "text-accent border-b-accent",
   },
 };
 
 ArrowLink.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
-  variant: PropTypes.oneOf(["primary", "primary-light", "accent", "base"]),
+  variant: PropTypes.oneOf([
+    "primary",
+    "primary-light",
+    "accent",
+    "base",
+    "white",
+  ]),
   size: PropTypes.oneOf(["small", "normal", "large"]),
   direction: PropTypes.oneOf(["", "none", "north-east"]),
 };
