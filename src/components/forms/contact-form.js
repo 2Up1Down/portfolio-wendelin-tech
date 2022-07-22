@@ -40,7 +40,7 @@ const ContactForm = ({ formId }) => {
           placeholder={t.message}
           required
         />
-        <Button type="submit" value="Submit" width="full" variant="accent">
+        <Button type="submit" value="Submit" variant="accent">
           {t.submit}
         </Button>
       </fieldset>

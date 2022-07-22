@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const WhatIDoSection = ({ title, description }) => {
   return (
-    <section className="bg-primary">
+    <section className="overflow-hidden bg-primary">
       <div className="container relative grid h-screen place-items-center">
         <div className=" max-w-xl text-center text-gray-light">
           <div className="text-text-light mb-6">
