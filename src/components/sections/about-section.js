@@ -12,7 +12,7 @@ const AboutMeSection = ({ title, description, image, socialMedia }) => {
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
-          <div className="mb-8 max-w-lg">
+          <div className="mb-8 sm:mr-3 md:max-w-lg">
             {description &&
               documentToReactComponents(description.json, renderTitleOptions())}
           </div>
