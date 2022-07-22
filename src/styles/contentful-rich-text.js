@@ -50,24 +50,24 @@ export function renderOptions(links) {
         <h6 className="text-base">{children}</h6>
       ),
       [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p className="text-base mb-2">{children}</p>
+        <p className="mb-2 text-base">{children}</p>
       ),
 
       [BLOCKS.UL_LIST]: (node, children) => (
-        <ul className="list-disc list-outside ml-10">{children}</ul>
+        <ul className="ml-10 list-outside list-disc">{children}</ul>
       ),
       [BLOCKS.OL_LIST]: (node, children) => (
-        <ol className="list-decimal list-outside ml-10">{children}</ol>
+        <ol className="ml-10 list-outside list-decimal">{children}</ol>
       ),
       [BLOCKS.LIST_ITEM]: (node, children) => <li className="">{children}</li>,
       [BLOCKS.QUOTE]: (node, children) => (
-        <blockquote className="border-l-4 border-gray-400 ml-4 pl-4">
+        <blockquote className="border-gray-400 ml-4 border-l-4 pl-4">
           {children}
         </blockquote>
       ),
 
       [BLOCKS.HR]: (node, children) => (
-        <div className="h-1 w-full bg-gray-400 my-4" />
+        <div className="bg-gray-400 my-4 h-1 w-full" />
       ),
 
       [BLOCKS.EMBEDDED_ENTRY]: (node, children) => {
@@ -79,8 +79,8 @@ export function renderOptions(links) {
             <article className="my-2">
               <Link href={`/apartments/${entry.slug}`}>
                 <a>
-                  <div className="bg-white rounded-lg border border-gray-200 shadow-md flex items-center overflow-hidden">
-                    <div className="w-40 h-40 relative">
+                  <div className="border-gray-200 flex items-center overflow-hidden rounded-lg border bg-white shadow-md">
+                    <div className="relative h-40 w-40">
                       <Image
                         src={entry.featuredImage?.url || "/placeholder.png"}
                         alt={entry.featuredImage?.fileName}
@@ -90,11 +90,11 @@ export function renderOptions(links) {
                     </div>
 
                     <div className="mx-4 mb-4">
-                      <h5 className="mb-1 text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+                      <h5 className="text-gray-900 mb-1 text-lg font-bold tracking-tight dark:text-white">
                         {entry.title}
                       </h5>
 
-                      <p className=" font-normal text-gray-700 dark:text-gray-400">
+                      <p className=" text-gray-700 dark:text-gray-400 font-normal">
                         {entry.overviewDescription}
                       </p>
                     </div>
@@ -210,7 +210,7 @@ export function renderOptions(links) {
         [MARKS.BOLD]: (text) => <span className="font-bold">{text}</span>,
         [MARKS.ITALIC]: (text) => <span className="italic">{text}</span>,
         [MARKS.UNDERLINE]: (text) => (
-          <span className="underline underline-offset-2 decoration-2 hover:underline-offset-4 ">
+          <span className="underline decoration-2 underline-offset-2 hover:underline-offset-4 ">
             {text}
           </span>
         ),
@@ -236,7 +236,9 @@ export function renderTitleOptions() {
         </h2>
       ),
       [BLOCKS.PARAGRAPH]: (node, children) => (
-        <p className="font-sans font-light">{children}</p>
+        <p className="text-left font-sans font-light sm:text-justify">
+          {children}
+        </p>
       ),
     },
 
