@@ -4,8 +4,8 @@ import en from "../../../public/locales/en/portfolio";
 import de from "../../../public/locales/de/portfolio";
 import { useRouter } from "next/router";
 
-const SlideText = ({ project, labelTechnologies, labelServices, active }) => {
-  const { title, excerpt, technologies, customer, services, slug } = project;
+const SlideText = ({ project, labelServices, active }) => {
+  const { title, excerpt, customer, services, slug } = project;
   const { locale } = useRouter();
   const t = locale === "de" ? de : en;
 
@@ -20,8 +20,6 @@ const SlideText = ({ project, labelTechnologies, labelServices, active }) => {
           {title} | {customer.customer}
         </h3>
         <p className="pb-8">{excerpt}</p>
-        <h4 className="pb-3 font-semibold">{labelTechnologies}</h4>
-        <p className="pb-8">{technologies.join(", ")}</p>
         <h4 className="pb-3 font-semibold">{labelServices}</h4>
         <p className="pb-11">{services.join(", ")}</p>
         <ArrowLink
