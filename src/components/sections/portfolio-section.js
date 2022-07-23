@@ -35,46 +35,37 @@ const PortfolioSection = ({
 
   return (
     <section className="text-white" id="portfolio">
-      <div className="area-portfolio grid lg:grid-cols-full-width">
-        <div className="grid-lside hidden bg-primary lg:block" />
-
-        <div className="grid-title bg-primary px-4">
-          <div className="max-w-xl border-b-2 pt-16 opacity-0 lg:opacity-20" />
+      <div className="area-portfolio grid-cols-full-width bg-primary md:grid">
+        <div className="grid-text bg-primary px-4 md:pr-16 lg:pr-4">
           <div className="pb-8 pt-16">
             {title &&
               documentToReactComponents(title.json, renderTitleOptions())}
           </div>
-        </div>
 
-        <div className="grid-text bg-primary px-4">
-          {/*Height media query is a terrible work around, as absolute images don't occupy any space, but absolute images are needed for the slider*/}
-          {/*TODO come up with a cleaner implementation*/}
-          <div className="relative h-[28rem] sm:h-[24rem] lg:h-[28rem]">
-            {projects.map((project, index) => (
-              <SlideText
-                key={project.sys.id}
-                index={index}
-                project={project}
-                labelServices={labelServices}
-                labelTechnologies={labelTechnologies}
-                active={slideIndex === index}
-              />
-            ))}
+          {projects.map((project, index) => (
+            <SlideText
+              key={project.sys.id}
+              index={index}
+              project={project}
+              labelServices={labelServices}
+              labelTechnologies={labelTechnologies}
+              active={slideIndex === index}
+            />
+          ))}
+
+          <div className="flex justify-start gap-8 bg-primary pt-12 pb-4 sm:pb-8 md:pb-32">
+            <ButtonSlider direction="prev" onClick={prevSlide} />
+            <SliderIndicators
+              total={projects.length}
+              activeIndicator={slideIndex}
+              onClick={moveIndicator}
+            />
+            <ButtonSlider direction="next" onClick={nextSlide} />
           </div>
         </div>
 
-        <div className="grid-ctrl flex justify-start gap-8 bg-primary pl-4 pt-12 pb-4 sm:pb-8 md:pb-32">
-          <ButtonSlider direction="prev" onClick={prevSlide} />
-          <SliderIndicators
-            total={projects.length}
-            activeIndicator={slideIndex}
-            onClick={moveIndicator}
-          />
-          <ButtonSlider direction="next" onClick={nextSlide} />
-        </div>
-
-        <div className="grid-image justify-self-stretch">
-          <div className="relative aspect-video w-full">
+        <div className="grid-image flex flex-col justify-center justify-self-stretch bg-white">
+          <div className="relative aspect-video w-full ">
             {projects.map((project, index) => (
               <SlideImage
                 key={index}

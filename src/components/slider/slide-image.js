@@ -1,11 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-const SlideImage = ({
-  project,
-
-  active,
-}) => {
+const SlideImage = ({ project, active }) => {
   const { image } = project;
 
   return (
@@ -14,7 +10,9 @@ const SlideImage = ({
         active ? "opacity-100" : "opacity-0"
       }`}
     >
-      <div className="md:-translate-y-1/2 lg:translate-y-0 lg:-translate-x-16 drop-shadow-[0_40px_80px_rgba(0,0,0,0.25)]">
+      <div
+        className={`drop-shadow-[0_40px_80px_rgba(0,0,0,0.25)] md:-translate-x-8 lg:-translate-x-16`}
+      >
         {image && (
           <Image
             src={image.url}

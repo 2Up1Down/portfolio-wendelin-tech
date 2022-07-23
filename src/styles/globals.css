@@ -10,10 +10,6 @@
     /* If further styles are added, this should be placed in a separate CSS file. Its good as it is for now. */
 
     /* About me section */
-    .area-about {
-        grid-template-areas: "  .   about about about about about about media media  media media media media media";
-    }
-
     .grid-about {
         grid-area: about;
     }
@@ -22,57 +18,21 @@
         grid-area: media;
     }
 
-    /*!* Portfolio section *!*/
-    .area-portfolio {
-        grid-template-areas: "title"
-                             "text"
-                             "ctrl"
-                             "image";
-
+    .area-about {
+        grid-template-areas: "  .   about about about about about about media media  media media media media media";
     }
-
-    @screen md {
-        .area-portfolio {
-            grid-template-columns: 1fr 2fr;
-            grid-template-areas: "title title"
-                                 "text  text "
-                                 "ctrl  ctrl "
-                                 "  .   image";
-        }
-    }
-
-
-    @screen lg {
-        .area-portfolio {
-            grid-template-areas: "lside title title title title title title   .     .     .     .     .     .     .  "
-                                 "lside text  text  text  text  text  text  image image image image image image image"
-                                 "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .     .     .  ";
-        }
-
-        .area-about {
-            grid-template-areas: "  .   about about about about about about media media  media media media media media";
-        }
-    }
-
     @screen 2xl {
-        .area-portfolio {
-            grid-template-areas: "lside title title title title title title title title    .     .     .     .     .  "
-                                 "lside text  text  text  text  text  text  text  text  image image image image image"
-                                 "lside ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl  ctrl    .     .     .     .     .  ";
-        }
-
         .area-about {
-            grid-template-areas: "  .  about about about about about about about  about  media media media media media";
+            grid-template-areas: "  .  about about about about about about about about media media media media media";
         }
     }
 
-    .grid-lside {
-        grid-area: lside;
-    }
 
-    .grid-title {
-        grid-area: title;
-    }
+    /*!* Portfolio section *!*/
+
+
+
+
 
     .grid-text {
         grid-area: text;
@@ -82,9 +42,16 @@
         grid-area: image;
     }
 
-    .grid-ctrl {
-        grid-area: ctrl;
+    .area-portfolio {
+        grid-template-areas: "  .  text  text  text  text  text  text  image image image image image image image"
     }
+
+    @screen 2xl {
+        .area-portfolio {
+            grid-template-areas:"  .   text  text  text  text  text  text  text  text  image image image image image";
+        }
+    }
+
 
 
     /* Testimonial section */

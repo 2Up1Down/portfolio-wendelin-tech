@@ -11,11 +11,11 @@ const SlideText = ({ project, labelTechnologies, labelServices, active }) => {
 
   return (
     <article
-      className={`absolute  transition-opacity duration-500 ease-in-out ${
+      className={`transition-opacity duration-500 ease-in-out ${
         active ? "opacity-100" : "hidden opacity-0"
       }`}
     >
-      <div className=" max-w-lg lg:pr-32">
+      <div className="lg:pr-32">
         <h3 className="pb-3 text-xl font-bold">
           {title} | {customer.customer}
         </h3>
