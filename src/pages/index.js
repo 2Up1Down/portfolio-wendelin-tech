@@ -44,8 +44,8 @@ export default function Home({ homepageData, layoutData }) {
       <ServicesSection {...servicesSection} />
       <AboutMeSection {...aboutMe} />
       <PortfolioSection {...portfolioSection} />
-      <CtaSection {...cta} />
-      <TestimonialSection {...testimonialSection} />
+      {/*<CtaSection {...cta} />*/}
+      {/*<TestimonialSection {...testimonialSection} />*/}
       <ContactSection {...contactSection} />
       <PartnersSection {...partnersSection} />
     </Layout>
